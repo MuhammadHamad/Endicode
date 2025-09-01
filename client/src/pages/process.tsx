@@ -150,8 +150,8 @@ export default function Process() {
                   <div className={!isEven ? 'lg:col-start-1' : ''}>
                     <Card className="glass-card p-8 hover:shadow-2xl transition-all duration-500">
                       <CardContent className="space-y-6">
-                        <div className={`aspect-square bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center`}>
-                          <Icon className="w-24 h-24 text-white" />
+                        <div className={`aspect-square bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center max-w-[200px] mx-auto`}>
+                          <Icon className="w-16 h-16 text-white" />
                         </div>
                         <div className="text-center">
                           <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
@@ -201,7 +201,7 @@ export default function Process() {
             {/* Timeline Line */}
             <div className="absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-electric-blue via-secondary to-purple-500"></div>
 
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-2 lg:gap-4">
               {processSteps.map((step, index) => {
                 const Icon = step.icon;
                 return (

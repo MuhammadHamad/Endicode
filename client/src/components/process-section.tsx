@@ -187,7 +187,7 @@ export default function ProcessSection() {
           {/* Timeline Line */}
           <div className="absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-electric-blue via-secondary to-purple-500"></div>
 
-          <div className="grid grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-2 lg:gap-4">
             {processSteps.map((step, index) => {
               const Icon = step.icon;
               return (
