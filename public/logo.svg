@@ -1,0 +1,17 @@
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Logo Mark -->
+  <rect x="10" y="10" width="40" height="40" rx="8" fill="url(#gradient)"/>
+  <text x="30" y="35" text-anchor="middle" fill="white" font-family="Inter Tight, sans-serif" font-weight="bold" font-size="20">F</text>
+  
+  <!-- Wordmark -->
+  <text x="60" y="25" fill="currentColor" font-family="Inter Tight, sans-serif" font-weight="700" font-size="18">Foundry</text>
+  <text x="60" y="45" fill="currentColor" font-family="Inter Tight, sans-serif" font-weight="700" font-size="18">Flow</text>
+  
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4EA8FF"/>
+      <stop offset="100%" style="stop-color:#66FBD1"/>
+    </linearGradient>
+  </defs>
+</svg>
