@@ -1,0 +1,141 @@
+PROJECT GOAL
+Build a production-ready marketing website for an agency named “FoundryFlow” with the tagline “Build the product. Automate the work.” We offer modern web/app development and AI-automation services. The site must be fast, elegant, and include a simple on-page automation demo to showcase value on first visit.
+
+STACK & CONSTRAINTS
+- Framework: Next.js 14 (App Router) + TypeScript
+- Styling: Tailwind CSS (no external CSS files)
+- UI Kit: shadcn/ui + lucide-react icons
+- Animations: Framer Motion (page transitions, subtle parallax, reveal-on-scroll, magnetic buttons)
+- Charts: recharts (for 1 simple bar chart in the “ROI” section)
+- Forms: React Hook Form + Zod validation
+- Data: Local JSON and client-side logic only; do NOT require external APIs to run the demo
+- Performance: Lighthouse > 95 on Performance/SEO/Best Practices/Accessibility
+- Accessibility: Focus states, semantic HTML, aria labels; color-contrast compliant
+- Code quality: componentized, documented, no dead code, consistent naming, clear comments
+- Copy: No lorem ipsum; use provided copy—feel free to tighten but keep tone modern and credible
+- SEO: Metadata, OpenGraph, sitemap, robots.txt, canonical, structured data (Organization, Website)
+- Analytics: Add a placeholder “window._ffAnalytics()” hook; do not include third-party scripts
+
+BRAND SYSTEM
+- Color palette: 
+  - Base: zinc-900 background, zinc-100 text
+  - Accents: electric-blue (#4EA8FF), neon-mint (#66FBD1) for highlights
+  - Gradients: subtle blue→violet mesh gradients; add a faint grain/noise layer
+- Typography: 
+  - Display: “General Sans” or “Inter Tight”; Body: “Inter”
+  - Tight leading for headlines; generous white space; 8pt spacing scale
+- Aesthetic: Minimal, premium, slightly futuristic. Glassy cards with soft shadows (xl), rounded-2xl, tasteful blur. 
+- Micro-interactions: hover lift, magnetic CTA buttons, cursor-following glow blob in hero
+
+GLOBAL LAYOUT
+- Components: <Navbar />, <Footer />, <Section />, <Container />, <LogoMarquee />, <CTA />, <CodeWindow />, <Metric />, <Testimonial />, <PricingCard />, <ContactForm />, <AutomationDemo />
+- Navigation: Home, Services, Case Studies, Process, Pricing, About, Contact
+- Footer: concise sitemap + social + small “Made with ♥ by FoundryFlow” note
+
+CONTENT & PAGES
+1) HOME
+  - Hero: Headline “Build today. Automate tomorrow.” Subhead: “We design and engineer conversion-ready web apps—and wire in automation that cuts cost, clicks, and chaos.” Primary CTA “Book a discovery call”; Secondary CTA “Try our automation demo”.
+  - Visual: parallax gradient orb + animated code window preview (fake code snippet for a Python workflow runner)
+  - LogoMarquee: 6 placeholder logos (Monochrome)
+  - Services Snapshot (3 cards):
+      a) Web & App Development — “Next.js, React Native, robust backends.”
+      b) Process Automation — “From lead triage to invoice parsing.”
+      c) AI Assistants — “Support bots, routing, internal copilots.”
+  - ROI strip: Metrics with subtle count-up (e.g., “42% fewer manual steps”, “3.4x faster handoffs”)
+  - Simple chart (recharts): “Before vs After Manual Steps”
+  - Social proof: 2 testimonials (realistic placeholders)
+  - CTA band: “Let’s make your ops flow.”
+
+2) SERVICES
+  - Tabs or sub-sections: 
+     - Web & Apps (build fast, scale clean, include code window)
+     - Automation (connectors, triggers, rules, approvals)
+     - AI Assistants (FAQ deflection, lead qual, routing, sales follow-ups)
+  - Bulleted deliverables and outcomes, not features. Include “What you get in 30 days” mini-timeline.
+
+3) CASE STUDIES (3 slots, use placeholders but believable; keep structure)
+  - Problem → Approach → Result; show simple KPI deltas and short narrative.
+
+4) PROCESS
+  - 5-step timeline with icons: Discover → Map → Build → Automate → Train
+  - Each step has: goal, artifacts, timebox
+
+5) PRICING
+  - Three cards:
+    - Starter (USD 2,500 setup + 1,000/mo)
+    - Growth (USD 7,500 setup + 3,000/mo) — “most popular”
+    - Scale (custom)
+  - Clear inclusions: hours, response times, number of automations, monitoring
+
+6) ABOUT
+  - Positioning statement: “A modern build-and-automate studio.”
+  - 3 founders grid (placeholder avatars): “Technical”, “Hybrid”, “Business”
+  - Principles: Reliable delivery, measurable impact, respectful ops
+
+7) CONTACT
+  - ContactForm with fields: name, email, company, website, budget (select), message (required)
+  - On submit: validate with Zod, show toast, (no real backend—stub a success with setTimeout)
+  - Add calendaring CTA button linking to placeholder /book page
+
+BUILT-IN MINI AUTOMATION (CLIENT-SIDE ONLY, NO EXTERNAL APIS)
+Component: <AutomationDemo /> shown as a modal from the hero secondary CTA and available at /demo.
+It has two tabs:
+
+  A) Lead Triage (Text)
+     - Inputs: “Paste an inquiry” (textarea), optional “Industry” select, optional “Budget range”
+     - Logic: Pure client-side rules engine:
+         * Classify intent: {website, ecommerce, automation, ai-assistant, data-pipeline} by keyword heuristics
+         * Urgency: if contains “this week/today/asap/urgent”
+         * Complexity score: use length, presence of integrations (“Shopify”, “QuickBooks”, “Sheets”)
+         * Outcome: recommended play (e.g., “Foundational website + 1 automation pilot”), effort tier (S/M/L), suggested rough price band (three bands; no promises)
+         * Draft reply: polite email template using the extracted fields
+     - UI: Card with 2 columns (Analysis + Draft Reply) and “Copy to clipboard” buttons
+
+  B) CSV Lead Scorer
+     - Upload: CSV with columns [name, email, company, message]
+     - Parse: Use Papa Parse (client library) to parse file; dedupe by email; basic scoring
+         * Score formula: contains keywords {automation, ai, integrate, RPA} +10; mentions tools {Shopify, HubSpot, QuickBooks, Slack} +5 each; length > 200 chars +5
+     - Output: Table with score + segment {Hot, Warm, Cold}; export button to download a new CSV
+     - No backend calls; all in-browser
+
+Provide a clean, documented implementation in /components/AutomationDemo.tsx with local helper utils in /lib/automation.ts, and a tiny CSV utility /lib/csv.ts. Use shadcn/ui (Tabs, Card, Button, Input, Textarea, Alert, Badge, Progress) and lucide icons.
+
+ANIMATIONS & POLISH
+- Page transition fade/slide via Framer Motion
+- Hero: slow parallax on orb; cursor-following glow div with mix-blend
+- Magnetic primary buttons: slight offset attraction on hover
+- Section reveals: motion.div with staggered children
+- CodeWindow: typewriter effect cycling 3 snippets (web route, automation rule, email template)
+
+COPY (USE THIS; EDIT TERSLEY IF NEEDED)
+- Hero H1: “Build today. Automate tomorrow.”
+- Hero sub: “We craft conversion-ready web apps—and wire in automation that cuts cost, clicks, and chaos.”
+- Services blurbs as described above.
+- ROI: “From clicking around to clicking ‘done.’”
+- Process: “Less ceremony, more shipping.”
+- Pricing footnote: “Transparent, month to month. Upgrade when the work justifies it.”
+- About: “We’re builders first. Then we make the work disappear.”
+
+DEV NOTES & FILES
+- /app/(marketing)/[pages]
+- /components as listed; keep each under ~200 lines where reasonable
+- /lib with automation heuristics & CSV helper
+- /public/og.png (simple gradient + logo wordmark)
+- /styles/globals.css for Tailwind base; everything else via className
+- README.md: how to run, how to edit pricing/services, how to change palettes
+- Include a simple wordmark logo “FoundryFlow” (SVG) using Inter Tight; export as /public/logo.svg
+- Include sitemap.xml + robots.txt; set canonical to site root
+
+TESTS
+- Add 5 basic Playwright tests:
+  - loads homepage, nav works
+  - automation demo opens from hero
+  - lead triage classifies an “automation” inquiry
+  - CSV upload returns scores and allows export
+  - contact form validates required fields
+
+DONE CRITERIA
+- Runs locally without keys, no fetch to external domains
+- Lighthouse >= 95 across categories
+- Working AutomationDemo (lead triage + CSV scorer) with copy/export
+- Clean UI, modern animations, responsive, accessible
