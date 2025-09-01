@@ -16,17 +16,17 @@ const caseStudies = [
     client: "TechGear Solutions",
     industry: "E-commerce",
     duration: "8 weeks",
-    investment: "$45K",
+    investment: "$30K",
     challenge: "Manual order processing and customer inquiries were overwhelming the support team. Average response time was 24+ hours, leading to customer frustration and lost sales.",
     solution: "We built an AI-powered chatbot integrated with their order management system, plus automated fulfillment workflows that handled 80% of common inquiries without human intervention.",
     results: [
       { metric: "78%", description: "Reduction in support tickets" },
       { metric: "3x", description: "Faster response times" },
-      { metric: "$120K", description: "Annual cost savings" }
+      { metric: "$80K", description: "Annual cost savings" }
     ],
     technologies: ["Next.js", "OpenAI", "Shopify API", "Webhook automation"],
     testimonial: {
-      quote: "FoundryFlow didn't just solve our immediate problem—they gave us a competitive advantage.",
+      quote: "FoundryFlow didn't just solve our immediate problem - they gave us a competitive advantage.",
       author: "John Davis, CEO"
     }
   },
@@ -37,7 +37,7 @@ const caseStudies = [
     client: "DataFlow Inc",
     industry: "B2B SaaS",
     duration: "6 weeks",
-    investment: "$35K",
+    investment: "$25K",
     challenge: "Sales team was spending 60% of their time on unqualified leads, missing high-value opportunities and burning out from low-quality prospects.",
     solution: "AI-powered lead scoring system with automated routing, email sequences, and CRM integration that prioritizes prospects based on buying signals and company data.",
     results: [
@@ -58,7 +58,7 @@ const caseStudies = [
     client: "MedConnect Health",
     industry: "Healthcare",
     duration: "10 weeks", 
-    investment: "$65K",
+    investment: "$45K",
     challenge: "Complex multi-step patient registration process was causing 40% drop-off rate, delaying care and frustrating both patients and staff.",
     solution: "Progressive web app with intelligent form completion, document automation, and real-time verification that guides patients through onboarding seamlessly.",
     results: [

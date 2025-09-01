@@ -64,19 +64,19 @@ export function analyzeInquiry(
   switch(intent) {
     case 'website':
       recommendation = 'Foundational website + SEO optimization';
-      priceRange = complexity === 'Small' ? '$5K-$15K' : complexity === 'Medium' ? '$15K-$30K' : '$30K+';
+      priceRange = complexity === 'Small' ? '$3K-$10K' : complexity === 'Medium' ? '$10K-$20K' : '$20K+';
       break;
     case 'ecommerce':
       recommendation = 'E-commerce platform + payment automation';
-      priceRange = complexity === 'Small' ? '$15K-$30K' : complexity === 'Medium' ? '$30K-$60K' : '$60K+';
+      priceRange = complexity === 'Small' ? '$10K-$20K' : complexity === 'Medium' ? '$20K-$40K' : '$40K+';
       break;
     case 'automation':
       recommendation = 'Process automation + workflow orchestration';
-      priceRange = complexity === 'Small' ? '$10K-$25K' : complexity === 'Medium' ? '$25K-$50K' : '$50K+';
+      priceRange = complexity === 'Small' ? '$7K-$18K' : complexity === 'Medium' ? '$18K-$35K' : '$35K+';
       break;
     case 'ai-assistant':
       recommendation = 'AI assistant + knowledge base integration';
-      priceRange = complexity === 'Small' ? '$15K-$35K' : complexity === 'Medium' ? '$35K-$70K' : '$70K+';
+      priceRange = complexity === 'Small' ? '$10K-$25K' : complexity === 'Medium' ? '$25K-$50K' : '$50K+';
       break;
     default:
       recommendation = 'Discovery session + custom solution';

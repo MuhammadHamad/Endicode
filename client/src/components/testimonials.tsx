@@ -4,7 +4,7 @@ import Container from "@/components/container";
 
 const testimonials = [
   {
-    content: "FoundryFlow didn't just build our platform—they automated our entire lead qualification process. We went from 40% to 85% conversion on qualified leads.",
+    content: "FoundryFlow didn't just build our platform - they automated our entire lead qualification process. We went from 40% to 85% conversion on qualified leads.",
     author: "John Davis",
     role: "CEO, TechGear Solutions",
     initials: "JD",

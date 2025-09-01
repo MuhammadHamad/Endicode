@@ -89,7 +89,7 @@ export default function Demo() {
               <div>
                 <h2 className="font-display font-bold text-2xl mb-4">Lead Triage Classifier</h2>
                 <p className="text-muted-foreground mb-6">
-                  Paste any sales inquiry and watch our AI analyze intent, urgency, and complexity—then generate a personalized response draft.
+                  Paste any sales inquiry and watch our AI analyze intent, urgency, and complexity - then generate a personalized response draft.
                 </p>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>• Classifies intent (website, automation, AI assistant, etc.)</li>
@@ -149,7 +149,7 @@ export default function Demo() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Real automation running in your browser—no servers, no signup required
+              Real automation running in your browser - no servers, no signup required
             </motion.p>
           </div>
 
@@ -235,12 +235,12 @@ export default function Demo() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <MagneticButton asChild>
-                <Link href="/contact">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
+                <Button asChild size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
+                  <Link href="/contact">
                     Start Your Project
                     <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </MagneticButton>
               <Button 
                 onClick={() => setIsDemoOpen(true)}

@@ -12,8 +12,8 @@ const plans = [
   {
     name: "Starter",
     description: "Perfect for small teams getting started",
-    setupCost: "2,500",
-    monthlyCost: "1,000",
+    setupCost: "1,800",
+    monthlyCost: "750",
     popular: false,
     features: [
       "40 hours development",
@@ -28,8 +28,8 @@ const plans = [
   {
     name: "Growth", 
     description: "For scaling teams with complex needs",
-    setupCost: "7,500",
-    monthlyCost: "3,000",
+    setupCost: "5,500",
+    monthlyCost: "2,200",
     popular: true,
     features: [
       "120 hours development",
@@ -74,7 +74,7 @@ const faqs = [
   },
   {
     question: "What if I need more automation workflows?",
-    answer: "Additional workflows can be added à la carte at $1,500 each for simple workflows or $3,500 for complex multi-step automations."
+    answer: "Additional workflows can be added à la carte at $1,200 each for simple workflows or $2,800 for complex multi-step automations."
   },
   {
     question: "Do you offer custom enterprise solutions?",

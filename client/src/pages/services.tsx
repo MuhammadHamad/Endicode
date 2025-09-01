@@ -78,7 +78,7 @@ export default function Services() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              We build, automate, and optimize so you can focus on what matters most—growing your business.
+              We build, automate, and optimize so you can focus on what matters most - growing your business.
             </motion.p>
           </div>
         </Container>

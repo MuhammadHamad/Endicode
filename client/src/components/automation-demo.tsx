@@ -214,10 +214,10 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                         <SelectValue placeholder="Select budget" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="5k-15k">$5K - $15K</SelectItem>
-                        <SelectItem value="15k-50k">$15K - $50K</SelectItem>
-                        <SelectItem value="50k-100k">$50K - $100K</SelectItem>
-                        <SelectItem value="100k+">$100K+</SelectItem>
+                        <SelectItem value="3k-10k">$3K - $10K</SelectItem>
+                        <SelectItem value="10k-35k">$10K - $35K</SelectItem>
+                        <SelectItem value="35k-70k">$35K - $70K</SelectItem>
+                        <SelectItem value="70k+">$70K+</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

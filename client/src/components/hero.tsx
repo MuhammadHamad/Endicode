@@ -71,7 +71,7 @@ export default function Hero() {
                 transition={{ duration: 0.8, delay: 0.4 }}
                 data-testid="hero-subtitle"
               >
-                We craft conversion-ready web apps—and wire in automation that cuts cost, clicks, and chaos.
+                We craft conversion-ready web apps - and wire in automation that cuts cost, clicks, and chaos.
               </motion.p>
             </div>
             
@@ -82,18 +82,18 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               <MagneticButton asChild>
-                <Link href="/contact" data-testid="button-discovery-call">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
+                <Button asChild size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
+                  <Link href="/contact" data-testid="button-discovery-call">
                     Book a discovery call
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </MagneticButton>
               <MagneticButton asChild>
-                <Link href="/demo" data-testid="button-automation-demo">
-                  <Button size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
+                <Button asChild size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
+                  <Link href="/demo" data-testid="button-automation-demo">
                     Try our automation demo
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </MagneticButton>
             </motion.div>
             

@@ -110,7 +110,7 @@ export default function About() {
                   only to watch teams get bogged down in manual processes around the edges.
                 </p>
                 <p>
-                  The breakthrough came when we realized that the best software isn't just well-built—it's intelligently connected. 
+                  The breakthrough came when we realized that the best software isn't just well-built - it's intelligently connected. 
                   Every click saved, every process automated, every workflow optimized creates compound value that transforms how teams operate.
                 </p>
                 <p>
