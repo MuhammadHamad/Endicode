@@ -106,7 +106,7 @@ export default function About() {
               <h2 className="font-display font-bold text-4xl mb-6">Our Story</h2>
               <div className="text-lg text-muted-foreground leading-relaxed space-y-4">
                 <p>
-                  FoundryFlow was born from frustration. We'd spent years building incredible software that solved real problems, 
+                  Endicode was born from frustration. We'd spent years building incredible software that solved real problems, 
                   only to watch teams get bogged down in manual processes around the edges.
                 </p>
                 <p>

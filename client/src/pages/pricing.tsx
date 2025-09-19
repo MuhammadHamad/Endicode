@@ -100,7 +100,7 @@ export default function Pricing() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="text-electric-blue">Transparent</span> pricing
+              <span className="text-electric-blue">Custom</span> pricing
             </motion.h1>
             <motion.p
               className="text-xl text-muted-foreground max-w-3xl mx-auto"
@@ -108,7 +108,7 @@ export default function Pricing() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Month to month. Upgrade when the work justifies it. No long-term contracts or hidden fees.
+              Every project is unique. Contact us for a custom quote tailored to your specific needs and requirements.
             </motion.p>
           </div>
         </Container>
@@ -117,68 +117,59 @@ export default function Pricing() {
       {/* Pricing Cards */}
       <Section>
         <Container>
-          <div className="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {plans.map((plan, index) => (
-              <motion.div
-                key={plan.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="relative"
-              >
-                {plan.popular && (
-                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                    <Badge className="bg-electric-blue text-white px-4 py-1">
-                      <Star className="w-3 h-3 mr-1" />
-                      Most Popular
-                    </Badge>
-                  </div>
-                )}
+          <div className="max-w-4xl mx-auto">
+            <Card className="glass-card">
+              <CardContent className="p-12 text-center">
+                <motion.h2
+                  className="font-display font-bold text-3xl mb-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                >
+                  Let's discuss your project
+                </motion.h2>
+                <motion.p
+                  className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                >
+                  Every automation project is unique. We provide custom quotes based on your specific requirements, 
+                  timeline, and scope. No one-size-fits-all pricing - just honest, transparent quotes.
+                </motion.p>
                 
-                <Card className={`glass-card h-full hover:shadow-2xl transition-all duration-500 ${plan.popular ? 'border-electric-blue/50' : ''}`}>
-                  <CardHeader className="text-center">
-                    <CardTitle className="font-display font-bold text-2xl mb-2">{plan.name}</CardTitle>
-                    <p className="text-muted-foreground mb-6">{plan.description}</p>
-                    
-                    <div className="space-y-1">
-                      <div className="text-3xl font-bold">
-                        <span className="text-muted-foreground text-lg">${plan.setupCost}</span> setup
-                      </div>
-                      <div className="text-lg text-muted-foreground">+ ${plan.monthlyCost}/mo</div>
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent className="space-y-6">
-                    <ul className="space-y-3">
-                      {plan.features.map((feature) => (
-                        <li key={feature} className="flex items-center space-x-3">
-                          <Check className="w-5 h-5 text-secondary flex-shrink-0" />
-                          <span className="text-sm">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="pt-4 border-t border-border/30">
-                      <div className="text-sm text-muted-foreground mb-2">Ideal for:</div>
-                      <div className="text-sm">{plan.ideal}</div>
-                    </div>
-
-                    <MagneticButton className="w-full">
-                      <Link href="/contact" data-testid={`button-select-${plan.name.toLowerCase()}`}>
-                        <Button 
-                          className={`w-full ${plan.popular ? 'bg-electric-blue text-white' : 'bg-border text-foreground hover:bg-muted'} transition-colors`}
-                          size="lg"
-                        >
-                          {plan.name === 'Scale' ? 'Contact Sales' : 'Get Started'}
-                          <ArrowRight className="w-4 h-4 ml-2" />
-                        </Button>
-                      </Link>
-                    </MagneticButton>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+                <motion.div
+                  className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <MagneticButton className="flex-1">
+                    <a 
+                      href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27d%20like%20to%20get%20a%20quote%20for%20my%20project."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full"
+                    >
+                      <Button size="lg" className="w-full bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
+                        Get a Quote
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    </a>
+                  </MagneticButton>
+                  <MagneticButton className="flex-1" asChild>
+                    <Link href="/contact">
+                      <Button size="lg" variant="outline" className="w-full glass-card hover:shadow-xl transition-all duration-300">
+                        Send Details
+                      </Button>
+                    </Link>
+                  </MagneticButton>
+                </motion.div>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Pricing Note */}

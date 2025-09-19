@@ -24,9 +24,9 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <div className="w-8 h-8 bg-gradient-to-br from-electric-blue to-secondary rounded-lg flex items-center justify-center">
-                <span className="text-sm font-bold text-white">F</span>
+                <span className="text-sm font-bold text-white">E</span>
               </div>
-              <span className="font-display font-bold text-xl">FoundryFlow</span>
+              <span className="font-display font-bold text-xl">Endicode</span>
             </div>
             <p className="text-muted-foreground max-w-md mb-4">
               Build the product. Automate the work.
@@ -96,7 +96,7 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-border/20 pt-8 text-center text-sm text-muted-foreground">
-          Made with ♥ by FoundryFlow © 2024. All rights reserved.
+          Made with ♥ by Endicode © 2024. All rights reserved.
         </div>
       </div>
     </footer>

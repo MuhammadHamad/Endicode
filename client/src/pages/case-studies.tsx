@@ -26,7 +26,7 @@ const caseStudies = [
     ],
     technologies: ["Next.js", "OpenAI", "Shopify API", "Webhook automation"],
     testimonial: {
-      quote: "FoundryFlow didn't just solve our immediate problem - they gave us a competitive advantage.",
+      quote: "Endicode didn't just solve our immediate problem - they gave us a competitive advantage.",
       author: "John Davis, CEO"
     }
   },

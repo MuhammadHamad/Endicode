@@ -102,7 +102,7 @@ export function generateDraftReply(analysis: LeadAnalysis): string {
   
   return `Hi there,
 
-Thank you for reaching out to FoundryFlow! Based on your inquiry, I can see you're looking for ${analysis.intent.toLowerCase()} solutions.
+Thank you for reaching out to Endicode! Based on your inquiry, I can see you're looking for ${analysis.intent.toLowerCase()} solutions.
 
 Here's what I recommend:
 • ${analysis.recommendation}
@@ -113,7 +113,7 @@ ${urgencyNote}
 I'd love to discuss this further and show you exactly how we can help. Would you be available for a 30-minute discovery call this week?
 
 Best regards,
-The FoundryFlow Team
+The Endicode Team
 
 P.S. Feel free to try our automation demo to see the kind of intelligent workflows we build: ${window.location.origin}/demo`;
 }

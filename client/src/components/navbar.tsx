@@ -29,7 +29,7 @@ export default function Navbar() {
               <div className="w-8 h-8 bg-gradient-to-br from-electric-blue to-secondary rounded-lg flex items-center justify-center">
                 <span className="text-sm font-bold text-white">F</span>
               </div>
-              <span className="font-display font-bold text-xl">FoundryFlow</span>
+              <span className="font-display font-bold text-xl">Endicode</span>
             </div>
           </Link>
           

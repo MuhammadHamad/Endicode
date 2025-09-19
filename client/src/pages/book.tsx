@@ -83,7 +83,7 @@ export default function Book() {
                       <span className="text-sm">Video call (Google Meet)</span>
                     </div>
                     <p className="text-sm text-muted-foreground">
-                      We'll discuss your current processes, automation opportunities, and how FoundryFlow can help.
+                      We'll discuss your current processes, automation opportunities, and how Endicode can help.
                     </p>
                     
                     {/* Placeholder for calendar integration */}
