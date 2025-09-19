@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Calendar, ArrowRight } from "lucide-react";
+import { MessageCircle, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import Container from "@/components/container";
 import Section from "@/components/section";
@@ -72,19 +72,24 @@ export default function Contact() {
               <Card className="glass-card">
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-electric-blue to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <Calendar className="w-8 h-8 text-white" />
+                    <MessageCircle className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="font-semibold text-lg mb-2">Prefer to talk?</h3>
                   <p className="text-sm text-muted-foreground mb-6">
-                    Book a 30-minute discovery call to discuss your project in detail.
+                    Connect with us on WhatsApp to discuss your project in detail.
                   </p>
-                  <MagneticButton asChild>
-                    <Link href="/book">
-                      <Button className="w-full bg-primary text-primary-foreground" data-testid="button-book-call">
-                        Book 30min Call
+                  <MagneticButton>
+                    <a 
+                      href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full"
+                    >
+                      <Button className="w-full bg-primary text-primary-foreground" data-testid="button-whatsapp-contact">
+                        Chat on WhatsApp
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </Button>
-                    </Link>
+                    </a>
                   </MagneticButton>
                 </CardContent>
               </Card>
@@ -103,7 +108,7 @@ export default function Contact() {
                       <span className="text-sm font-medium">Within 24 hours</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Discovery call</span>
+                      <span className="text-sm text-muted-foreground">WhatsApp chat</span>
                       <span className="text-sm font-medium">Same week</span>
                     </div>
                   </div>
@@ -129,8 +134,8 @@ export default function Contact() {
                         <span className="text-xs font-bold text-white">2</span>
                       </div>
                       <div>
-                        <div className="font-medium text-sm">Discovery Call</div>
-                        <div className="text-xs text-muted-foreground">30-minute call to understand your needs</div>
+                        <div className="font-medium text-sm">WhatsApp Contact</div>
+                        <div className="text-xs text-muted-foreground">Direct messaging to understand your needs</div>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">

@@ -198,12 +198,12 @@ export default function Services() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <MagneticButton asChild>
-                <Link href="/contact">
+              <MagneticButton>
+                <a href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project." target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
-                    Book Discovery Call
+                    Chat on WhatsApp
                   </Button>
-                </Link>
+                </a>
               </MagneticButton>
               <MagneticButton asChild>
                 <Link href="/demo">

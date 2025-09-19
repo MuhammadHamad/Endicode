@@ -247,7 +247,7 @@ export default function Process() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Let's map out your automation journey in a 30-minute discovery call.
+              Let's discuss your automation journey on WhatsApp.
             </motion.p>
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center"

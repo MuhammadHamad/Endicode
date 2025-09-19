@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Calendar } from "lucide-react";
+import { Send, MessageCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -20,7 +20,6 @@ const contactSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   company: z.string().optional(),
   website: z.string().url("Please enter a valid URL").optional().or(z.literal("")),
-  budget: z.string().optional(),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
@@ -37,7 +36,6 @@ export default function ContactForm() {
       email: "",
       company: "",
       website: "",
-      budget: "",
       message: "",
     },
   });
@@ -137,30 +135,6 @@ export default function ContactForm() {
             />
           </div>
 
-          {/* Budget Range */}
-          <FormField
-            control={form.control}
-            name="budget"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Budget Range</FormLabel>
-                <Select onValueChange={field.onChange} value={field.value}>
-                  <FormControl>
-                    <SelectTrigger data-testid="select-budget">
-                      <SelectValue placeholder="Select budget range" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="3k-10k">$3K - $10K</SelectItem>
-                    <SelectItem value="10k-35k">$10K - $35K</SelectItem>
-                    <SelectItem value="35k-70k">$35K - $70K</SelectItem>
-                    <SelectItem value="70k+">$70K+</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
 
           {/* Message */}
           <FormField
@@ -204,17 +178,22 @@ export default function ContactForm() {
             </MagneticButton>
             
             <MagneticButton className="flex-1">
-              <Link href="/book">
+              <a 
+                href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full"
+              >
                 <Button 
                   type="button"
                   variant="outline"
                   className="w-full glass-card hover:shadow-xl transition-all duration-300"
-                  data-testid="button-book-call"
+                  data-testid="button-whatsapp-contact"
                 >
-                  <Calendar className="w-4 h-4 mr-2" />
-                  Book 30min Call
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Chat on WhatsApp
                 </Button>
-              </Link>
+              </a>
             </MagneticButton>
           </div>
         </form>

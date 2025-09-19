@@ -9,7 +9,7 @@ import MagneticButton from "@/components/magnetic-button";
 
 const founders = [
   {
-    name: "Alex Chen",
+    name: "Muhammad Hammad",
     role: "Technical Co-founder",
     description: "Full-stack architect with 10+ years scaling platforms",
     icon: Code,
@@ -17,7 +17,7 @@ const founders = [
     background: "Former senior engineer at Google and Stripe. Led technical teams building systems serving millions of users. Passionate about clean code and scalable architecture."
   },
   {
-    name: "Sarah Kim", 
+    name: "Muhammad Owais", 
     role: "Automation Co-founder",
     description: "Product strategist turned automation expert",
     icon: Zap,
@@ -25,7 +25,7 @@ const founders = [
     background: "Ex-McKinsey consultant who discovered the power of automation while optimizing Fortune 500 operations. Now builds intelligent workflows that think ahead."
   },
   {
-    name: "Marcus Johnson",
+    name: "Abbas Ali",
     role: "Business Co-founder", 
     description: "Growth operator with enterprise sales background",
     icon: TrendingUp,
