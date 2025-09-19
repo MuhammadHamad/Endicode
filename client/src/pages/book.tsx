@@ -70,7 +70,7 @@ export default function Book() {
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2">
                       <Calendar className="w-5 h-5 text-electric-blue" />
-                      <span>Discovery Call</span>
+                      <span>WhatsApp Chat</span>
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">

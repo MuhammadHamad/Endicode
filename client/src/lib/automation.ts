@@ -110,7 +110,7 @@ Here's what I recommend:
 • Timeline: ${timeline}
 ${urgencyNote}
 
-I'd love to discuss this further and show you exactly how we can help. Would you be available for a 30-minute discovery call this week?
+I'd love to discuss this further and show you exactly how we can help. Please reach out on WhatsApp so we can chat about your project details.
 
 Best regards,
 The Endicode Team
