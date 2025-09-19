@@ -27,7 +27,7 @@ export default function Navbar() {
           <Link href="/" data-testid="logo-link">
             <div className="flex items-center space-x-2 cursor-pointer">
               <div className="w-8 h-8 bg-gradient-to-br from-electric-blue to-secondary rounded-lg flex items-center justify-center">
-                <span className="text-sm font-bold text-white">F</span>
+                <span className="text-sm font-bold text-white">E</span>
               </div>
               <span className="font-display font-bold text-xl">Endicode</span>
             </div>
@@ -49,11 +49,11 @@ export default function Navbar() {
           {/* CTA Button */}
           <div className="hidden md:block">
             <MagneticButton asChild>
-              <Link href="/contact" data-testid="button-book-call">
-                <Button className="bg-primary text-primary-foreground hover:shadow-lg transition-all duration-300">
-                  Book Discovery Call
-                </Button>
-              </Link>
+              <Button asChild className="bg-primary text-primary-foreground hover:shadow-lg transition-all duration-300">
+                <a href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project." target="_blank" rel="noopener noreferrer" data-testid="button-whatsapp-contact">
+                  Chat on WhatsApp
+                </a>
+              </Button>
             </MagneticButton>
           </div>
           
@@ -93,11 +93,11 @@ export default function Navbar() {
                     </span>
                   </Link>
                 ))}
-                <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} data-testid="mobile-button-book-call">
-                  <Button className="w-full bg-primary text-primary-foreground">
-                    Book Discovery Call
-                  </Button>
-                </Link>
+                <a href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project." target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)} data-testid="mobile-button-whatsapp-contact">
+                  <div className="w-full bg-primary text-primary-foreground py-2 px-4 rounded-md text-center font-medium hover:shadow-lg transition-all duration-300">
+                    Chat on WhatsApp
+                  </div>
+                </a>
               </div>
             </motion.div>
           )}

@@ -78,18 +78,19 @@ export default function Contact() {
                   <p className="text-sm text-muted-foreground mb-6">
                     Connect with us on WhatsApp to discuss your project in detail.
                   </p>
-                  <MagneticButton>
-                    <a 
-                      href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project."
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full"
-                    >
-                      <Button className="w-full bg-primary text-primary-foreground" data-testid="button-whatsapp-contact">
+                  <MagneticButton asChild>
+                    <Button asChild className="w-full bg-primary text-primary-foreground">
+                      <a 
+                        href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full"
+                        data-testid="button-whatsapp-contact"
+                      >
                         Chat on WhatsApp
                         <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
-                    </a>
+                      </a>
+                    </Button>
                   </MagneticButton>
                 </CardContent>
               </Card>

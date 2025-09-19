@@ -38,7 +38,7 @@ export default function Book() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              Book a <span className="text-electric-blue">Discovery Call</span>
+              Connect via <span className="text-electric-blue">WhatsApp</span>
             </motion.h1>
             <motion.p
               className="text-xl text-muted-foreground max-w-3xl mx-auto"

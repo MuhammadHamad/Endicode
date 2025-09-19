@@ -51,8 +51,9 @@ export default function ContactForm() {
       });
       form.reset();
       
-      if (typeof window._ffAnalytics === 'function') {
-        window._ffAnalytics('contact_form_submit', form.getValues());
+      // Analytics tracking (placeholder for future implementation)
+      if (typeof (window as any)._endAnalytics === 'function') {
+        (window as any)._endAnalytics('contact_form_submit', form.getValues());
       }
     },
     onError: (error) => {

@@ -83,9 +83,9 @@ export default function Hero() {
             >
               <MagneticButton asChild>
                 <Button asChild size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
-                  <Link href="/contact" data-testid="button-discovery-call">
-                    Book a discovery call
-                  </Link>
+                  <a href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project." target="_blank" rel="noopener noreferrer" data-testid="button-whatsapp-contact">
+                    Chat on WhatsApp
+                  </a>
                 </Button>
               </MagneticButton>
               <MagneticButton asChild>
