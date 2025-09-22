@@ -1,6 +1,6 @@
-# FoundryFlow Marketing Website
+# ENDICODE Website
 
-A production-ready marketing website for FoundryFlow agency featuring modern design, interactive automation demos, and intelligent lead processing.
+A production-ready marketing website for ENDICODE agency featuring modern design, interactive automation demos, and intelligent lead processing.
 
 ## Features
 
