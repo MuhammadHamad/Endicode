@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -15,27 +16,61 @@ const navigation = [
   { name: "Contact", href: "/contact" },
 ];
 
+function MobileMenuPortal({ children }: { children: React.ReactNode }) {
+  if (typeof document === "undefined") return null;
+  return createPortal(children, document.body);
+}
+
 export default function Navbar() {
   const [location] = useLocation();
   const [open, setOpen] = useState(false);
-  const firstLinkRef = useRef<HTMLAnchorElement | null>(null);
+  const firstFocusableRef = useRef<HTMLElement | null>(null);
 
-  // Lock scroll when open
+  // body classes + scroll lock + mobile-menu-open (for hiding other CTAs if needed)
   useEffect(() => {
     document.body.classList.toggle("overflow-hidden", open);
-    return () => document.body.classList.remove("overflow-hidden");
+    document.body.classList.toggle("mobile-menu-open", open);
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+      document.body.classList.remove("mobile-menu-open");
+    };
   }, [open]);
+
+  // focus first focusable inside menu when opened
+  useEffect(() => {
+    if (!open) return;
+    const timer = window.setTimeout(() => {
+      const el =
+        firstFocusableRef.current ??
+        (document.querySelector(
+          "#mobile-menu a, #mobile-menu button, #mobile-menu [tabindex]"
+        ) as HTMLElement | null);
+      el?.focus?.();
+    }, 40);
+    return () => clearTimeout(timer);
+  }, [open]);
+
+  // close on Escape
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/50">
+    <header className="fixed top-0 left-0 right-0 z-[2000] border-b border-border/50 bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Brand */}
           <Link href="/" data-testid="logo-link" aria-label="Endicode home">
             <div className="flex items-center gap-2 cursor-pointer">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-electric-blue to-secondary grid place-items-center">
-                <span className="text-sm font-bold text-white">E</span>
-              </div>
-              <span className="font-display font-bold text-xl">Endicode</span>
+              <img
+                src="/brand/endicode-wordmark.png"
+                alt="Endicode"
+                className="h-8 w-auto"
+              />
             </div>
           </Link>
 
@@ -73,7 +108,7 @@ export default function Navbar() {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden"
+            className="md:hidden relative z-[2100]"
             aria-controls="mobile-menu"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
@@ -83,69 +118,92 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile full-screen drawer */}
+      {/* Mobile menu rendered into a portal at body to avoid stacking/clip issues */}
       <AnimatePresence>
         {open && (
-          <motion.aside
-            id="mobile-menu"
-            aria-modal="true"
-            role="dialog"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] md:hidden bg-black/90"
-            onClick={() => setOpen(false)}
-          >
-            <div
-              className="h-full w-full flex flex-col"
-              onClick={(e) => e.stopPropagation()}
+          <MobileMenuPortal>
+            {/* backdrop */}
+            <motion.div
+              id="mobile-menu"
+              aria-modal="true"
+              role="dialog"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[9999] md:hidden"
+              onClick={() => setOpen(false)}
             >
-              <div className="flex items-center justify-between px-4 py-4 border-b border-white/10">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-electric-blue to-secondary grid place-items-center">
-                    <span className="text-sm font-bold text-white">E</span>
+              {/* Blurred background (covers whole viewport) */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 bg-black/90 backdrop-blur"
+              />
+
+              {/* Sliding panel */}
+              <motion.div
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", stiffness: 260, damping: 30 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative z-[10000] h-full w-full flex flex-col"
+                aria-label="Mobile Primary"
+              >
+                <div className="flex items-center justify-between px-4 py-4 border-b border-border/50">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-electric-blue to-secondary grid place-items-center">
+                      <span className="text-sm font-bold text-white">E</span>
+                    </div>
+                    <span className="font-display font-bold text-xl">Endicode</span>
                   </div>
-                  <span className="font-display font-bold text-xl text-white">Endicode</span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setOpen(false)}
+                    aria-label="Close menu"
+                  >
+                    <X className="w-6 h-6" />
+                  </Button>
                 </div>
-                <Button variant="ghost" size="icon" onClick={() => setOpen(false)} aria-label="Close menu">
-                  <X className="w-6 h-6 text-white" />
-                </Button>
-              </div>
 
-              <nav className="flex-1 overflow-y-auto px-6 py-6" aria-label="Mobile Primary">
-                <ul className="flex flex-col gap-6">
-                  {navigation.map((item, idx) => (
-                    <li key={item.name}>
-                      <Link href={item.href} onClick={() => setOpen(false)}>
-                        <span
-                          ref={idx === 0 ? firstLinkRef : undefined}
-                          className={`text-xl font-semibold ${
-                            location === item.href ? "text-white" : "text-white/85"
-                          }`}
-                        >
-                          {item.name}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
+                <nav className="flex-1 overflow-y-auto px-6 py-6">
+                  <ul className="flex flex-col gap-6">
+                    {navigation.map((item, idx) => (
+                      <li key={item.name}>
+                        <Link href={item.href}>
+                          <a
+                            onClick={() => setOpen(false)}
+                            ref={idx === 0 ? (firstFocusableRef as any) : undefined}
+                            className={`text-xl font-semibold ${
+                              location === item.href ? "text-foreground" : "text-muted-foreground"
+                            }`}
+                          >
+                            {item.name}
+                          </a>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
 
-              <div className="px-6 pb-8">
-                <a
-                  href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setOpen(false)}
-                  className="block"
-                >
-                  <div className="w-full bg-primary text-primary-foreground py-3 px-4 rounded-md text-center font-semibold shadow-md">
-                    Chat on WhatsApp
-                  </div>
-                </a>
-              </div>
-            </div>
-          </motion.aside>
+                <div className="px-6 pb-8">
+                  <a
+                    href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setOpen(false)}
+                    className="block"
+                  >
+                    <div className="w-full bg-primary text-primary-foreground py-3 px-4 rounded-md text-center font-semibold shadow-md">
+                      Chat on WhatsApp
+                    </div>
+                  </a>
+                </div>
+              </motion.div>
+            </motion.div>
+          </MobileMenuPortal>
         )}
       </AnimatePresence>
     </header>

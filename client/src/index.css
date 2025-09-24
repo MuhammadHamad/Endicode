@@ -10,8 +10,9 @@
   --card-foreground: hsl(0, 0%, 98%);
   --popover: hsl(240, 10%, 3.9%);
   --popover-foreground: hsl(0, 0%, 98%);
-  --primary: hsl(212, 100%, 64%);
-  --primary-foreground: hsl(240, 10%, 3.9%);
+  /* Brand Red as primary for CTAs */
+  --primary: #B52424;
+  --primary-foreground: hsl(0, 0%, 98%);
   --secondary: hsl(166, 100%, 69%);
   --secondary-foreground: hsl(240, 10%, 3.9%);
   --muted: hsl(240, 3.7%, 15.9%);
@@ -22,7 +23,7 @@
   --destructive-foreground: hsl(0, 0%, 98%);
   --border: hsl(240, 3.7%, 15.9%);
   --input: hsl(240, 3.7%, 15.9%);
-  --ring: hsl(212, 100%, 64%);
+  --ring: #CF3A3A;
   --electric-blue: hsl(212, 100%, 64%);
   --neon-mint: hsl(166, 100%, 69%);
   --radius: 0.75rem;

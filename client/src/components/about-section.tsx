@@ -6,21 +6,21 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const founders = [
   {
-    name: "Alex Chen",
-    role: "Technical Co-founder",
-    description: "Full-stack architect with 10+ years scaling platforms",
+    name: "Muhammad Hammad",
+    role: "Co-founder",
+    description: "Full-stack developer",
     icon: Code,
     color: "from-electric-blue to-blue-600"
   },
   {
-    name: "Sarah Kim", 
+    name: "Muhammad Owais", 
     role: "Automation Co-founder",
     description: "Product strategist turned automation expert",
     icon: Zap,
     color: "from-secondary to-green-500"
   },
   {
-    name: "Marcus Johnson",
+    name: "Abbas Ali",
     role: "Business Co-founder", 
     description: "Growth operator with enterprise sales background",
     icon: TrendingUp,
