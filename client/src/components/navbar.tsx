@@ -69,35 +69,68 @@ export default function Navbar() {
           </Button>
         </div>
         
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Fullscreen overlay, minimal blur for clarity */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-border/50 mt-4 pt-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[60] md:hidden bg-background/95"
             >
-              <div className="flex flex-col space-y-4">
-                {navigation.map((item) => (
-                  <Link 
-                    key={item.name} 
-                    href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    data-testid={`mobile-nav-${item.name.toLowerCase().replace(' ', '-')}`}
-                  >
-                    <span className={`text-sm font-medium transition-colors ${
-                      location === item.href ? 'text-foreground' : 'text-muted-foreground'
-                    }`}>
-                      {item.name}
-                    </span>
-                  </Link>
-                ))}
-                <a href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project." target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)} data-testid="mobile-button-whatsapp-contact">
-                  <div className="w-full bg-primary text-primary-foreground py-2 px-4 rounded-md text-center font-medium hover:shadow-lg transition-all duration-300">
-                    Chat on WhatsApp
+              <div className="flex h-full w-full flex-col">
+                {/* Header row inside overlay to mirror navbar */}
+                <div className="flex items-center justify-between px-4 py-4 border-b border-border/50">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-gradient-to-br from-electric-blue to-secondary rounded-lg flex items-center justify-center">
+                      <span className="text-sm font-bold text-white">E</span>
+                    </div>
+                    <span className="font-display font-bold text-xl">Endicode</span>
                   </div>
-                </a>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    aria-label="Close menu"
+                  >
+                    <X className="w-6 h-6" />
+                  </Button>
+                </div>
+
+                {/* Menu items */}
+                <div className="flex-1 overflow-y-auto px-6 py-6">
+                  <div className="flex flex-col space-y-6">
+                    {navigation.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        data-testid={`mobile-nav-${item.name.toLowerCase().replace(' ', '-')}`}
+                      >
+                        <span
+                          className={`text-lg font-medium transition-colors ${
+                            location === item.href ? 'text-foreground' : 'text-muted-foreground'
+                          }`}
+                        >
+                          {item.name}
+                        </span>
+                      </Link>
+                    ))}
+
+                    <a
+                      href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      data-testid="mobile-button-whatsapp-contact"
+                      className="block"
+                    >
+                      <div className="w-full bg-primary text-primary-foreground py-3 px-4 rounded-md text-center font-semibold shadow-md">
+                        Chat on WhatsApp
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </motion.div>
           )}
