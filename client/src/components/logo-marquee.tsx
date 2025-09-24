@@ -17,7 +17,7 @@ export default function LogoMarquee() {
           Trusted by forward-thinking companies
         </p>
         <motion.div 
-          className="flex items-center justify-center space-x-12 opacity-60"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 sm:gap-x-12 opacity-60"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 0.6 }}
           viewport={{ once: true }}
@@ -26,7 +26,7 @@ export default function LogoMarquee() {
           {companies.map((company, index) => (
             <motion.div
               key={company}
-              className="text-lg font-semibold"
+              className="text-base sm:text-lg font-semibold"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
