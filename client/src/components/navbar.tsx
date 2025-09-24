@@ -81,14 +81,14 @@ export default function Navbar() {
         
         {/* Mobile Menu - Fullscreen overlay, minimal blur for clarity */}
         <AnimatePresence>
-          {isMobileMenuOpen && (
+          {isMobileMenuOpen && createPortal(
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] md:hidden bg-black/90"
+              className="fixed inset-0 z-[999] md:hidden bg-black/90"
             >
-              <div className="flex h-full w-full flex-col">
+              <div className="flex h-dvh w-full flex-col">
                 {/* Header row inside overlay to mirror navbar */}
                 <div className="flex items-center justify-between px-4 py-4 border-b border-border/50">
                   <div className="flex items-center space-x-2">
@@ -142,7 +142,8 @@ export default function Navbar() {
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </motion.div>,
+            document.body
           )}
         </AnimatePresence>
       </div>
