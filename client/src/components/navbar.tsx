@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -18,6 +18,16 @@ const navigation = [
 export default function Navbar() {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Prevent body scroll when the mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+    return () => document.body.classList.remove("overflow-hidden");
+  }, [isMobileMenuOpen]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-border/50">
@@ -76,7 +86,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[60] md:hidden bg-background/95"
+              className="fixed inset-0 z-[100] md:hidden bg-black/90"
             >
               <div className="flex h-full w-full flex-col">
                 {/* Header row inside overlay to mirror navbar */}
@@ -108,8 +118,8 @@ export default function Navbar() {
                         data-testid={`mobile-nav-${item.name.toLowerCase().replace(' ', '-')}`}
                       >
                         <span
-                          className={`text-lg font-medium transition-colors ${
-                            location === item.href ? 'text-foreground' : 'text-muted-foreground'
+                          className={`text-xl font-semibold transition-colors ${
+                            location === item.href ? 'text-white' : 'text-white/80'
                           }`}
                         >
                           {item.name}
