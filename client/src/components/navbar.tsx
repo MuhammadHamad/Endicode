@@ -6,6 +6,10 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MagneticButton from "@/components/magnetic-button";
 
+// ✅ Import local images from src/assets
+import logo1 from "@/assets/logo1.svg";
+import logo2 from "@/assets/logo2.svg";
+
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/services" },
@@ -67,7 +71,7 @@ export default function Navbar() {
           <Link href="/" data-testid="logo-link" aria-label="Endicode home">
             <div className="flex items-center gap-2 cursor-pointer">
               <img
-                src="/brand/endicode-wordmark.png"
+                src={logo2}
                 alt="Endicode"
                 className="h-8 w-auto"
               />
@@ -152,12 +156,10 @@ export default function Navbar() {
                 aria-label="Mobile Primary"
               >
                 <div className="flex items-center justify-between px-4 py-4 border-b border-border/50">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-electric-blue to-secondary grid place-items-center">
-                      <span className="text-sm font-bold text-white">E</span>
-                    </div>
-                    <span className="font-display font-bold text-xl">Endicode</span>
-                  </div>
+                <div className="flex items-center gap-2">
+                  <img src={logo2} alt="Endicode" className="h-6 w-auto" />
+                  <img src={logo1} alt="Endicode emblem" className="h-8 w-auto" />
+                </div>
                   <Button
                     variant="ghost"
                     size="icon"
