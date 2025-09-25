@@ -8,23 +8,26 @@ const founders = [
   {
     name: "Muhammad Hammad",
     role: "Co-founder",
-    description: "Full-stack developer",
+    description: "Automation engineer building reliable, scalable workflows",
     icon: Code,
-    color: "from-electric-blue to-blue-600"
+    color: "from-electric-blue to-blue-600",
+    discipline: "Automation"
   },
   {
     name: "Muhammad Owais", 
-    role: "Automation Co-founder",
-    description: "Product strategist turned automation expert",
+    role: "Co-founder",
+    description: "Full-stack engineer focused on robust, high-performance systems",
     icon: Zap,
-    color: "from-secondary to-green-500"
+    color: "from-secondary to-green-500",
+    discipline: "Engineering"
   },
   {
     name: "Abbas Ali",
-    role: "Business Co-founder", 
-    description: "Growth operator with enterprise sales background",
+    role: "Co-founder", 
+    description: "Business and go-to-market lead",
     icon: TrendingUp,
-    color: "from-purple-500 to-pink-500"
+    color: "from-purple-500 to-pink-500",
+    discipline: "Business"
   }
 ];
 
@@ -91,7 +94,14 @@ export default function AboutSection() {
                     </div>
                     <h3 className="font-display font-semibold text-xl mb-2">{founder.name}</h3>
                     <p className="text-muted-foreground text-sm mb-2">{founder.role}</p>
-                    <p className="text-xs text-muted-foreground">{founder.description}</p>
+                    {founder.discipline ? (
+                      <div className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-electric-blue/10 text-electric-blue mb-2">
+                        {founder.discipline}
+                      </div>
+                    ) : null}
+                    {founder.description ? (
+                      <p className="text-xs text-muted-foreground">{founder.description}</p>
+                    ) : null}
                   </CardContent>
                 </Card>
               </motion.div>

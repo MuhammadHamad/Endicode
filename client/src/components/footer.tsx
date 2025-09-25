@@ -1,5 +1,7 @@
 import { Link } from "wouter";
 import { Twitter, Linkedin, Github } from "lucide-react";
+import logo1 from "@/assets/logo1.png";
+import logo2 from "@/assets/logo2.png";
 
 const quickLinks = [
   { name: "Services", href: "/services" },
@@ -22,11 +24,9 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Logo and tagline */}
           <div className="md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-electric-blue to-secondary rounded-lg flex items-center justify-center">
-                <span className="text-sm font-bold text-white">E</span>
-              </div>
-              <span className="font-display font-bold text-xl">Endicode</span>
+            <div className="flex items-center gap-[44px] md:gap-[60px] lg:gap-[80px] mb-4 ml-1 md:ml-2">
+              <img src={logo2} alt="Endicode" className="h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.2] lg:scale-[2.8] xl:scale-[3.0] filter hue-rotate-[180deg] saturate-[260%] brightness-125 contrast-125" />
+              <img src={logo1} alt="Endicode" className="h-12 w-auto transform origin-center scale-[2.8] md:scale-[3.2] lg:scale-[3.8] xl:scale-[4.2] filter hue-rotate-[180deg] saturate-[280%] brightness-125 contrast-125" />
             </div>
             <p className="text-muted-foreground max-w-md mb-4">
               Build the product. Automate the work.

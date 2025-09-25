@@ -10,27 +10,30 @@ import MagneticButton from "@/components/magnetic-button";
 const founders = [
   {
     name: "Muhammad Hammad",
-    role: "Technical Co-founder",
-    description: "Full-stack architect with 10+ years scaling platforms",
+    role: "Co-founder",
+    description: "Automation engineer building reliable, scalable workflows",
     icon: Code,
     color: "from-electric-blue to-blue-600",
-    background: "Former senior engineer at Google and Stripe. Led technical teams building systems serving millions of users. Passionate about clean code and scalable architecture."
+    background: "",
+    discipline: "Automation"
   },
   {
     name: "Muhammad Owais", 
-    role: "Automation Co-founder",
-    description: "Product strategist turned automation expert",
+    role: "Co-founder",
+    description: "Full-stack engineer focused on robust, high-performance systems",
     icon: Zap,
     color: "from-secondary to-green-500",
-    background: "Ex-McKinsey consultant who discovered the power of automation while optimizing Fortune 500 operations. Now builds intelligent workflows that think ahead."
+    background: "",
+    discipline: "Engineering"
   },
   {
     name: "Abbas Ali",
-    role: "Business Co-founder", 
-    description: "Growth operator with enterprise sales background",
+    role: "Co-founder", 
+    description: "Business and go-to-market lead",
     icon: TrendingUp,
     color: "from-purple-500 to-pink-500",
-    background: "Built and scaled sales teams at 3 unicorn startups. Understands what businesses really need to grow and how technology can get them there faster."
+    background: "",
+    discipline: "Business"
   }
 ];
 
@@ -165,9 +168,15 @@ export default function About() {
                         <Icon className="w-12 h-12 text-white" />
                       </div>
                       <h3 className="font-display font-semibold text-xl mb-2">{founder.name}</h3>
-                      <p className="text-muted-foreground text-sm mb-4">{founder.role}</p>
-                      <p className="text-xs text-muted-foreground mb-4">{founder.description}</p>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{founder.background}</p>
+                      <p className="text-muted-foreground text-sm mb-2">{founder.role}</p>
+                      {founder.discipline ? (
+                        <div className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-electric-blue/10 text-electric-blue mb-2">
+                          {founder.discipline}
+                        </div>
+                      ) : null}
+                      {founder.description ? (
+                        <p className="text-xs text-muted-foreground">{founder.description}</p>
+                      ) : null}
                     </CardContent>
                   </Card>
                 </motion.div>
