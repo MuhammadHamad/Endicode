@@ -11,7 +11,7 @@ const founders = [
     description: "Automation engineer building reliable, scalable workflows",
     icon: Code,
     color: "from-electric-blue to-blue-600",
-    discipline: "Automation"
+    discipline: "Full-stack Engineer"
   },
   {
     name: "Muhammad Owais", 
@@ -19,7 +19,7 @@ const founders = [
     description: "Full-stack engineer focused on robust, high-performance systems",
     icon: Zap,
     color: "from-secondary to-green-500",
-    discipline: "Engineering"
+    discipline: "AI automation Engineer"
   },
   {
     name: "Abbas Ali",
@@ -27,7 +27,7 @@ const founders = [
     description: "Business and go-to-market lead",
     icon: TrendingUp,
     color: "from-purple-500 to-pink-500",
-    discipline: "Business"
+    discipline: "Business Lead"
   }
 ];
 

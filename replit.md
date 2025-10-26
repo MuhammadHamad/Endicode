@@ -1,6 +1,6 @@
 # Overview
 
-FoundryFlow is a production-ready marketing website for an agency specializing in modern web/app development and AI automation services. The site features a glassmorphism design with electric-blue and neon-mint color palette, interactive automation demos, and comprehensive lead processing capabilities. Built as a full-stack application with both client-side demos and server-side contact form handling.
+Endicode is a production-ready marketing website for an agency specializing in modern web/app development and AI automation services. The site features a glassmorphism design with electric-blue and neon-mint color palette, interactive automation demos, and comprehensive lead processing capabilities. Built as a full-stack application with both client-side demos and server-side contact form handling.
 
 # User Preferences
 
