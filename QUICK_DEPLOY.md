@@ -2,7 +2,7 @@
 
 ## 🎯 What You Need
 
-1. **Neon Database URL** → Get from [neon.tech](https://neon.tech)
+1. **Resend Account** → Get free API key from [resend.com](https://resend.com)
 2. **Vercel Account** → Sign up at [vercel.com](https://vercel.com)
 3. **Beehost Domain** → Your custom domain credentials
 
@@ -10,21 +10,24 @@
 
 ## 🚀 5-Minute Deploy Steps
 
-### 1️⃣ Database (2 min)
+### 1️⃣ Email Service (2 min)
 ```
-1. Go to neon.tech → Create project
-2. Copy connection string
-3. Save it securely
+1. Go to resend.com → Sign up
+2. API Keys → Create API Key
+3. Copy the key (starts with re_)
+4. Save it securely
 ```
 
 ### 2️⃣ Vercel Deploy (2 min)
 ```
 1. vercel.com → Import repository
 2. Add environment variables:
-   - DATABASE_URL = [your Neon URL]
-   - SESSION_SECRET = [random 32+ chars]
+   - RESEND_API_KEY = [your Resend key]
+   - CONTACT_EMAIL = [your email]
+   - RESEND_FROM_EMAIL = onboarding@resend.dev
    - NODE_ENV = production
 3. Click Deploy
+4. Test contact form!
 ```
 
 ### 3️⃣ Custom Domain (1 min setup + wait time)
@@ -51,21 +54,23 @@ Copy these exact values into Beehost:
 
 ---
 
-## 🔑 Generate SESSION_SECRET
+## 📧 Environment Variables
 
-**PowerShell:**
-```powershell
--join ((48..57) + (65..90) + (97..122) | Get-Random -Count 32 | % {[char]$_})
-```
-
-**Online:** [randomkeygen.com](https://randomkeygen.com)
+| Variable | Example Value |
+|----------|---------------|
+| RESEND_API_KEY | re_abc123xyz... |
+| CONTACT_EMAIL | your-email@gmail.com |
+| RESEND_FROM_EMAIL | onboarding@resend.dev |
+| NODE_ENV | production |
 
 ---
 
 ## ✅ Quick Checklist
 
-- [ ] Neon database created
+- [ ] Resend account created
+- [ ] API key copied
 - [ ] Vercel deployed with env vars
+- [ ] Contact form tested (email received)
 - [ ] DNS records added in Beehost
 - [ ] Domain verified (wait 10-30 min)
 - [ ] SSL active (automatic)
@@ -92,8 +97,9 @@ Vercel auto-deploys in 2-5 minutes!
 **Build failed?**
 → Check Vercel logs in Deployments tab
 
-**Database error?**
-→ Verify DATABASE_URL in Vercel env vars
+**Emails not sending?**
+→ Verify RESEND_API_KEY in Vercel env vars
+→ Check Resend dashboard for errors
 
 ---
 

@@ -7,7 +7,7 @@ This guide will walk you through deploying your Endicode project to production u
 Before starting, make sure you have:
 - ✅ A Vercel account (free tier)
 - ✅ Your Beehost domain credentials
-- ✅ A Neon Database account (for PostgreSQL)
+- ✅ A Resend account (free tier - 100 emails/day)
 - ✅ Git installed on your computer
 - ✅ Your project pushed to GitHub/GitLab/Bitbucket
 
@@ -15,20 +15,29 @@ Before starting, make sure you have:
 
 ## 🎯 Step-by-Step Deployment Process
 
-### **Phase 1: Prepare Your Database**
+### **Phase 1: Set Up Email Service**
 
-#### Step 1.1: Create Neon Database
-1. Go to [neon.tech](https://neon.tech) and sign up/login
-2. Click **"Create a project"**
-3. Choose a project name (e.g., "endicode-production")
-4. Select the **free tier** region closest to your users
-5. Click **"Create project"**
+#### Step 1.1: Create Resend Account
+1. Go to [resend.com](https://resend.com) and sign up
+2. Verify your email address
+3. You'll get **100 free emails per day** - perfect for contact forms!
 
-#### Step 1.2: Get Database Connection String
-1. In your Neon dashboard, click on your project
-2. Find the **"Connection string"** section
-3. Copy the connection string (it looks like: `postgresql://user:password@host/database`)
-4. **Save this securely** - you'll need it for Vercel
+#### Step 1.2: Get Your API Key
+1. In Resend dashboard, go to **"API Keys"**
+2. Click **"Create API Key"**
+3. Give it a name (e.g., "Endicode Production")
+4. Click **"Add"**
+5. **Copy the API key** (starts with `re_`) - you'll need it for Vercel
+6. **Save it securely** - you won't be able to see it again!
+
+#### Step 1.3: Add Your Domain (Optional but Recommended)
+1. In Resend, go to **"Domains"**
+2. Click **"Add Domain"**
+3. Enter your domain (e.g., `yourdomain.com`)
+4. Follow the DNS verification steps
+5. Once verified, you can send emails from `noreply@yourdomain.com`
+
+**For now, you can skip Step 1.3 and use the default `onboarding@resend.dev` sender**
 
 ---
 
@@ -55,15 +64,10 @@ Vercel should auto-detect your settings, but verify:
 
    | Name | Value | Environment |
    |------|-------|-------------|
-   | `DATABASE_URL` | Your Neon connection string | Production |
-   | `SESSION_SECRET` | Generate a random 32+ character string | Production |
+   | `RESEND_API_KEY` | Your Resend API key (starts with `re_`) | Production |
+   | `CONTACT_EMAIL` | Your email where you want to receive contact form submissions | Production |
+   | `RESEND_FROM_EMAIL` | `onboarding@resend.dev` (or your verified domain email) | Production |
    | `NODE_ENV` | `production` | Production |
-
-   **To generate a secure SESSION_SECRET:**
-   - Open PowerShell and run:
-     ```powershell
-     -join ((48..57) + (65..90) + (97..122) | Get-Random -Count 32 | % {[char]$_})
-     ```
 
 3. Click **"Add"** for each variable
 4. Click **"Deploy"**
@@ -72,6 +76,7 @@ Vercel should auto-detect your settings, but verify:
 - Vercel will build and deploy your project (takes 2-5 minutes)
 - You'll see a success message with a URL like: `your-project.vercel.app`
 - Click the URL to verify your site works
+- **Test the contact form** to make sure emails are being sent!
 
 ---
 
@@ -119,18 +124,13 @@ Add these records in Beehost:
 #### Step 4.1: Test Your Website
 1. Visit your domain: `https://yourdomain.com`
 2. Check that it loads correctly
-3. Test the contact form
-4. Verify all pages work
+3. **Test the contact form** - submit a test message
+4. Check your email inbox for the notification
+5. Verify all pages work
 
 #### Step 4.2: Force HTTPS
 1. In Vercel, go to **"Settings"** → **"Domains"**
 2. Ensure **"Redirect to HTTPS"** is enabled (should be automatic)
-
-#### Step 4.3: Setup Database Schema
-Run this command locally to push your database schema to Neon:
-```powershell
-npm run db:push
-```
 
 ---
 
@@ -160,10 +160,11 @@ Whenever you make changes:
 - Verify all environment variables are set correctly
 - Ensure your code builds locally: `npm run build`
 
-### Database Connection Issues?
-- Verify `DATABASE_URL` is correct in Vercel environment variables
-- Check Neon database is active and not suspended
-- Ensure database schema is pushed: `npm run db:push`
+### Contact Form Not Sending Emails?
+- Verify `RESEND_API_KEY` is correct in Vercel environment variables
+- Check Resend dashboard for error logs
+- Make sure you haven't exceeded the free tier limit (100 emails/day)
+- Verify `CONTACT_EMAIL` is a valid email address
 
 ### SSL Certificate Not Working?
 - Wait 10-15 minutes after domain verification
@@ -175,7 +176,7 @@ Whenever you make changes:
 ## 📞 Need Help?
 
 - **Vercel Docs:** [vercel.com/docs](https://vercel.com/docs)
-- **Neon Docs:** [neon.tech/docs](https://neon.tech/docs)
+- **Resend Docs:** [resend.com/docs](https://resend.com/docs)
 - **DNS Help:** Check Beehost support documentation
 
 ---
@@ -184,18 +185,18 @@ Whenever you make changes:
 
 Use this checklist to track your progress:
 
-- [ ] Created Neon database
-- [ ] Copied database connection string
+- [ ] Created Resend account
+- [ ] Copied Resend API key
 - [ ] Connected repository to Vercel
 - [ ] Added environment variables
 - [ ] First deployment successful
+- [ ] Tested contact form (received email)
 - [ ] Added domain in Vercel
 - [ ] Configured DNS in Beehost
 - [ ] Domain verified in Vercel
 - [ ] SSL certificate active
 - [ ] Website accessible via custom domain
-- [ ] Contact form tested
-- [ ] Database schema pushed
+- [ ] Contact form tested on live domain
 
 ---
 
@@ -206,3 +207,5 @@ Your Endicode website is now live in production with your custom domain!
 **Your site is accessible at:**
 - `https://yourdomain.com`
 - `https://www.yourdomain.com`
+
+**Contact form submissions will be sent to:** `your-email@example.com`
