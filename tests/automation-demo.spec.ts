@@ -54,7 +54,7 @@ test.describe('Automation Demo', () => {
     await expect(page.locator('[data-testid="draft-reply"]')).toBeVisible();
     
     const replyContent = await page.locator('[data-testid="draft-reply"]').textContent();
-    expect(replyContent).toContain('FoundryFlow');
+    expect(replyContent).toContain('Endicode');
     expect(replyContent).toContain('discovery call');
   });
 

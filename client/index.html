@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>Endicode</title>
     <meta name="description" content="Modern web/app development and AI automation services. We craft conversion-ready web apps and wire in automation that cuts cost, clicks, and chaos.">
-    
-    <!-- OpenGraph -->
+    <!-- Favicon -->
+    <link rel="icon" href="/src/assets/favicon.png" type="image/png">
+    <meta name="theme-color" content="#B52424" />
+  
+<!-- OpenGraph -->
     <meta property="og:title" content="Endicode">
     <meta property="og:description" content="Modern web/app development and AI automation services.">
     <meta property="og:type" content="website">
@@ -26,12 +29,11 @@
     
     <link rel="canonical" href="https://endicode.com">
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" href="/icon.png" sizes="192x192" />
-    <link rel="apple-touch-icon" href="/icon.png" />
-    <meta name="theme-color" content="#B52424" />
     <style>
-      /* Remove filter to show original logo color */
+      /* Remove any filters to show original logo color */
+      link[rel*="icon"] {
+        filter: none;
+      }
     </style>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,7 +42,7 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/main.tsx?v=1"></script>
     <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
     <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
   </body>

@@ -5,7 +5,7 @@ test.describe('Homepage', () => {
     await page.goto('/');
     
     // Check page loads
-    await expect(page).toHaveTitle(/FoundryFlow/);
+    await expect(page).toHaveTitle(/Endicode/);
     
     // Check hero section
     await expect(page.locator('[data-testid="hero-title"]')).toBeVisible();

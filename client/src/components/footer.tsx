@@ -19,7 +19,7 @@ const supportLinks = [
 export default function Footer() {
   return (
     <footer className="border-t border-border/20 py-12">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Logo */}
           <div className="md:col-span-2">

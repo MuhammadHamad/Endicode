@@ -1,59 +1,40 @@
-import { type User, type InsertUser, type Contact, type InsertContact } from "@shared/schema";
-import { randomUUID } from "crypto";
+import { drizzle } from 'drizzle-orm/better-sqlite3';
+import Database from 'better-sqlite3';
+import { contacts, type InsertContact } from './schema';
+import { eq } from 'drizzle-orm';
 
-export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
-  createContact(contact: InsertContact): Promise<Contact>;
-  getContacts(): Promise<Contact[]>;
-}
+// Create SQLite database connection
+const sqlite = new Database('database.sqlite');
+export const db = drizzle(sqlite);
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-  private contacts: Map<string, Contact>;
+export const storage = {
+  // Create a new contact
+  async createContact(data: InsertContact) {
+    const result = db.insert(contacts).values(data).returning();
+    return result.get();
+  },
 
-  constructor() {
-    this.users = new Map();
-    this.contacts = new Map();
+  // Get all contacts
+  async getContacts() {
+    return db.select().from(contacts).all();
+  },
+
+  // Get contact by ID
+  async getContactById(id: number) {
+    return db.select().from(contacts).where(eq(contacts.id, id)).get();
+  },
+
+  // Update contact
+  async updateContact(id: number, data: Partial<InsertContact>) {
+    const result = db.update(contacts).set(data).where(eq(contacts.id, id)).returning();
+    return result.get();
+  },
+
+  // Delete contact
+  async deleteContact(id: number) {
+    const result = db.delete(contacts).where(eq(contacts.id, id)).returning();
+    return result.get();
   }
+};
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
-  }
-
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
-  }
-
-  async createContact(insertContact: InsertContact): Promise<Contact> {
-    const id = randomUUID();
-    const contact: Contact = { 
-      ...insertContact,
-      id,
-      company: insertContact.company ?? null,
-      website: insertContact.website ?? null,
-      budget: insertContact.budget ?? null,
-      createdAt: new Date()
-    };
-    this.contacts.set(id, contact);
-    return contact;
-  }
-
-  async getContacts(): Promise<Contact[]> {
-    return Array.from(this.contacts.values()).sort(
-      (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
-    );
-  }
-}
-
-export const storage = new MemStorage();
+export default storage;

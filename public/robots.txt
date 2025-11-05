@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://foundryflow.com/sitemap.xml
+Sitemap: https://endicode.com/sitemap.xml

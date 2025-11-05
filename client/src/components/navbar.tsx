@@ -64,7 +64,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[2000] border-b border-border/50 bg-background/70 backdrop-blur supports-[backdrop-filter]:bg-background/50">
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-4">
         <div className="flex items-center justify-between">
           {/* Brand */}
           <a href="https://endicode.com" data-testid="logo-link" aria-label="Endicode home" className="cursor-pointer ml-1 md:ml-2">
@@ -77,13 +77,13 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <nav
-            className="hidden md:flex items-center gap-8"
+            className="hidden md:flex items-center gap-4 lg:gap-8"
             aria-label="Primary"
           >
             {navigation.map((item) => (
               <Link key={item.name} href={item.href}>
                 <span
-                  className={`text-sm font-medium transition-colors hover:text-foreground ${
+                  className={`text-xs lg:text-sm font-medium transition-colors hover:text-foreground ${
                     location === item.href
                       ? "text-foreground"
                       : "text-muted-foreground"
@@ -95,23 +95,23 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:block">
-            <MagneticButton asChild>
-              <Button
-                asChild
-                className="bg-primary text-primary-foreground hover:shadow-lg"
-              >
-                <a
-                  href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Chat on WhatsApp
-                </a>
-              </Button>
-            </MagneticButton>
-          </div>
+           {/* Desktop CTA */}
+           <div className="hidden md:block">
+             <MagneticButton asChild>
+               <Button
+                 asChild
+                 className="bg-primary text-primary-foreground hover:shadow-lg text-sm px-3 py-2"
+               >
+                 <a
+                   href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project."
+                   target="_blank"
+                   rel="noopener noreferrer"
+                 >
+                   Chat on WhatsApp
+                 </a>
+               </Button>
+             </MagneticButton>
+           </div>
 
           {/* Mobile toggle */}
           <Button
