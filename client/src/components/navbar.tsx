@@ -71,7 +71,7 @@ export default function Navbar() {
             <img
               src={logo2}
               alt="Endicode"
-              className="h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.2] lg:scale-[2.8] xl:scale-[3.0] filter hue-rotate-[180deg] saturate-[260%] brightness-125 contrast-125 drop-shadow-[0_0_8px_rgba(78,168,255,0.35)]"
+              className="h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.2] lg:scale-[2.8] xl:scale-[3.0]"
             />
           </a>
 
@@ -161,7 +161,7 @@ export default function Navbar() {
                 aria-label="Mobile Primary"
               >
                 <div className="flex items-center justify-between px-4 py-4 border-b border-border/50">
-                <img src={logo2} alt="Endicode emblem" className="h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.4] filter hue-rotate-[180deg] saturate-[260%] brightness-125 contrast-125 drop-shadow-[0_0_8px_rgba(78,168,255,0.35)]" />
+                <img src={logo2} alt="Endicode emblem" className="h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.4]" />
                   <Button
                     variant="ghost"
                     size="icon"

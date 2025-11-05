@@ -25,7 +25,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <div className="flex items-center mb-4 ml-1 md:ml-2">
               <a href="https://endicode.com" aria-label="Endicode home">
-                <img src={logo2} alt="Endicode" className="h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.2] lg:scale-[2.8] xl:scale-[3.0] filter hue-rotate-[180deg] saturate-[260%] brightness-125 contrast-125" />
+                <img src={logo2} alt="Endicode" className="h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.2] lg:scale-[2.8] xl:scale-[3.0]" />
               </a>
             </div>
             <div className="flex space-x-4">

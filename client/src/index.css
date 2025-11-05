@@ -13,17 +13,17 @@
   /* Brand Red as primary for CTAs */
   --primary: #B52424;
   --primary-foreground: hsl(0, 0%, 98%);
-  --secondary: hsl(166, 100%, 69%);
+  --secondary: #E8C0C0; /* Lighter red for secondary elements */
   --secondary-foreground: hsl(240, 10%, 3.9%);
-  --muted: hsl(240, 3.7%, 15.9%);
-  --muted-foreground: hsl(240, 5%, 64.9%);
-  --accent: hsl(240, 3.7%, 15.9%);
+  --muted: hsl(0, 0%, 15%);
+  --muted-foreground: hsl(0, 0%, 70%);
+  --accent: #8A1E1E; /* Darker red for accents */
   --accent-foreground: hsl(0, 0%, 98%);
-  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive: #8A1E1E; /* Darker red for destructive actions */
   --destructive-foreground: hsl(0, 0%, 98%);
-  --border: hsl(240, 3.7%, 15.9%);
-  --input: hsl(240, 3.7%, 15.9%);
-  --ring: #CF3A3A;
+  --border: hsl(0, 0%, 20%);
+  --input: hsl(0, 0%, 20%);
+  --ring: #E84A4A; /* Brighter red for focus rings */
   --electric-blue: hsl(212, 100%, 64%);
   --neon-mint: hsl(166, 100%, 69%);
   --radius: 0.75rem;
@@ -39,19 +39,19 @@
   --card-foreground: hsl(0, 0%, 98%);
   --popover: hsl(240, 10%, 3.9%);
   --popover-foreground: hsl(0, 0%, 98%);
-  --primary: hsl(212, 100%, 64%);
-  --primary-foreground: hsl(240, 10%, 3.9%);
-  --secondary: hsl(166, 100%, 69%);
+  --primary: #B52424;
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: #E8C0C0;
   --secondary-foreground: hsl(240, 10%, 3.9%);
-  --muted: hsl(240, 3.7%, 15.9%);
-  --muted-foreground: hsl(240, 5%, 64.9%);
-  --accent: hsl(240, 3.7%, 15.9%);
+  --muted: hsl(0, 0%, 15%);
+  --muted-foreground: hsl(0, 0%, 70%);
+  --accent: #8A1E1E;
   --accent-foreground: hsl(0, 0%, 98%);
-  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive: #8A1E1E;
   --destructive-foreground: hsl(0, 0%, 98%);
-  --border: hsl(240, 3.7%, 15.9%);
-  --input: hsl(240, 3.7%, 15.9%);
-  --ring: hsl(212, 100%, 64%);
+  --border: hsl(0, 0%, 20%);
+  --input: hsl(0, 0%, 20%);
+  --ring: #E84A4A;
 }
 
 @layer base {
@@ -72,9 +72,9 @@
 @layer utilities {
   .gradient-mesh {
     background: 
-      radial-gradient(circle at 20% 80%, rgba(78, 168, 255, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(102, 251, 209, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 20% 80%, rgba(181, 36, 36, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(232, 192, 192, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(138, 30, 30, 0.1) 0%, transparent 50%);
   }
   
   .glass-card {
