@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import MagneticButton from "@/components/magnetic-button";
 
 // ✅ Import local images from src/assets
-import logo1 from "@/assets/logo1.png";
 import logo2 from "@/assets/logo2.png";
 
 const navigation = [
@@ -68,20 +67,13 @@ export default function Navbar() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Brand */}
-          <Link href="/" data-testid="logo-link" aria-label="Endicode home">
-            <div className="flex items-center gap-[44px] md:gap-[60px] lg:gap-[80px] cursor-pointer ml-1 md:ml-2">
-              <img
-                src={logo2}
-                alt="Endicode"
-                className="h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.2] lg:scale-[2.8] xl:scale-[3.0] filter hue-rotate-[180deg] saturate-[260%] brightness-125 contrast-125 drop-shadow-[0_0_8px_rgba(78,168,255,0.35)]"
-              />
-              <img
-                src={logo1}
-                alt="Endicode"
-                className="h-12 w-auto transform origin-center scale-[2.8] md:scale-[3.2] lg:scale-[3.8] xl:scale-[4.2] filter hue-rotate-[180deg] saturate-[280%] brightness-125 contrast-125 drop-shadow-[0_0_10px_rgba(78,168,255,0.35)]"
-              />
-            </div>
-          </Link>
+          <a href="https://endicode.com" data-testid="logo-link" aria-label="Endicode home" className="cursor-pointer ml-1 md:ml-2">
+            <img
+              src={logo2}
+              alt="Endicode"
+              className="h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.2] lg:scale-[2.8] xl:scale-[3.0] filter hue-rotate-[180deg] saturate-[260%] brightness-125 contrast-125 drop-shadow-[0_0_8px_rgba(78,168,255,0.35)]"
+            />
+          </a>
 
           {/* Desktop nav */}
           <nav
@@ -169,10 +161,7 @@ export default function Navbar() {
                 aria-label="Mobile Primary"
               >
                 <div className="flex items-center justify-between px-4 py-4 border-b border-border/50">
-                <div className="flex items-center gap-[44px] md:gap-[60px] lg:gap-[80px]">
-                  <img src={logo2} alt="Endicode emblem" className="h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.4] filter hue-rotate-[180deg] saturate-[260%] brightness-125 contrast-125 drop-shadow-[0_0_8px_rgba(78,168,255,0.35)]" />
-                  <img src={logo1} alt="Endicode emblem" className="h-12 w-auto transform origin-center scale-[2.6] md:scale-[3.0] filter hue-rotate-[180deg] saturate-[280%] brightness-125 contrast-125 drop-shadow-[0_0_10px_rgba(78,168,255,0.35)]" />
-                </div>
+                <img src={logo2} alt="Endicode emblem" className="h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.4] filter hue-rotate-[180deg] saturate-[260%] brightness-125 contrast-125 drop-shadow-[0_0_8px_rgba(78,168,255,0.35)]" />
                   <Button
                     variant="ghost"
                     size="icon"
