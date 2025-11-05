@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import { Twitter, Linkedin, Github } from "lucide-react";
-import logo1 from "@/assets/logo1.png";
 import logo2 from "@/assets/logo2.png";
 
 const quickLinks = [
@@ -22,15 +21,13 @@ export default function Footer() {
     <footer className="border-t border-border/20 py-12">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
-          {/* Logo and tagline */}
+          {/* Logo */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-[44px] md:gap-[60px] lg:gap-[80px] mb-4 ml-1 md:ml-2">
-              <img src={logo2} alt="Endicode" className="h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.2] lg:scale-[2.8] xl:scale-[3.0] filter hue-rotate-[180deg] saturate-[260%] brightness-125 contrast-125" />
-              <img src={logo1} alt="Endicode" className="h-12 w-auto transform origin-center scale-[2.8] md:scale-[3.2] lg:scale-[3.8] xl:scale-[4.2] filter hue-rotate-[180deg] saturate-[280%] brightness-125 contrast-125" />
+            <div className="flex items-center mb-4 ml-1 md:ml-2">
+              <a href="https://endicode.com" aria-label="Endicode home">
+                <img src={logo2} alt="Endicode" className="h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.2] lg:scale-[2.8] xl:scale-[3.0] filter hue-rotate-[180deg] saturate-[260%] brightness-125 contrast-125" />
+              </a>
             </div>
-            <p className="text-muted-foreground max-w-md mb-4">
-              Build the product. Automate the work.
-            </p>
             <div className="flex space-x-4">
               <a 
                 href="#" 
