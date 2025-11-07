@@ -9,7 +9,7 @@ interface MagneticButtonProps {
 
 export default function MagneticButton({ children, asChild = false, className = "" }: MagneticButtonProps) {
   const buttonRef = useRef<HTMLElement>(null);
-  const Component = asChild ? Slot : "button";
+  const Component = Slot;
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const button = buttonRef.current;
