@@ -1,16 +1,12 @@
-import { sqliteTable, integer, text, real } from 'drizzle-orm/sqlite-core';
-import { createInsertSchema } from 'drizzle-zod';
+import { z } from 'zod';
 
-export const contacts = sqliteTable('contacts', {
-  id: integer('id').primaryKey({ autoIncrement: true }),
-  name: text('name').notNull(),
-  email: text('email').notNull(),
-  company: text('company'),
-  message: text('message').notNull(),
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull().$defaultFn(() => new Date()),
+export const insertContactSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  company: z.string().optional(),
+  message: z.string().min(1, "Message is required"),
 });
 
-export const insertContactSchema = createInsertSchema(contacts);
-export type InsertContact = typeof contacts.$inferInsert;
-export type SelectContact = typeof contacts.$inferSelect;
+export type InsertContact = z.infer<typeof insertContactSchema>;
+
+export type SelectContact = InsertContact & { id: number; createdAt: number; updatedAt: number };

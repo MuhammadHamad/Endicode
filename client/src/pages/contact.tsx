@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MessageCircle, ArrowRight } from "lucide-react";
+import { MessageCircle, ArrowRight, MapPin, Phone, Mail } from "lucide-react";
 import { Link } from "wouter";
 import Container from "@/components/container";
 import Section from "@/components/section";
@@ -152,47 +152,7 @@ export default function Contact() {
                 </CardContent>
               </Card>
             </motion.div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Try Demo CTA */}
-      <Section className="border-t border-border/20">
-        <Container>
-          <div className="text-center">
-            <motion.h2
-              className="font-display font-bold text-4xl mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              See automation in action
-            </motion.h2>
-            <motion.p
-              className="text-xl text-muted-foreground mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              Try our live automation demo to see the kind of intelligent workflows we build.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <MagneticButton asChild>
-                <Link href="/demo">
-                  <Button size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
-                    Try Automation Demo
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </Link>
-              </MagneticButton>
-            </motion.div>
+            
           </div>
         </Container>
       </Section>

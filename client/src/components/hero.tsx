@@ -88,13 +88,7 @@ export default function Hero() {
                   </a>
                 </Button>
               </MagneticButton>
-              <MagneticButton asChild>
-                <Button asChild size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
-                  <Link href="/demo" data-testid="button-automation-demo">
-                    Try our automation demo
-                  </Link>
-                </Button>
-              </MagneticButton>
+
             </motion.div>
             
             {/* ROI Metrics */}

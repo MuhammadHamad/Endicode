@@ -1,35 +1,37 @@
-import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
+import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
 import { z } from "zod";
 
-export const users = pgTable("users", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+export const users = sqliteTable("users", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
 });
 
-export const contacts = pgTable("contacts", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+export const contacts = sqliteTable("contacts", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
   email: text("email").notNull(),
   company: text("company"),
-  website: text("website"),
   message: text("message").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date()),
 });
 
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
+export const insertUserSchema = z.object({
+  username: z.string(),
+  password: z.string(),
 });
 
-export const insertContactSchema = createInsertSchema(contacts).omit({
-  id: true,
-  createdAt: true,
+export const insertContactSchema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+  company: z.string().nullable().optional(),
+  message: z.string(),
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
+
 export type User = typeof users.$inferSelect;
 export type InsertContact = z.infer<typeof insertContactSchema>;
-export type Contact = typeof contacts.$inferSelect;
+
+export type SelectContact = typeof contacts.$inferSelect;

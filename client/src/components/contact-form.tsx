@@ -19,7 +19,6 @@ const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
   company: z.string().optional(),
-  website: z.string().url("Please enter a valid URL").optional().or(z.literal("")),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
@@ -35,7 +34,6 @@ export default function ContactForm() {
       name: "",
       email: "",
       company: "",
-      website: "",
       message: "",
     },
   });
@@ -105,7 +103,7 @@ export default function ContactForm() {
             />
           </div>
 
-          {/* Company and Website Row */}
+          {/* Company Row */}
           <div className="grid md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
@@ -115,20 +113,6 @@ export default function ContactForm() {
                   <FormLabel>Company</FormLabel>
                   <FormControl>
                     <Input {...field} data-testid="input-company" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            
-            <FormField
-              control={form.control}
-              name="website"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Website</FormLabel>
-                  <FormControl>
-                    <Input type="url" placeholder="https://" {...field} data-testid="input-website" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -160,7 +144,7 @@ export default function ContactForm() {
 
           {/* Submit Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
-            <MagneticButton className="flex-1">
+            <MagneticButton className="flex-1" asChild>
               <Button 
                 type="submit" 
                 className="w-full bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300"
@@ -178,7 +162,7 @@ export default function ContactForm() {
               </Button>
             </MagneticButton>
             
-            <MagneticButton className="flex-1">
+            <MagneticButton className="flex-1" asChild>
               <a 
                 href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project."
                 target="_blank"
