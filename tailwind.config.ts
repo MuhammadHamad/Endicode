@@ -55,7 +55,7 @@ export default {
         border: "var(--border)",
         input: "var(--input)",
         ring: "var(--ring)",
-        'electric-blue': '#4EA8FF',
+        'electric-blue': 'hsl(195, 100%, 60%)',
         'neon-mint': '#66FBD1',
         chart: {
           "1": "var(--chart-1)",

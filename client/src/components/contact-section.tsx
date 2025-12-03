@@ -6,7 +6,6 @@ import Section from "@/components/section";
 import ContactForm from "@/components/contact-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import MagneticButton from "@/components/magnetic-button";
 
 export default function ContactSection() {
   return (

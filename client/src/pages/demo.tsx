@@ -6,7 +6,6 @@ import Container from "@/components/container";
 import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
 import AutomationDemo from "@/components/automation-demo";
-import MagneticButton from "@/components/magnetic-button";
 
 export default function Demo() {
   const [isDemoOpen, setIsDemoOpen] = useState(false);
@@ -234,24 +233,26 @@ export default function Demo() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <MagneticButton asChild>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button asChild size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
                   <Link href="/contact">
                     Start Your Project
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Link>
                 </Button>
-              </MagneticButton>
-              <Button 
-                onClick={() => setIsDemoOpen(true)}
-                size="lg"
-                variant="outline"
-                className="glass-card hover:shadow-xl transition-all duration-300"
-                data-testid="button-try-demo-again"
-              >
-                <Play className="w-4 h-4 mr-2" />
-                Try Demo
-              </Button>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button 
+                  onClick={() => setIsDemoOpen(true)}
+                  size="lg"
+                  variant="outline"
+                  className="glass-card hover:shadow-xl transition-all duration-300"
+                  data-testid="button-try-demo-again"
+                >
+                  <Play className="w-4 h-4 mr-2" />
+                  Try Demo
+                </Button>
+              </motion.div>
             </motion.div>
           </div>
         </Container>

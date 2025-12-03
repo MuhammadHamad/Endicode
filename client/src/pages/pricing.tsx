@@ -6,7 +6,6 @@ import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // Badge import removed - not needed for contact-based approach
-import MagneticButton from "@/components/magnetic-button";
 
 // Pricing plans removed - now using contact-based approach
 
@@ -77,26 +76,26 @@ export default function Pricing() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <MagneticButton className="flex-1">
+                  <motion.div className="flex-1" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                     <a 
                       href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27d%20like%20to%20get%20a%20quote%20for%20my%20project."
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full"
+                      className="w-full block"
                     >
                       <Button size="lg" className="w-full bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
                         Get a Quote
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </Button>
                     </a>
-                  </MagneticButton>
-                  <MagneticButton className="flex-1" asChild>
+                  </motion.div>
+                  <motion.div className="flex-1" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                     <Link href="/contact">
                       <Button size="lg" variant="outline" className="w-full glass-card hover:shadow-xl transition-all duration-300">
                         Send Details
                       </Button>
                     </Link>
-                  </MagneticButton>
+                  </motion.div>
                 </motion.div>
               </CardContent>
             </Card>

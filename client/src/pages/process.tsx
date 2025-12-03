@@ -5,7 +5,6 @@ import Container from "@/components/container";
 import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import MagneticButton from "@/components/magnetic-button";
 
 const processSteps = [
   {
@@ -256,20 +255,20 @@ export default function Process() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <MagneticButton>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <a href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project." target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
                     Chat on WhatsApp
                   </Button>
                 </a>
-              </MagneticButton>
-              <MagneticButton asChild>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Link href="/demo">
                   <Button size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
                     Try Demo First
                   </Button>
                 </Link>
-              </MagneticButton>
+              </motion.div>
             </motion.div>
           </div>
         </Container>

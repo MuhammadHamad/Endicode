@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Upload, Target, Mail, Check, Copy } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -8,9 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
-import { analyzeInquiry, generateDraftReply, scoreLeads, type LeadAnalysis, type LeadData } from "@/lib/automation";
+import { analyzeInquiry, generateDraftReply, scoreLeads, detectIndustryFromText, type LeadAnalysis, type LeadData } from "@/lib/automation";
 import { parseCSV, generateCSV, downloadCSV, deduplicateByEmail } from "@/lib/csv";
 
 interface AutomationDemoProps {
@@ -27,6 +27,25 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
   const [budget, setBudget] = useState("");
   const [analysis, setAnalysis] = useState<LeadAnalysis | null>(null);
   const [draftReply, setDraftReply] = useState("");
+  const [detectedIndustryInfo, setDetectedIndustryInfo] = useState<{ detected: string | null; confidence: 'high' | 'medium' | 'low' } | null>(null);
+
+  const normalizeIndustry = (value?: string | null) =>
+    value && value !== 'other' ? value : undefined;
+
+  // Real-time industry detection as user types
+  useEffect(() => {
+    if (inquiryText.trim().length > 20) {
+      const detection = detectIndustryFromText(inquiryText);
+      setDetectedIndustryInfo(detection);
+      
+      // Auto-update industry if detected with high confidence and no industry selected
+      if (detection.detected && detection.confidence === 'high' && !normalizeIndustry(industry)) {
+        setIndustry(detection.detected);
+      }
+    } else {
+      setDetectedIndustryInfo(null);
+    }
+  }, [inquiryText, industry]);
 
   // CSV State
   const [csvResults, setCsvResults] = useState<LeadData[]>([]);
@@ -42,14 +61,40 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
       return;
     }
 
-    const result = analyzeInquiry(inquiryText, industry, budget);
-    const reply = generateDraftReply(result);
+    const normalizedIndustry = normalizeIndustry(industry);
+    const result = analyzeInquiry(inquiryText, normalizedIndustry, budget);
+    const reply = generateDraftReply(result, normalizedIndustry, budget);
+    
+    // Intelligent industry detection and auto-update
+    if (result.detectedIndustry && !normalizedIndustry && result.detectedIndustry) {
+      // Auto-update industry if detected and none selected
+      setIndustry(result.detectedIndustry);
+      toast({
+        title: "Industry Detected",
+        description: `We detected ${result.detectedIndustry} industry from your inquiry. Auto-selected for better analysis.`,
+      });
+    } else if (result.industryMismatch && result.detectedIndustry && normalizedIndustry) {
+      // Show warning for mismatch
+      toast({
+        title: "Industry Mismatch Detected",
+        description: `Your inquiry mentions ${result.detectedIndustry} industry, but you selected ${normalizedIndustry}. We've used the detected industry for more accurate analysis.`,
+        variant: "default",
+      });
+      // Auto-update to detected industry for better accuracy
+      setIndustry(result.detectedIndustry);
+    }
     
     setAnalysis(result);
     setDraftReply(reply);
 
     if (typeof window._ffAnalytics === 'function') {
-      window._ffAnalytics('automation_demo_analyze', { intent: result.intent });
+      window._ffAnalytics('automation_demo_analyze', { 
+        intent: result.intent, 
+        industry: result.detectedIndustry || normalizedIndustry, 
+        budget, 
+        complexity: result.complexity,
+        industryMismatch: result.industryMismatch 
+      });
     }
   };
 
@@ -192,10 +237,30 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-2">Industry (optional)</label>
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="block text-sm font-medium">Industry (optional)</label>
+                      {detectedIndustryInfo?.detected && detectedIndustryInfo.confidence !== 'low' && (
+                        <span className={`text-xs px-2 py-1 rounded-full ${
+                          detectedIndustryInfo.confidence === 'high' 
+                            ? 'bg-electric-blue/20 text-electric-blue' 
+                            : 'bg-secondary/20 text-secondary'
+                        }`}>
+                          {detectedIndustryInfo.confidence === 'high' ? '✓ Detected' : '~ Possible'}
+                        </span>
+                      )}
+                    </div>
                     <Select value={industry} onValueChange={setIndustry}>
-                      <SelectTrigger data-testid="select-industry">
-                        <SelectValue placeholder="Select industry" />
+                      <SelectTrigger 
+                        data-testid="select-industry"
+                        className={detectedIndustryInfo?.detected && detectedIndustryInfo.detected !== normalizeIndustry(industry) && detectedIndustryInfo.confidence === 'high' 
+                          ? 'border-electric-blue/50' 
+                          : ''}
+                      >
+                        <SelectValue placeholder={
+                          detectedIndustryInfo?.detected && detectedIndustryInfo.confidence === 'high'
+                            ? `Detected: ${detectedIndustryInfo.detected}`
+                            : "Select industry"
+                        } />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="ecommerce">E-commerce</SelectItem>
@@ -205,6 +270,11 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                         <SelectItem value="other">Other</SelectItem>
                       </SelectContent>
                     </Select>
+                    {detectedIndustryInfo?.detected && detectedIndustryInfo.detected !== normalizeIndustry(industry) && detectedIndustryInfo.confidence === 'high' && industry && (
+                      <p className="text-xs text-electric-blue mt-1">
+                        💡 Your inquiry suggests <strong>{detectedIndustryInfo.detected}</strong> industry
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -223,13 +293,15 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                   </div>
                 </div>
 
-                <Button 
-                  onClick={handleAnalyzeInquiry} 
-                  className="w-full bg-primary text-primary-foreground"
-                  data-testid="button-analyze-inquiry"
-                >
-                  Analyze Inquiry
-                </Button>
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Button 
+                    onClick={handleAnalyzeInquiry} 
+                    className="w-full bg-primary text-primary-foreground"
+                    data-testid="button-analyze-inquiry"
+                  >
+                    Analyze Inquiry
+                  </Button>
+                </motion.div>
               </div>
 
               {/* Results Side */}
@@ -242,6 +314,42 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                     className="space-y-6"
                     data-testid="triage-results"
                   >
+                    {/* Industry Mismatch Alert */}
+                    {analysis.industryMismatch && analysis.detectedIndustry && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        <Alert className="border-electric-blue/50 bg-electric-blue/10">
+                          <Target className="h-4 w-4 text-electric-blue" />
+                          <AlertTitle className="text-electric-blue">Smart Detection</AlertTitle>
+                          <AlertDescription className="text-sm">
+                            We detected <strong>{analysis.detectedIndustry}</strong> industry indicators in your inquiry. 
+                            The analysis has been automatically adjusted to match your inquiry for more accurate recommendations.
+                          </AlertDescription>
+                        </Alert>
+                      </motion.div>
+                    )}
+                    
+                    {/* Auto-detected Industry Alert */}
+                    {analysis.detectedIndustry && !industry && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                      >
+                        <Alert className="border-secondary/50 bg-secondary/10">
+                          <Target className="h-4 w-4 text-secondary" />
+                          <AlertTitle className="text-secondary">Industry Auto-Detected</AlertTitle>
+                          <AlertDescription className="text-sm">
+                            We automatically detected <strong>{analysis.detectedIndustry}</strong> industry from your inquiry 
+                            and updated the analysis accordingly for better accuracy.
+                          </AlertDescription>
+                        </Alert>
+                      </motion.div>
+                    )}
+
                     {/* Analysis Card */}
                     <Card className="glass-card">
                       <CardHeader>
@@ -271,10 +379,12 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                             {analysis.recommendation}
                           </span>
                         </div>
-                        <Button onClick={copyAnalysis} variant="outline" size="sm" className="w-full mt-4" data-testid="button-copy-analysis">
-                          <Copy className="w-4 h-4 mr-2" />
-                          Copy Analysis
-                        </Button>
+                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                          <Button onClick={copyAnalysis} variant="outline" size="sm" className="w-full mt-4" data-testid="button-copy-analysis">
+                            <Copy className="w-4 h-4 mr-2" />
+                            Copy Analysis
+                          </Button>
+                        </motion.div>
                       </CardContent>
                     </Card>
 
@@ -290,16 +400,18 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                         <div className="bg-black/20 rounded-lg p-4 text-sm font-mono text-zinc-300 whitespace-pre-wrap min-h-[120px] mb-4" data-testid="draft-reply">
                           {draftReply}
                         </div>
-                        <Button 
-                          onClick={() => copyToClipboard(draftReply, "Reply")} 
-                          variant="outline" 
-                          size="sm" 
-                          className="w-full"
-                          data-testid="button-copy-reply"
-                        >
-                          <Copy className="w-4 h-4 mr-2" />
-                          Copy to Clipboard
-                        </Button>
+                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                          <Button 
+                            onClick={() => copyToClipboard(draftReply, "Reply")} 
+                            variant="outline" 
+                            size="sm" 
+                            className="w-full"
+                            data-testid="button-copy-reply"
+                          >
+                            <Copy className="w-4 h-4 mr-2" />
+                            Copy to Clipboard
+                          </Button>
+                        </motion.div>
                       </CardContent>
                     </Card>
                   </motion.div>
@@ -356,13 +468,15 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                   >
                     <div className="flex items-center justify-between">
                       <h4 className="font-semibold text-lg">Lead Scores</h4>
-                      <Button 
-                        onClick={handleExportScores} 
-                        className="bg-primary text-primary-foreground"
-                        data-testid="button-export-scores"
-                      >
-                        Export Results
-                      </Button>
+                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                        <Button 
+                          onClick={handleExportScores} 
+                          className="bg-primary text-primary-foreground"
+                          data-testid="button-export-scores"
+                        >
+                          Export Results
+                        </Button>
+                      </motion.div>
                     </div>
 
                     <Card className="glass-card">
@@ -390,7 +504,7 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                                     }
                                     className={
                                       lead.segment === 'Hot' ? 'bg-secondary text-black' :
-                                      lead.segment === 'Warm' ? 'bg-yellow-400 text-black' : 'text-red-400'
+                                      lead.segment === 'Warm' ? 'bg-yellow-400 text-black' : 'text-muted-foreground'
                                     }
                                     data-testid={`lead-segment-${index}`}
                                   >
@@ -407,7 +521,7 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                     <div className="grid grid-cols-3 gap-4 text-center">
                       <Card className="glass-card">
                         <CardContent className="p-4">
-                          <div className="text-2xl font-bold text-red-400" data-testid="count-cold">{segmentCounts.cold}</div>
+                          <div className="text-2xl font-bold text-muted-foreground" data-testid="count-cold">{segmentCounts.cold}</div>
                           <div className="text-sm text-muted-foreground">Cold Leads</div>
                         </CardContent>
                       </Card>

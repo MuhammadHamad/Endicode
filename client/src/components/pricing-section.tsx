@@ -6,7 +6,6 @@ import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import MagneticButton from "@/components/magnetic-button";
 
 const plans = [
   {
@@ -135,7 +134,7 @@ export default function PricingSection() {
                     <div className="text-sm">{plan.ideal}</div>
                   </div>
 
-                  <MagneticButton className="w-full">
+                  <motion.div className="w-full" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                     <Link href="/contact" data-testid={`button-select-${plan.name.toLowerCase()}`}>
                       <Button 
                         className={`w-full ${plan.popular ? 'bg-electric-blue text-white' : 'bg-border text-foreground hover:bg-muted'} transition-colors`}
@@ -145,7 +144,7 @@ export default function PricingSection() {
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </Button>
                     </Link>
-                  </MagneticButton>
+                  </motion.div>
                 </CardContent>
               </Card>
             </motion.div>

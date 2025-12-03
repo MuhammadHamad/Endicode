@@ -5,7 +5,6 @@ import Container from "@/components/container";
 import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import MagneticButton from "@/components/magnetic-button";
 
 const processSteps = [
   {

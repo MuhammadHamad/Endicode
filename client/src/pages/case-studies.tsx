@@ -6,7 +6,6 @@ import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import MagneticButton from "@/components/magnetic-button";
 
 const caseStudies = [
   {
@@ -233,21 +232,21 @@ export default function CaseStudies() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <MagneticButton asChild>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Link href="/contact">
                   <Button size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
                     Start Your Project
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </Link>
-              </MagneticButton>
-              <MagneticButton asChild>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Link href="/demo">
                   <Button size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
                     See Demo
                   </Button>
                 </Link>
-              </MagneticButton>
+              </motion.div>
             </motion.div>
           </div>
         </Container>

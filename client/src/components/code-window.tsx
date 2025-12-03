@@ -70,7 +70,7 @@ export default function CodeWindow() {
       {/* Window Header */}
       <div className="bg-muted/50 border-b border-border/50 px-4 py-3 flex items-center space-x-2">
         <div className="flex space-x-2">
-          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+          <div className="w-3 h-3 bg-muted-foreground/60 rounded-full"></div>
           <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
         </div>
