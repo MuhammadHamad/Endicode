@@ -32,24 +32,14 @@ export default function LogoMarquee() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          {companies.map((company, index) => (
-            <motion.div
+          {companies.map((company) => (
+            <div
               key={company}
-              className="text-base sm:text-lg font-semibold glass-card px-6 py-3 rounded-lg"
-              initial={{ opacity: 0, y: 20, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ 
-                duration: 0.5, 
-                delay: index * 0.1,
-                type: "spring",
-                stiffness: 200
-              }}
-              whileHover={{ scale: 1.1, y: -3 }}
+              className="text-base sm:text-lg font-semibold glass-card px-6 py-3 rounded-lg transition-transform hover:-translate-y-1"
               data-testid={`logo-${company.toLowerCase()}`}
             >
               {company}
-            </motion.div>
+            </div>
           ))}
         </motion.div>
       </div>

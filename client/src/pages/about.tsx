@@ -1,39 +1,39 @@
 import { motion } from "framer-motion";
-import { Code, Zap, TrendingUp, ArrowRight } from "lucide-react";
+import { ArrowRight, Linkedin } from "lucide-react";
 import { Link } from "wouter";
 import Container from "@/components/container";
 import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 const founders = [
   {
     name: "Muhammad Hammad",
+    initials: "MH",
     role: "Co-founder",
     description: "Automation engineer building reliable, scalable workflows",
-    icon: Code,
     color: "from-electric-blue to-blue-600",
-    background: "",
-    discipline: "Automation"
+    discipline: "Automation",
+    linkedin: "https://www.linkedin.com/in/muhammad-hammad-7b192220a/",
   },
   {
-    name: "Muhammad Owais", 
+    name: "Muhammad Owais",
+    initials: "MO",
     role: "Co-founder",
     description: "Full-stack engineer focused on robust, high-performance systems",
-    icon: Zap,
     color: "from-secondary to-green-500",
-    background: "",
-    discipline: "Engineering"
+    discipline: "Engineering",
+    linkedin: null,
   },
   {
     name: "Abbas Ali",
-    role: "Co-founder", 
+    initials: "AA",
+    role: "Co-founder",
     description: "Business and go-to-market lead",
-    icon: TrendingUp,
     color: "from-purple-500 to-pink-500",
-    background: "",
-    discipline: "Business"
-  }
+    discipline: "Business",
+    linkedin: null,
+  },
 ];
 
 const principles = [
@@ -150,37 +150,45 @@ export default function About() {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {founders.map((founder, index) => {
-              const Icon = founder.icon;
-              return (
-                <motion.div
-                  key={founder.name}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  data-testid={`founder-${founder.name.toLowerCase().replace(' ', '-')}`}
-                >
-                  <Card className="glass-card h-full hover:shadow-2xl transition-all duration-500">
-                    <CardContent className="p-8 text-center">
-                      <div className={`w-24 h-24 bg-gradient-to-br ${founder.color} rounded-2xl mx-auto mb-6 flex items-center justify-center`}>
-                        <Icon className="w-12 h-12 text-white" />
-                      </div>
-                      <h3 className="font-display font-semibold text-xl mb-2">{founder.name}</h3>
-                      <p className="text-muted-foreground text-sm mb-2">{founder.role}</p>
-                      {founder.discipline ? (
-                        <div className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-electric-blue/10 text-electric-blue mb-2">
-                          {founder.discipline}
-                        </div>
-                      ) : null}
-                      {founder.description ? (
-                        <p className="text-xs text-muted-foreground">{founder.description}</p>
-                      ) : null}
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              );
-            })}
+            {founders.map((founder) => (
+              <motion.div
+                key={founder.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                data-testid={`founder-${founder.name.toLowerCase().replace(' ', '-')}`}
+              >
+                <Card className="glass-card h-full hover:shadow-2xl transition-all duration-500">
+                  <CardContent className="p-8 text-center">
+                    <div
+                      className={`w-24 h-24 bg-gradient-to-br ${founder.color} rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg`}
+                    >
+                      <span className="font-display font-bold text-2xl text-white">
+                        {founder.initials}
+                      </span>
+                    </div>
+                    <h3 className="font-display font-semibold text-xl mb-2">{founder.name}</h3>
+                    <p className="text-muted-foreground text-sm mb-2">{founder.role}</p>
+                    <div className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-electric-blue/10 text-electric-blue mb-2">
+                      {founder.discipline}
+                    </div>
+                    <p className="text-xs text-muted-foreground mb-4">{founder.description}</p>
+                    {founder.linkedin && (
+                      <a
+                        href={founder.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${founder.name} on LinkedIn`}
+                        className="inline-flex items-center justify-center w-8 h-8 rounded-md text-muted-foreground hover:text-electric-blue hover:bg-electric-blue/10 transition-colors"
+                      >
+                        <Linkedin className="w-4 h-4" />
+                      </a>
+                    )}
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </Container>
       </Section>
@@ -281,21 +289,17 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Link href="/contact">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
-                    Start a Project
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Link href="/case-studies">
-                  <Button size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
-                    See Our Work
-                  </Button>
-                </Link>
-              </motion.div>
+              <Link href="/contact">
+                <Button size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
+                  Start a Project
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+              <Link href="/case-studies">
+                <Button size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
+                  See Our Work
+                </Button>
+              </Link>
             </motion.div>
           </div>
         </Container>
