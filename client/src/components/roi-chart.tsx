@@ -39,7 +39,6 @@ export default function ROIChart() {
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-          whileHover={{ y: -5 }}
           data-testid="roi-chart"
         >
           {/* Decorative gradient overlay */}
@@ -65,25 +64,17 @@ export default function ROIChart() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
                 >
-                  <motion.div 
-                    className="w-3 h-3 bg-muted-foreground rounded-full"
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
+                  <div className="w-3 h-3 bg-muted-foreground rounded-full" />
                   <span className="text-xs text-muted-foreground">Before</span>
                 </motion.div>
-                <motion.div 
+                <motion.div
                   className="flex items-center space-x-2"
                   initial={{ opacity: 0, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 }}
                 >
-                  <motion.div 
-                    className="w-3 h-3 bg-electric-blue rounded-full"
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                  />
+                  <div className="w-3 h-3 bg-electric-blue rounded-full" />
                   <span className="text-xs text-muted-foreground">After</span>
                 </motion.div>
               </div>
@@ -103,17 +94,19 @@ export default function ROIChart() {
                   <div className="flex items-center space-x-4">
                     <span className="text-sm font-medium w-24">{item.label}</span>
                     <div className="flex-1 bg-muted/50 rounded-full h-10 relative overflow-hidden shadow-inner">
-                      <motion.div 
-                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-muted-foreground/60 to-muted-foreground/40 rounded-full shadow-lg"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${item.before}%` }}
+                      <motion.div
+                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-muted-foreground/60 to-muted-foreground/40 rounded-full shadow-lg origin-left"
+                        style={{ width: `${item.before}%` }}
+                        initial={{ scaleX: 0 }}
+                        whileInView={{ scaleX: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1, delay: 0.5 + index * 0.15 }}
                       />
                       <motion.div
-                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-electric-blue to-blue-600 rounded-full shadow-lg"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${item.after}%` }}
+                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-electric-blue to-blue-600 rounded-full shadow-lg origin-left"
+                        style={{ width: `${item.after}%` }}
+                        initial={{ scaleX: 0 }}
+                        whileInView={{ scaleX: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.5, delay: 0.8 + index * 0.2, ease: [0.4, 0, 0.2, 1] }}
                       />

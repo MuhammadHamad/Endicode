@@ -29,7 +29,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Send email notification
       await resend.emails.send({
         from: process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev",
-        to: process.env.CONTACT_EMAIL || "itshammadofficial@gmail.com",
+        to: process.env.CONTACT_EMAIL || "hello@endicode.com",
         subject: `New Contact Form Submission from ${result.data.name}`,
         html: `
           <p>You have received a new contact form submission:</p>

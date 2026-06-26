@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800&display=swap');
+/* Fonts are loaded via <link> in index.html — no render-blocking @import here. */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -36,21 +36,21 @@
   * {
     @apply border-border;
   }
-  
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: var(--font-sans);
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
   }
 }
 
 @layer utilities {
-  /* Enhanced Gradient Mesh with Animation - Modern AI Theme */
+  /* Static gradient mesh — no animation, GPU paints once */
   .gradient-mesh {
-    background: 
+    background:
       radial-gradient(circle at 20% 80%, rgba(0, 200, 255, 0.15) 0%, transparent 50%),
       radial-gradient(circle at 80% 20%, rgba(170, 100, 255, 0.15) 0%, transparent 50%),
       radial-gradient(circle at 40% 40%, rgba(100, 200, 255, 0.1) 0%, transparent 50%),
@@ -58,47 +58,12 @@
     position: relative;
     overflow: hidden;
   }
-  
-  .gradient-mesh::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-      radial-gradient(circle at 30% 70%, rgba(0, 200, 255, 0.12) 0%, transparent 40%),
-      radial-gradient(circle at 70% 30%, rgba(170, 100, 255, 0.12) 0%, transparent 40%);
-    animation: gradient-shift 15s ease infinite;
-    pointer-events: none;
-  }
-  
-  /* Enhanced Glass Card with Better Depth */
-  .glass-card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 
-      0 8px 32px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .glass-card:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 
-      0 12px 48px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15),
-      0 0 0 1px rgba(181, 36, 36, 0.1);
-    transform: translateY(-2px);
-  }
-  
-  /* Enhanced Grain Texture */
+
+  /* Static grain texture (no animation) */
   .grain {
     position: relative;
   }
-  
+
   .grain::before {
     content: '';
     position: absolute;
@@ -106,43 +71,47 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: 
+    background-image:
       radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px),
       radial-gradient(circle, rgba(181, 36, 36, 0.02) 1px, transparent 1px);
     background-size: 20px 20px, 40px 40px;
     background-position: 0 0, 10px 10px;
     pointer-events: none;
     opacity: 0.4;
-    animation: grain-move 8s steps(10) infinite;
   }
-  
-  /* Enhanced Cursor Glow - Modern Cyan/Purple */
-  .cursor-glow {
-    position: fixed;
-    width: 400px;
-    height: 400px;
-    background: 
-      radial-gradient(circle, rgba(0, 200, 255, 0.15) 0%, rgba(170, 100, 255, 0.1) 40%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    mix-blend-mode: screen;
-    z-index: 10;
-    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-    filter: blur(40px);
+
+  /* Glass card — solid translucent fill, NO backdrop-filter.
+     backdrop-filter is re-evaluated every frame its backdrop changes (i.e. on
+     every scroll), and with dozens of cards that's a major compositing tax.
+     On the dark gradient background a semi-opaque solid reads as frosted glass
+     for ~free. The one place we keep a real blur is the sticky navbar. */
+  .glass-card {
+    background: rgba(20, 22, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
   }
-  
+
+  .glass-card:hover {
+    background: rgba(28, 30, 40, 0.72);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
   /* Typewriter Effect */
   .typewriter {
     border-right: 2px solid rgba(78, 168, 255, 0.8);
-    animation: blink 1.5s step-end infinite, typewriter-pulse 2s ease-in-out infinite;
+    animation: blink 1.5s step-end infinite;
   }
-  
+
   /* Professional Button Animations */
   .btn-shimmer {
     position: relative;
     overflow: hidden;
   }
-  
+
   .btn-shimmer::before {
     content: '';
     position: absolute;
@@ -158,16 +127,16 @@
     );
     transition: left 0.5s;
   }
-  
+
   .btn-shimmer:hover::before {
     left: 100%;
   }
-  
+
   .btn-ripple {
     position: relative;
     overflow: hidden;
   }
-  
+
   .btn-ripple::after {
     content: '';
     position: absolute;
@@ -180,16 +149,16 @@
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s;
   }
-  
+
   .btn-ripple:active::after {
     width: 300px;
     height: 300px;
   }
-  
+
   .btn-glow {
     position: relative;
   }
-  
+
   .btn-glow::before {
     content: '';
     position: absolute;
@@ -207,86 +176,19 @@
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     opacity: 0;
-    transition: opacity 0.3s, background-position 0.5s;
-    animation: gradient-rotate 3s linear infinite;
+    transition: opacity 0.3s;
   }
-  
+
   .btn-glow:hover::before {
     opacity: 1;
   }
-  
+
   /* Keyframe Animations */
   @keyframes blink {
     0%, 50% { border-color: rgba(78, 168, 255, 0.8); }
     51%, 100% { border-color: transparent; }
   }
-  
-  @keyframes typewriter-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-  }
-  
-  @keyframes float {
-    0%, 100% { 
-      transform: translateY(0px) translateX(0px) rotate(0deg);
-    }
-    33% { 
-      transform: translateY(-20px) translateX(10px) rotate(120deg);
-    }
-    66% { 
-      transform: translateY(-10px) translateX(-10px) rotate(240deg);
-    }
-  }
-  
-  @keyframes glow {
-    0% { 
-      box-shadow: 
-        0 0 20px rgba(0, 200, 255, 0.3),
-        0 0 40px rgba(170, 100, 255, 0.2);
-    }
-    100% { 
-      box-shadow: 
-        0 0 30px rgba(0, 200, 255, 0.5),
-        0 0 60px rgba(170, 100, 255, 0.3);
-    }
-  }
-  
-  @keyframes magnetic {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(var(--magnetic-x, 0), var(--magnetic-y, 0)) scale(var(--magnetic-scale, 1)); }
-  }
-  
-  @keyframes gradient-shift {
-    0%, 100% {
-      transform: translate(0, 0) scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: translate(20px, -20px) scale(1.1);
-      opacity: 0.8;
-    }
-  }
-  
-  @keyframes grain-move {
-    0% { transform: translate(0, 0); }
-    10% { transform: translate(-5%, -5%); }
-    20% { transform: translate(-10%, 5%); }
-    30% { transform: translate(5%, -10%); }
-    40% { transform: translate(-5%, 15%); }
-    50% { transform: translate(-10%, 5%); }
-    60% { transform: translate(15%, 0); }
-    70% { transform: translate(0, 10%); }
-    80% { transform: translate(-15%, 0); }
-    90% { transform: translate(10%, 5%); }
-    100% { transform: translate(5%, 0); }
-  }
-  
-  @keyframes gradient-rotate {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  
+
   @keyframes slide-up {
     from {
       opacity: 0;
@@ -297,7 +199,7 @@
       transform: translateY(0);
     }
   }
-  
+
   @keyframes fade-in-scale {
     from {
       opacity: 0;
@@ -308,75 +210,77 @@
       transform: scale(1);
     }
   }
-  
-  @keyframes pulse-glow {
-    0%, 100% {
-      box-shadow: 0 0 20px rgba(0, 200, 255, 0.4);
-    }
-    50% {
-      box-shadow: 0 0 40px rgba(0, 200, 255, 0.8), 0 0 60px rgba(170, 100, 255, 0.4);
-    }
-  }
-  
+
   /* Animation Utilities */
-  .animate-float {
-    animation: float 8s ease-in-out infinite;
-  }
-  
-  .animate-glow {
-    animation: glow 2s ease-in-out infinite alternate;
-  }
-  
-  .animate-magnetic {
-    animation: magnetic 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
   .animate-slide-up {
     animation: slide-up 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   .animate-fade-in-scale {
     animation: fade-in-scale 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
-  }
-  
+
   /* Smooth Scroll */
   html {
     scroll-behavior: smooth;
   }
-  
+
   /* Enhanced Selection */
   ::selection {
     background: rgba(0, 200, 255, 0.3);
     color: #fff;
   }
-  
+
   /* Focus Visible Enhancement */
   *:focus-visible {
     outline: 2px solid rgba(78, 168, 255, 0.6);
     outline-offset: 2px;
     border-radius: 4px;
   }
-  
+
   /* Logo Variants */
   .logo-monochrome {
     filter: brightness(0) invert(1);
     transition: filter 0.3s ease, transform 0.3s ease;
   }
-  
+
   .logo-monochrome:hover {
-    filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(0, 200, 255, 0.6)) drop-shadow(0 0 16px rgba(170, 100, 255, 0.4));
+    filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(0, 200, 255, 0.6));
   }
-  
+
   .logo-original {
     filter: none;
     transition: filter 0.3s ease, transform 0.3s ease;
   }
-  
+
   .logo-original:hover {
     filter: drop-shadow(0 0 8px rgba(0, 200, 255, 0.3));
+  }
+}
+
+/* ----------------------------------------------------------------
+   Global performance gating
+   - Honour reduced-motion preference.
+   - On small screens, drop the one remaining backdrop-filter (the navbar)
+     since mobile GPUs handle it worst.
+   -------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  header[class*="backdrop-blur"],
+  nav[class*="backdrop-blur"],
+  [class*="backdrop-blur"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: rgba(10, 10, 15, 0.92);
   }
 }

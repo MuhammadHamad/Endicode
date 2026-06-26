@@ -82,24 +82,16 @@ export default function ServicesSection() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
-                whileHover={{ y: -8, scale: 1.02 }}
+                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                whileHover={{ y: -6 }}
                 data-testid={`service-${service.title.toLowerCase().replace(/[^a-z0-9]/g, '-')}`}
               >
-                {/* Hover gradient overlay */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-primary/5 to-electric-blue/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  initial={false}
-                />
-                
-                <motion.div 
-                  className={`w-14 h-14 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center mb-6 relative z-10 shadow-lg`}
-                  whileHover={{ scale: 1.15, rotate: 5 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-electric-blue/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className={`w-14 h-14 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center mb-6 relative z-10 shadow-lg`}>
                   <Icon className="w-7 h-7 text-white" />
-                </motion.div>
-                
+                </div>
+
                 <h3 className="font-display font-bold text-2xl mb-4 relative z-10 group-hover:text-electric-blue transition-colors duration-300">
                   {service.title}
                 </h3>
@@ -107,25 +99,16 @@ export default function ServicesSection() {
                   {service.description}
                 </p>
                 <ul className="space-y-3 text-sm relative z-10">
-                  {service.features.map((feature, idx) => (
-                    <motion.li 
-                      key={feature} 
+                  {service.features.map((feature) => (
+                    <li
+                      key={feature}
                       className="flex items-center space-x-2"
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 + idx * 0.05 }}
                     >
-                      <motion.div
-                        whileHover={{ scale: 1.2, rotate: 360 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      >
-                        <Check className="w-4 h-4 text-secondary" />
-                      </motion.div>
+                      <Check className="w-4 h-4 text-secondary flex-shrink-0" />
                       <span className="text-muted-foreground group-hover:text-foreground transition-colors">
                         {feature}
                       </span>
-                    </motion.li>
+                    </li>
                   ))}
                 </ul>
               </motion.div>
@@ -155,22 +138,17 @@ export default function ServicesSection() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
+                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
                 whileHover={{ y: -5 }}
                 data-testid={`timeline-step-${item.step}`}
               >
-                <motion.div 
+                <div
                   className={`w-14 h-14 ${item.step === "4" ? "bg-secondary" : "bg-electric-blue"} rounded-full flex items-center justify-center mx-auto mb-4 relative z-10 shadow-lg`}
-                  whileHover={{ scale: 1.15, rotate: 360 }}
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 + 0.2, type: "spring", stiffness: 200, damping: 20 }}
                 >
                   <span className={`font-bold text-lg ${item.step === "4" ? "text-black" : "text-white"}`}>
                     {item.step}
                   </span>
-                </motion.div>
+                </div>
                 <h4 className="font-semibold mb-2 text-lg">{item.title}</h4>
                 <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
               </motion.div>
