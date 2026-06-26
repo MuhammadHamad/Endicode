@@ -12,4 +12,4 @@ export const CALENDLY_URL = "https://calendly.com/itshammadofficial/30min"
 export const WHATSAPP_URL =
   "https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project."
 
-export const CONTACT_EMAIL = "hello@endicode.com"
+export const CONTACT_EMAIL = "hammad@endicode.com"
