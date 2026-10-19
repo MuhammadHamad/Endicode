@@ -23,10 +23,10 @@ export const insertUserSchema = z.object({
 });
 
 export const insertContactSchema = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  company: z.string().nullable().optional(),
-  message: z.string(),
+  name: z.string().trim().min(1).max(100),
+  email: z.string().email().max(254),
+  company: z.string().trim().max(200).nullable().optional(),
+  message: z.string().trim().min(1).max(5000),
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
