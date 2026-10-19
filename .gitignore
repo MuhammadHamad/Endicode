@@ -9,6 +9,13 @@ dist/
 .env.*
 !.env.example
 
+# Local SQLite databases (the dev server stores contact-form submissions in
+# database.sqlite), plus their -journal/-wal/-shm side files
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+
 # Logs
 *.log
 npm-debug.log*
