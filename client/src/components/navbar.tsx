@@ -73,9 +73,10 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-4">
         <div className="flex items-center justify-between">
-          {/* Brand */}
-          <a
-            href="https://endicode.com"
+          {/* Brand — client-side link; scroll to top like the old full reload did */}
+          <Link
+            href="/"
+            onClick={() => window.scrollTo({ top: 0, behavior: "instant" })}
             data-testid="logo-link"
             aria-label="Endicode home"
             className="cursor-pointer ml-1 md:ml-2 inline-block"
@@ -85,7 +86,7 @@ export default function Navbar() {
               alt="Endicode"
               className="logo-monochrome h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.2] lg:scale-[2.8] xl:scale-[3.0] transition-transform duration-300"
             />
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <nav

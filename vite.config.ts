@@ -26,16 +26,8 @@ export default defineConfig({
         manualChunks: {
           'framer-motion': ['framer-motion'],
           recharts: ['recharts'],
-          radix: [
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-popover',
-            '@radix-ui/react-tooltip',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-select',
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-toast',
-            '@radix-ui/react-navigation-menu',
-          ],
+          // No Radix chunk: forcing every Radix package into one chunk loaded
+          // all of them on the homepage; Rollup bundles each with its route.
         },
       },
     },

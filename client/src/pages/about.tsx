@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Linkedin } from "lucide-react";
 import { Link } from "wouter";
 import Container from "@/components/container";
+import Seo from "@/components/seo";
 import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -70,6 +71,11 @@ export default function About() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
+      <Seo
+        title="About"
+        description="Endicode is a modern build-and-automate studio. We craft the product, then automate everything around it so your team can focus on what humans do best."
+        path="/about"
+      />
       {/* Hero Section */}
       <Section className="gradient-mesh">
         <Container>

@@ -2,34 +2,43 @@
 <html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Endicode</title>
-    <meta name="description" content="Modern web/app development and AI automation services. We craft conversion-ready web apps and wire in automation that cuts cost, clicks, and chaos.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Home-page defaults for crawlers that don't run JavaScript (link
+         previews). data-rh lets react-helmet-async replace these per route
+         (see client/src/components/seo.tsx) instead of duplicating them. The
+         canonical link is only rendered per route: a static one here would
+         point every route's raw HTML at the homepage. -->
+    <title>Endicode | Web Apps &amp; AI Automation</title>
+    <meta name="description" content="Modern web/app development and AI automation services. We craft conversion-ready web apps and wire in automation that cuts cost, clicks, and chaos." data-rh="true">
     <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
-<!-- OpenGraph -->
-    <meta property="og:title" content="Endicode">
-    <meta property="og:description" content="Modern web/app development and AI automation services.">
+    <!-- OpenGraph -->
+    <meta property="og:title" content="Endicode | Web Apps &amp; AI Automation" data-rh="true">
+    <meta property="og:description" content="Modern web/app development and AI automation services. We craft conversion-ready web apps and wire in automation that cuts cost, clicks, and chaos." data-rh="true">
+    <meta property="og:url" content="https://www.endicode.com/" data-rh="true">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://endicode.com">
-    <meta property="og:image" content="/og.png">
-    
+    <meta property="og:site_name" content="Endicode">
+    <meta property="og:image" content="https://www.endicode.com/og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Endicode logo with the line: Web apps &amp; AI automation">
+    <meta name="twitter:card" content="summary_large_image">
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Endicode",
-      "url": "https://endicode.com",
+      "url": "https://www.endicode.com/",
       "description": "Modern web/app development and AI automation services"
     }
     </script>
-    
-    <link rel="canonical" href="https://endicode.com">
     <!-- Favicon -->
     <style>
       /* Remove any filters to show original logo color */

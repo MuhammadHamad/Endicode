@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, TrendingUp, Clock, DollarSign } from "lucide-react";
 import { Link } from "wouter";
 import Container from "@/components/container";
+import Seo from "@/components/seo";
 import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -81,6 +82,11 @@ export default function CaseStudies() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
+      <Seo
+        title="Case Studies"
+        description="See how Endicode helps businesses automate workflows and accelerate growth: AI support bots for e-commerce, lead scoring for SaaS, faster patient onboarding."
+        path="/case-studies"
+      />
       {/* Hero Section */}
       <Section className="gradient-mesh">
         <Container>

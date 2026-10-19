@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import Container from "@/components/container";
+import Seo from "@/components/seo";
 import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,6 +20,11 @@ export default function Pricing() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
+      <Seo
+        title="Pricing"
+        description="Every project is unique, so every quote is too. Custom, transparent pricing for web apps and automation, based on your requirements, timeline and scope."
+        path="/pricing"
+      />
       {/* Hero Section */}
       <Section className="gradient-mesh">
         <Container>

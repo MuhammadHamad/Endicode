@@ -1,5 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Switch, Route } from "wouter";
+import { HelmetProvider } from "react-helmet-async";
+import { MotionConfig } from "framer-motion";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -42,19 +44,25 @@ function Router() {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <div className="min-h-screen bg-background text-foreground antialiased">
-          <Navbar />
-          <main className="pt-20">
-            <Router />
-          </main>
-          <Footer />
+    <HelmetProvider>
+      {/* framer-motion ignores the CSS prefers-reduced-motion rule; this makes
+          its JS animations skip transforms for users who ask for less motion. */}
+      <MotionConfig reducedMotion="user">
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <div className="min-h-screen bg-background text-foreground antialiased">
+              <Navbar />
+              <main className="pt-20">
+                <Router />
+              </main>
+              <Footer />
 
-          <Toaster />
-        </div>
-      </TooltipProvider>
-    </QueryClientProvider>
+              <Toaster />
+            </div>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </MotionConfig>
+    </HelmetProvider>
   );
 }
 

@@ -6,17 +6,18 @@ import ROIChart from "@/components/roi-chart";
 import CaseStudiesSection from "@/components/case-studies-section";
 import Testimonials from "@/components/testimonials";
 import Container from "@/components/container";
+import Seo from "@/components/seo";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 
 export default function Home() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-    >
+    // No page-level fade-in here: it would hide the hero <h1> (the LCP element) on first paint.
+    <div>
+      <Seo
+        description="Modern web/app development and AI automation services. We craft conversion-ready web apps and wire in automation that cuts cost, clicks, and chaos."
+        path="/"
+      />
       <Hero />
       <LogoMarquee />
       <ServicesSection />
@@ -77,6 +78,6 @@ export default function Home() {
           </div>
         </Container>
       </section>
-    </motion.div>
+    </div>
   );
 }

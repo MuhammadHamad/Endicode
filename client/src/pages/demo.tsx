@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Play } from "lucide-react";
 import { Link } from "wouter";
 import Container from "@/components/container";
+import Seo from "@/components/seo";
 import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
 import AutomationDemo from "@/components/automation-demo";
@@ -17,6 +18,11 @@ export default function Demo() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
+      <Seo
+        title="Automation Demo"
+        description="Try a live automation demo: a lead triage classifier that drafts replies and a CSV lead scorer, running right in your browser. No servers, no signup required."
+        path="/demo"
+      />
       {/* Hero Section */}
       <Section className="gradient-mesh">
         <Container>

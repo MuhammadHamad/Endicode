@@ -31,13 +31,17 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center mb-4 ml-1 md:ml-2">
-              <a href="https://endicode.com" aria-label="Endicode home">
+              <Link
+                href="/"
+                onClick={() => window.scrollTo({ top: 0, behavior: "instant" })}
+                aria-label="Endicode home"
+              >
                 <img
                   src={logo2}
                   alt="Endicode"
                   className="logo-monochrome h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.2] lg:scale-[2.8] xl:scale-[3.0] transition-transform duration-300"
                 />
-              </a>
+              </Link>
             </div>
             <p className="text-sm text-muted-foreground max-w-sm">
               Need to reach us?{" "}

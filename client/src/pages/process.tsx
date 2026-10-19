@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Search, Map, Hammer, Zap, GraduationCap, Clock, Target, FileText } from "lucide-react";
 import { Link } from "wouter";
 import Container from "@/components/container";
+import Seo from "@/components/seo";
 import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -62,6 +63,11 @@ export default function Process() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
+      <Seo
+        title="Our Process"
+        description="Less ceremony, more shipping. Our 5-step process (discover, map, build, automate, train) takes you from idea to automated workflows in 30 days or less."
+        path="/process"
+      />
       {/* Hero Section */}
       <Section className="gradient-mesh">
         <Container>

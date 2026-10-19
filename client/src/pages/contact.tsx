@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { MessageCircle, ArrowRight, MapPin, Phone, Mail } from "lucide-react";
 import { Link } from "wouter";
 import Container from "@/components/container";
+import Seo from "@/components/seo";
 import Section from "@/components/section";
 import ContactForm from "@/components/contact-form";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,11 @@ export default function Contact() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
+      <Seo
+        title="Contact"
+        description="Ready to automate the work and accelerate growth? Send Endicode a message or chat with us on WhatsApp to discuss your web app or automation project."
+        path="/contact"
+      />
       {/* Hero Section */}
       <Section className="gradient-mesh">
         <Container>

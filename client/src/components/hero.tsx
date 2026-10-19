@@ -53,26 +53,19 @@ export default function Hero() {
 
       <Container className="relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Hero Content */}
-          <motion.div
-            className="space-y-8"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-          >
+          {/* Hero Content — the <h1> is the LCP element, so neither it nor this
+              wrapper fades in; the elements below it still animate. */}
+          <div className="space-y-8">
             <div className="space-y-6">
-              <motion.h1
+              <h1
                 className="font-display font-bold text-5xl lg:text-7xl leading-tight"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
                 data-testid="hero-title"
               >
                 Build today.<br />
                 <span className="bg-gradient-to-r from-electric-blue via-secondary to-electric-blue bg-clip-text text-transparent">
                   Automate tomorrow.
                 </span>
-              </motion.h1>
+              </h1>
               <motion.p
                 className="text-xl text-muted-foreground leading-relaxed max-w-lg"
                 initial={{ opacity: 0, y: 20 }}
@@ -141,7 +134,7 @@ export default function Hero() {
                 </div>
               ))}
             </motion.div>
-          </motion.div>
+          </div>
 
           {/* Hero Visual - Code Window (no float) */}
           <motion.div

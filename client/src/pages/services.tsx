@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Code, Zap, Brain, Check, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import Container from "@/components/container";
+import Seo from "@/components/seo";
 import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -65,6 +66,11 @@ export default function Services() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
+      <Seo
+        title="Services"
+        description="Web and app development with Next.js and React Native, process automation from lead triage to invoice parsing, and AI assistants like support bots and copilots."
+        path="/services"
+      />
       {/* Hero Section */}
       <Section className="gradient-mesh">
         <Container>
