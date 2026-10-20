@@ -31,11 +31,7 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center mb-4 ml-1 md:ml-2">
-              <Link
-                href="/"
-                onClick={() => window.scrollTo({ top: 0, behavior: "instant" })}
-                aria-label="Endicode home"
-              >
+              <Link href="/" aria-label="Endicode home">
                 <img
                   src={logo2}
                   alt="Endicode"
