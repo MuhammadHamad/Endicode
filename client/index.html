@@ -55,6 +55,10 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx?v=1"></script>
     <!--Start of Tawk.to Script (deferred until after load + idle) -->
+    <!-- Keep "Disable browser tab notification" switched on in the tawk.to
+         dashboard (Administration > Chat Widget > Widget Behavior). Without it,
+         an unread greeting swaps document.title with "1 new message" every
+         second, which Googlebot can index. Tawk_API has no option for this. -->
     <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
     function loadTawk(){
