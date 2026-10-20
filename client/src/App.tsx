@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { Switch, Route } from "wouter";
+import { Router as WouterRouter, Switch, Route, type AroundNavHandler } from "wouter";
 import { HelmetProvider } from "react-helmet-async";
 import { MotionConfig } from "framer-motion";
 import { queryClient } from "./lib/queryClient";
@@ -21,6 +21,15 @@ const Contact = lazy(() => import("@/pages/contact"));
 const Demo = lazy(() => import("@/pages/demo"));
 const Privacy = lazy(() => import("@/pages/privacy"));
 const Terms = lazy(() => import("@/pages/terms"));
+
+// Every in-app navigation (<Link> or navigate()) lands at the top of the page,
+// like a full page load would. Back/forward doesn't go through here, so the
+// browser still restores the previous scroll position.
+const scrollToTopOnNav: AroundNavHandler = (navigate, to, options) => {
+  navigate(to, options);
+  // "instant" because html has scroll-behavior: smooth.
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+};
 
 function Router() {
   return (
@@ -50,15 +59,17 @@ function App() {
       <MotionConfig reducedMotion="user">
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
-            <div className="min-h-screen bg-background text-foreground antialiased">
-              <Navbar />
-              <main className="pt-20">
-                <Router />
-              </main>
-              <Footer />
+            <WouterRouter aroundNav={scrollToTopOnNav}>
+              <div className="min-h-screen bg-background text-foreground antialiased">
+                <Navbar />
+                <main className="pt-20">
+                  <Router />
+                </main>
+                <Footer />
 
-              <Toaster />
-            </div>
+                <Toaster />
+              </div>
+            </WouterRouter>
           </TooltipProvider>
         </QueryClientProvider>
       </MotionConfig>

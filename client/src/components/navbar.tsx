@@ -73,10 +73,9 @@ export default function Navbar() {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-4">
         <div className="flex items-center justify-between">
-          {/* Brand — client-side link; scroll to top like the old full reload did */}
+          {/* Brand — client-side link; App scrolls to the top on every navigation */}
           <Link
             href="/"
-            onClick={() => window.scrollTo({ top: 0, behavior: "instant" })}
             data-testid="logo-link"
             aria-label="Endicode home"
             className="cursor-pointer ml-1 md:ml-2 inline-block"
