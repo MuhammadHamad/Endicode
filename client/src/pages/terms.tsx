@@ -5,7 +5,7 @@ import { CONTACT_EMAIL } from "@/lib/utils";
 
 export default function Terms() {
   return (
-    <Section className="gradient-mesh">
+    <Section className="gradient-mesh" fadeIn={false}>
       <Seo path="/terms" />
       <Container>
         <div className="max-w-3xl mx-auto prose prose-invert">
