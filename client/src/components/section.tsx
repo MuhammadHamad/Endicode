@@ -5,9 +5,19 @@ interface SectionProps {
   children: ReactNode;
   className?: string;
   id?: string;
+  /** Turn off for a page's hero so its <h1> (often the LCP element) shows on first paint. */
+  fadeIn?: boolean;
 }
 
-export default function Section({ children, className = "", id }: SectionProps) {
+export default function Section({ children, className = "", id, fadeIn = true }: SectionProps) {
+  if (!fadeIn) {
+    return (
+      <section id={id} className={`py-20 ${className}`}>
+        {children}
+      </section>
+    );
+  }
+
   return (
     <motion.section
       id={id}

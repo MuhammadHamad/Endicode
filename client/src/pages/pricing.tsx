@@ -14,29 +14,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Pricing() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div>
       <Seo
         title="Pricing"
         description="Every project is unique, so every quote is too. Custom, transparent pricing for web apps and automation, based on your requirements, timeline and scope."
         path="/pricing"
       />
-      {/* Hero Section */}
-      <Section className="gradient-mesh">
+      {/* Hero Section: neither the <h1> nor its wrappers fade in, so it shows on first paint */}
+      <Section className="gradient-mesh" fadeIn={false}>
         <Container>
           <div className="text-center mb-16">
-            <motion.h1
-              className="font-display font-bold text-5xl lg:text-6xl mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
+            <h1 className="font-display font-bold text-5xl lg:text-6xl mb-6">
               <span className="text-electric-blue">Custom</span> pricing
-            </motion.h1>
+            </h1>
             <motion.p
               className="text-xl text-muted-foreground max-w-3xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
@@ -109,6 +99,6 @@ export default function Pricing() {
 
         </Container>
       </Section>
-    </motion.div>
+    </div>
   );
 }

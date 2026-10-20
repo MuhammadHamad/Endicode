@@ -5,7 +5,7 @@ import { CONTACT_EMAIL } from "@/lib/utils";
 
 export default function Terms() {
   return (
-    <Section className="gradient-mesh">
+    <Section className="gradient-mesh" fadeIn={false}>
       <Seo
         title="Terms of Service"
         description="The terms for using the Endicode website: when a paid engagement begins, acceptable use of the site, intellectual property, and limits of liability."

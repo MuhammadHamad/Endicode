@@ -12,19 +12,14 @@ export default function Demo() {
   const [isDemoOpen, setIsDemoOpen] = useState(false);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div>
       <Seo
         title="Automation Demo"
         description="Try a live automation demo: a lead triage classifier that drafts replies and a CSV lead scorer, running right in your browser. No servers, no signup required."
         path="/demo"
       />
-      {/* Hero Section */}
-      <Section className="gradient-mesh">
+      {/* Hero Section: neither the <h1> nor its wrappers fade in, so it shows on first paint */}
+      <Section className="gradient-mesh" fadeIn={false}>
         <Container>
           <div className="text-center mb-16">
             <motion.div
@@ -41,14 +36,9 @@ export default function Demo() {
               </Link>
             </motion.div>
             
-            <motion.h1
-              className="font-display font-bold text-5xl lg:text-6xl mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
+            <h1 className="font-display font-bold text-5xl lg:text-6xl mb-6">
               <span className="text-electric-blue">Automation</span> Demo
-            </motion.h1>
+            </h1>
             <motion.p
               className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8"
               initial={{ opacity: 0, y: 20 }}
@@ -266,6 +256,6 @@ export default function Demo() {
 
       {/* Automation Demo Component */}
       <AutomationDemo isOpen={isDemoOpen} onClose={() => setIsDemoOpen(false)} />
-    </motion.div>
+    </div>
   );
 }
