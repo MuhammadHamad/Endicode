@@ -63,11 +63,7 @@ export default function Process() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Seo
-        title="Our Process"
-        description="Less ceremony, more shipping. Our 5-step process (discover, map, build, automate, train) takes you from idea to automated workflows in 30 days or less."
-        path="/process"
-      />
+      <Seo path="/process" />
       {/* Hero Section */}
       <Section className="gradient-mesh">
         <Container>

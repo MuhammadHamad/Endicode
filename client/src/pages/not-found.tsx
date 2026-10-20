@@ -5,11 +5,7 @@ import Seo from "@/components/seo";
 export default function NotFound() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <Seo
-        title="Page Not Found"
-        description="The page you were looking for does not exist or has moved. Head back to Endicode for web apps and AI automation."
-        noindex
-      />
+      <Seo notFound />
       <Card className="w-full max-w-md mx-4">
         <CardContent className="pt-6">
           <div className="flex mb-4 gap-2">

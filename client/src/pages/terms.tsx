@@ -6,11 +6,7 @@ import { CONTACT_EMAIL } from "@/lib/utils";
 export default function Terms() {
   return (
     <Section className="gradient-mesh">
-      <Seo
-        title="Terms of Service"
-        description="The terms for using the Endicode website: when a paid engagement begins, acceptable use of the site, intellectual property, and limits of liability."
-        path="/terms"
-      />
+      <Seo path="/terms" />
       <Container>
         <div className="max-w-3xl mx-auto prose prose-invert">
           <h1 className="font-display font-bold text-4xl mb-2">Terms of Service</h1>

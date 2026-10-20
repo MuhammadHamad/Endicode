@@ -76,10 +76,15 @@ export function serveStatic(app: Express) {
     );
   }
 
-  app.use(express.static(distPath));
+  // redirect: false stops /services from 301ing to /services/; the fallback
+  // below serves it from services/index.html directly, as Vercel does.
+  app.use(express.static(distPath, { redirect: false }));
 
-  // fall through to index.html if the file doesn't exist
-  app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+  // fall through to index.html if the file doesn't exist, or to the route's
+  // own copy with its head tags (written by scripts/route-html.ts)
+  app.use("*", (req, res) => {
+    const routeFile = path.join(distPath, req.baseUrl, "index.html");
+    const hasOwnFile = routeFile.startsWith(distPath + path.sep) && fs.existsSync(routeFile);
+    res.sendFile(hasOwnFile ? routeFile : path.resolve(distPath, "index.html"));
   });
 }

@@ -6,11 +6,7 @@ import { CONTACT_EMAIL } from "@/lib/utils";
 export default function Privacy() {
   return (
     <Section className="gradient-mesh">
-      <Seo
-        title="Privacy Policy"
-        description="How Endicode handles what you send us: what we collect, how we use it, cookies and analytics, and your rights. We never sell your data or train models on it."
-        path="/privacy"
-      />
+      <Seo path="/privacy" />
       <Container>
         <div className="max-w-3xl mx-auto prose prose-invert">
           <h1 className="font-display font-bold text-4xl mb-2">Privacy Policy</h1>

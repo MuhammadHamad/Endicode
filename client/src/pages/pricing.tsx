@@ -20,11 +20,7 @@ export default function Pricing() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Seo
-        title="Pricing"
-        description="Every project is unique, so every quote is too. Custom, transparent pricing for web apps and automation, based on your requirements, timeline and scope."
-        path="/pricing"
-      />
+      <Seo path="/pricing" />
       {/* Hero Section */}
       <Section className="gradient-mesh">
         <Container>

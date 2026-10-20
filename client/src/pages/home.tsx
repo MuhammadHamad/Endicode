@@ -14,10 +14,7 @@ export default function Home() {
   return (
     // No page-level fade-in here: it would hide the hero <h1> (the LCP element) on first paint.
     <div>
-      <Seo
-        description="Modern web/app development and AI automation services. We craft conversion-ready web apps and wire in automation that cuts cost, clicks, and chaos."
-        path="/"
-      />
+      <Seo path="/" />
       <Hero />
       <LogoMarquee />
       <ServicesSection />

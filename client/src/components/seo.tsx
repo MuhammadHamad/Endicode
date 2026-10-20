@@ -1,34 +1,38 @@
 import { Helmet } from "react-helmet-async";
+import {
+  NOT_FOUND_META,
+  ROUTE_META,
+  pageTitle,
+  pageUrl,
+  type RoutePath,
+} from "@/lib/route-meta";
 
-// www is the canonical host — the apex domain 308-redirects to it.
-export const SITE_URL = "https://www.endicode.com";
-const SITE_TITLE = "Endicode | Web Apps & AI Automation";
+type SeoProps =
+  /** A route in ROUTE_META: its title, description, canonical and og:url. */
+  | { path: RoutePath }
+  /** The catch-all 404 page: noindex and no canonical. */
+  | { notFound: true };
 
-type SeoProps = {
-  /** Page name; omit on the home page to use the bare site title. */
-  title?: string;
-  description: string;
-  /** Route path for the canonical URL and og:url; omit on pages that should not be indexed. */
-  path?: string;
-  noindex?: boolean;
-};
-
-// Per-route <head> tags. index.html ships the home-page versions of the
-// description/og tags (marked data-rh so Helmet replaces rather than
-// duplicates them) for crawlers that don't run JavaScript.
-export default function Seo({ title, description, path, noindex = false }: SeoProps) {
-  const fullTitle = title ? `${title} — ${SITE_TITLE}` : SITE_TITLE;
-  const url = path === undefined ? undefined : `${SITE_URL}${path}`;
+// Per-route <head> tags. Each route's raw HTML already carries them for
+// crawlers that don't run JavaScript: index.html has the home page's, and the
+// build writes every other route its own copy (scripts/route-html.ts). They
+// are marked data-rh, so Helmet adopts or replaces them instead of adding
+// duplicates.
+export default function Seo(props: SeoProps) {
+  const path = "path" in props ? props.path : undefined;
+  const meta = path ? ROUTE_META[path] : NOT_FOUND_META;
+  const title = pageTitle(meta);
+  const url = path && pageUrl(path);
 
   return (
     <Helmet>
-      <title>{fullTitle}</title>
-      <meta name="description" content={description} />
-      <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
+      <title>{title}</title>
+      <meta name="description" content={meta.description} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={meta.description} />
       {url && <meta property="og:url" content={url} />}
       {url && <link rel="canonical" href={url} />}
-      {noindex && <meta name="robots" content="noindex" />}
+      {!url && <meta name="robots" content="noindex" />}
     </Helmet>
   );
 }

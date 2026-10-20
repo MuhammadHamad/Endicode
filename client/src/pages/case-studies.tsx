@@ -82,11 +82,7 @@ export default function CaseStudies() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Seo
-        title="Case Studies"
-        description="See how Endicode helps businesses automate workflows and accelerate growth: AI support bots for e-commerce, lead scoring for SaaS, faster patient onboarding."
-        path="/case-studies"
-      />
+      <Seo path="/case-studies" />
       {/* Hero Section */}
       <Section className="gradient-mesh">
         <Container>

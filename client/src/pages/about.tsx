@@ -71,11 +71,7 @@ export default function About() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Seo
-        title="About"
-        description="Endicode is a modern build-and-automate studio. We craft the product, then automate everything around it so your team can focus on what humans do best."
-        path="/about"
-      />
+      <Seo path="/about" />
       {/* Hero Section */}
       <Section className="gradient-mesh">
         <Container>

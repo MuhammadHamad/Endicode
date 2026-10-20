@@ -66,11 +66,7 @@ export default function Services() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Seo
-        title="Services"
-        description="Web and app development with Next.js and React Native, process automation from lead triage to invoice parsing, and AI assistants like support bots and copilots."
-        path="/services"
-      />
+      <Seo path="/services" />
       {/* Hero Section */}
       <Section className="gradient-mesh">
         <Container>

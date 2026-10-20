@@ -16,11 +16,7 @@ export default function Contact() {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Seo
-        title="Contact"
-        description="Ready to automate the work and accelerate growth? Send Endicode a message or chat with us on WhatsApp to discuss your web app or automation project."
-        path="/contact"
-      />
+      <Seo path="/contact" />
       {/* Hero Section */}
       <Section className="gradient-mesh">
         <Container>
