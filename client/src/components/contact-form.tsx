@@ -14,11 +14,24 @@ import { apiRequest } from "@/lib/queryClient";
 import { Link } from "wouter";
 import { WHATSAPP_URL } from "@/lib/utils";
 
+// Max lengths mirror insertContactSchema in shared/schema.ts, so over-long input gets an
+// inline error here instead of a rejected submission.
 const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  company: z.string().optional(),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  name: z
+    .string()
+    .min(2, "Name must be at least 2 characters")
+    .max(100, "Name must be 100 characters or fewer"),
+  email: z
+    .string()
+    .email("Please enter a valid email address")
+    .max(254, "Email must be 254 characters or fewer"),
+  company: z.string().max(200, "Company must be 200 characters or fewer").optional(),
+  message: z
+    .string()
+    .min(10, "Message must be at least 10 characters")
+    .max(5000, "Message must be 5,000 characters or fewer"),
+  // Honeypot — see the hidden input below. Real visitors leave it empty.
+  website: z.string().optional(),
   consent: z.literal(true, {
     errorMap: () => ({ message: "Please accept the privacy policy to continue" }),
   }),
@@ -36,6 +49,7 @@ export default function ContactForm() {
       email: "",
       company: "",
       message: "",
+      website: "",
       consent: false as unknown as true,
     },
   });
@@ -121,6 +135,23 @@ export default function ContactForm() {
                 </FormItem>
               )}
             />
+          </div>
+
+          {/* Honeypot: off-screen, out of the tab order and hidden from assistive tech, so only
+              bots fill it in; the API silently drops submissions where it isn't empty.
+              data-1p-ignore / data-lpignore stop 1Password and LastPass autofilling it. */}
+          <div aria-hidden="true" className="absolute -left-[10000px] h-px w-px overflow-hidden">
+            <label>
+              Leave this field empty
+              <input
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                data-1p-ignore
+                data-lpignore="true"
+                {...form.register("website")}
+              />
+            </label>
           </div>
 
           <FormField
