@@ -4,6 +4,7 @@ import { Calendar, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CodeWindow from "@/components/code-window";
 import Container from "@/components/container";
+import OpensInNewTab from "@/components/opens-in-new-tab";
 import { CALENDLY_URL, WHATSAPP_URL } from "@/lib/utils";
 
 export default function Hero() {
@@ -90,8 +91,9 @@ export default function Hero() {
                   rel="noopener noreferrer"
                   data-testid="button-whatsapp-contact"
                 >
-                  <MessageCircle className="w-4 h-4 mr-2" />
+                  <MessageCircle className="w-4 h-4 mr-2" aria-hidden="true" />
                   Chat on WhatsApp
+                  <OpensInNewTab />
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="glass-card">
@@ -101,8 +103,9 @@ export default function Hero() {
                   rel="noopener noreferrer"
                   data-testid="button-book-call"
                 >
-                  <Calendar className="w-4 h-4 mr-2" />
+                  <Calendar className="w-4 h-4 mr-2" aria-hidden="true" />
                   Book a 30-min call
+                  <OpensInNewTab />
                 </a>
               </Button>
             </motion.div>

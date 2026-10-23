@@ -24,12 +24,12 @@ export default function Demo() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <Link href="/" data-testid="link-back-home">
-                <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
+              <Button asChild variant="ghost" className="text-muted-foreground hover:text-foreground">
+                <Link href="/" data-testid="link-back-home">
+                  <ArrowLeft className="w-4 h-4 mr-2" aria-hidden="true" />
                   Back to Home
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </motion.div>
             
             <h1 className="font-display font-bold text-5xl lg:text-6xl mb-6">
@@ -55,7 +55,7 @@ export default function Demo() {
                 className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300"
                 data-testid="button-launch-demo"
               >
-                <Play className="w-5 h-5 mr-2" />
+                <Play className="w-5 h-5 mr-2" aria-hidden="true" />
                 Launch Demo
               </Button>
             </motion.div>
@@ -153,7 +153,7 @@ export default function Demo() {
               transition={{ duration: 0.6 }}
             >
               <div className="w-12 h-12 bg-electric-blue rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold">1</span>
+                <span className="text-primary-foreground font-bold">1</span>
               </div>
               <h3 className="font-semibold text-lg mb-2">Input Data</h3>
               <p className="text-sm text-muted-foreground">
@@ -169,7 +169,7 @@ export default function Demo() {
               transition={{ duration: 0.6, delay: 0.1 }}
             >
               <div className="w-12 h-12 bg-electric-blue rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white font-bold">2</span>
+                <span className="text-primary-foreground font-bold">2</span>
               </div>
               <h3 className="font-semibold text-lg mb-2">AI Analysis</h3>
               <p className="text-sm text-muted-foreground">
@@ -225,26 +225,22 @@ export default function Demo() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button asChild size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
-                  <Link href="/contact">
-                    Start Your Project
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Link>
-                </Button>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button 
-                  onClick={() => setIsDemoOpen(true)}
-                  size="lg"
-                  variant="outline"
-                  className="glass-card hover:shadow-xl transition-all duration-300"
-                  data-testid="button-try-demo-again"
-                >
-                  <Play className="w-4 h-4 mr-2" />
-                  Try Demo
-                </Button>
-              </motion.div>
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
+                <Link href="/contact">
+                  Start Your Project
+                  <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
+                </Link>
+              </Button>
+              <Button
+                onClick={() => setIsDemoOpen(true)}
+                size="lg"
+                variant="outline"
+                className="glass-card hover:shadow-xl transition-all duration-300"
+                data-testid="button-try-demo-again"
+              >
+                <Play className="w-4 h-4 mr-2" aria-hidden="true" />
+                Try Demo
+              </Button>
             </motion.div>
           </div>
         </Container>

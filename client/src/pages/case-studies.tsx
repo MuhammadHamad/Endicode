@@ -116,18 +116,28 @@ export default function CaseStudies() {
                     <Badge variant="outline" className="mb-4">{study.category}</Badge>
                     <h2 className="font-display font-bold text-3xl mb-4">{study.title}</h2>
                     
+                    {/* The icons stand in for labels on screen; screen readers get the words. */}
                     <div className="grid md:grid-cols-3 gap-4 mb-6">
                       <div className="flex items-center space-x-2">
-                        <Clock className="w-4 h-4 text-electric-blue" />
-                        <span className="text-sm text-muted-foreground">{study.duration}</span>
+                        <Clock className="w-4 h-4 text-electric-blue" aria-hidden="true" />
+                        <span className="text-sm text-muted-foreground">
+                          <span className="sr-only">Duration: </span>
+                          {study.duration}
+                        </span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <DollarSign className="w-4 h-4 text-secondary" />
-                        <span className="text-sm text-muted-foreground">{study.investment}</span>
+                        <DollarSign className="w-4 h-4 text-secondary" aria-hidden="true" />
+                        <span className="text-sm text-muted-foreground">
+                          <span className="sr-only">Investment: </span>
+                          {study.investment}
+                        </span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <TrendingUp className="w-4 h-4 text-electric-blue" />
-                        <span className="text-sm text-muted-foreground">{study.industry}</span>
+                        <TrendingUp className="w-4 h-4 text-electric-blue" aria-hidden="true" />
+                        <span className="text-sm text-muted-foreground">
+                          <span className="sr-only">Industry: </span>
+                          {study.industry}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -224,21 +234,17 @@ export default function CaseStudies() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
                 <Link href="/contact">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
-                    Start Your Project
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
+                  Start Your Project
+                  <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
                 </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
                 <Link href="/demo">
-                  <Button size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
-                    See Demo
-                  </Button>
+                  See Demo
                 </Link>
-              </motion.div>
+              </Button>
             </motion.div>
           </div>
         </Container>

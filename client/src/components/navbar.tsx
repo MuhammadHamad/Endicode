@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "wouter";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import OpensInNewTab from "@/components/opens-in-new-tab";
 import { WHATSAPP_URL } from "@/lib/utils";
 
 
@@ -20,52 +21,37 @@ const navigation = [
   { name: "Contact", href: "/contact" },
 ];
 
-function MobileMenuPortal({ children }: { children: React.ReactNode }) {
-  if (typeof document === "undefined") return null;
-  return createPortal(children, document.body);
-}
-
 export default function Navbar() {
   const [location] = useLocation();
   const [open, setOpen] = useState(false);
-  const firstFocusableRef = useRef<HTMLElement | null>(null);
+  // Set when a menu link closes the menu, so focus goes to the new page instead of the toggle.
+  const navigatedRef = useRef(false);
 
-  // body classes + scroll lock + mobile-menu-open (for hiding other CTAs if needed)
+  // Close the menu on any route change, including back/forward.
   useEffect(() => {
-    document.body.classList.toggle("overflow-hidden", open);
-    document.body.classList.toggle("mobile-menu-open", open);
-    return () => {
-      document.body.classList.remove("overflow-hidden");
-      document.body.classList.remove("mobile-menu-open");
+    setOpen(false);
+  }, [location]);
+
+  // Close it when the viewport grows to the desktop layout, where the toggle is hidden.
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 768px)");
+    const onChange = (event: MediaQueryListEvent) => {
+      if (event.matches) setOpen(false);
     };
-  }, [open]);
-
-  // focus first focusable inside menu when opened
-  useEffect(() => {
-    if (!open) return;
-    const timer = window.setTimeout(() => {
-      const el =
-        firstFocusableRef.current ??
-        (document.querySelector(
-          "#mobile-menu a, #mobile-menu button, #mobile-menu [tabindex]"
-        ) as HTMLElement | null);
-      el?.focus?.();
-    }, 40);
-    return () => clearTimeout(timer);
-  }, [open]);
-
-  // close on Escape
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    desktop.addEventListener("change", onChange);
+    return () => desktop.removeEventListener("change", onChange);
   }, []);
 
+  const closeForNavigation = () => {
+    navigatedRef.current = true;
+    setOpen(false);
+  };
+
   return (
+    // z-40: above page content (z-10) but below Radix layers (dialogs, the menu
+    // sheet, selects: z-50; toasts: z-100), so a tall dialog isn't covered by the bar.
     <motion.header
-      className="fixed top-0 left-0 right-0 z-[2000] border-b border-border/50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60"
+      className="fixed top-0 left-0 right-0 z-40 border-b border-border/50 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60"
       style={{ willChange: "backdrop-filter" }}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -93,7 +79,11 @@ export default function Navbar() {
             aria-label="Primary"
           >
             {navigation.map((item) => (
-              <Link key={item.name} href={item.href}>
+              <Link
+                key={item.name}
+                href={item.href}
+                aria-current={location === item.href ? "page" : undefined}
+              >
                 <span
                   className={`text-xs lg:text-sm font-medium transition-colors relative inline-block hover:-translate-y-0.5 hover:transition-transform ${
                     location === item.href
@@ -103,7 +93,8 @@ export default function Navbar() {
                 >
                   {item.name}
                   {location === item.href && (
-                    <motion.div
+                    <motion.span
+                      aria-hidden="true"
                       className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-electric-blue"
                       layoutId="activeTab"
                       initial={false}
@@ -127,115 +118,94 @@ export default function Navbar() {
                  rel="noopener noreferrer"
                >
                  Chat on WhatsApp
+                 <OpensInNewTab />
                </a>
              </Button>
            </div>
 
-          {/* Mobile toggle */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden relative z-[2100]"
-            aria-controls="mobile-menu"
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </Button>
-        </div>
-      </div>
-
-      {/* Mobile menu rendered into a portal at body to avoid stacking/clip issues */}
-      <AnimatePresence>
-        {open && (
-          <MobileMenuPortal>
-            {/* backdrop */}
-            <motion.div
-              id="mobile-menu"
-              aria-modal="true"
-              role="dialog"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[9999] md:hidden"
-              onClick={() => setOpen(false)}
-            >
-              {/* Solid background — no blur, friendlier to mobile GPUs */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-background/95"
-              />
-
-              {/* Enhanced Sliding panel */}
-              <motion.div
-                initial={{ x: "100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "100%" }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                onClick={(e) => e.stopPropagation()}
-                className="relative z-[10000] h-full w-full flex flex-col glass-card"
-                aria-label="Mobile Primary"
+          {/* Mobile menu: a Radix dialog, so it traps focus, closes on Escape and
+              returns focus to the toggle. */}
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                aria-label={open ? "Close menu" : "Open menu"}
               >
-                <div className="flex items-center justify-between px-4 py-4 border-b border-border/50">
-                  <img
-                    src={logo2}
-                    alt="Endicode emblem"
-                    className="logo-monochrome h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.4]"
-                  />
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setOpen(false)}
-                    aria-label="Close menu"
-                  >
-                    <X className="w-6 h-6" />
+                {open ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
+              </Button>
+            </SheetTrigger>
+
+            <SheetContent
+              side="right"
+              hideClose
+              aria-describedby={undefined}
+              className="flex w-full flex-col gap-0 border-l-0 p-0 sm:max-w-none"
+              onCloseAutoFocus={(event) => {
+                if (!navigatedRef.current) return;
+                // A link closed the menu: start keyboard and screen-reader users
+                // at the new page's content rather than back on the toggle.
+                navigatedRef.current = false;
+                event.preventDefault();
+                document.getElementById("main")?.focus({ preventScroll: true });
+              }}
+            >
+              <SheetTitle className="sr-only">Menu</SheetTitle>
+              <div className="flex items-center justify-between px-4 py-4 border-b border-border/50">
+                <img
+                  src={logo2}
+                  alt=""
+                  className="logo-monochrome h-12 w-auto transform origin-center scale-[2.0] md:scale-[2.4]"
+                />
+                <SheetClose asChild>
+                  <Button variant="ghost" size="icon" aria-label="Close menu">
+                    <X className="w-6 h-6" aria-hidden="true" />
                   </Button>
-                </div>
+                </SheetClose>
+              </div>
 
-                <nav className="flex-1 overflow-y-auto px-6 py-6">
-                  <ul className="flex flex-col gap-4">
-                    {navigation.map((item, idx) => (
-                      <li key={item.name}>
-                        <Link href={item.href}>
-                          <a
-                            onClick={() => setOpen(false)}
-                            ref={
-                              idx === 0 ? (firstFocusableRef as any) : undefined
-                            }
-                            className={`text-xl font-semibold block py-3 px-4 rounded-lg transition-colors ${
-                              location === item.href
-                                ? "text-foreground bg-primary/10"
-                                : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
-                            }`}
-                          >
-                            {item.name}
-                          </a>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
+              <nav className="flex-1 overflow-y-auto px-6 py-6" aria-label="Primary">
+                <ul className="flex flex-col gap-4">
+                  {navigation.map((item) => (
+                    <li key={item.name}>
+                      <Link
+                        href={item.href}
+                        onClick={closeForNavigation}
+                        aria-current={location === item.href ? "page" : undefined}
+                        className={`text-xl font-semibold block py-3 px-4 rounded-lg transition-colors ${
+                          location === item.href
+                            ? "text-foreground bg-primary/10"
+                            : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
+                        }`}
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
 
-                <div className="px-6 pb-8 flex justify-end items-center">
+              <div className="px-6 pb-8">
+                <Button
+                  asChild
+                  className="w-full bg-primary text-primary-foreground py-3 px-4 text-base font-semibold"
+                >
                   <a
                     href={WHATSAPP_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setOpen(false)}
-                    className="block w-full"
                   >
-                    <Button className="w-full bg-primary text-primary-foreground py-3 px-4 text-base font-semibold">
-                      Chat on WhatsApp
-                    </Button>
+                    Chat on WhatsApp
+                    <OpensInNewTab />
                   </a>
-                </div>
-              </motion.div>
-            </motion.div>
-          </MobileMenuPortal>
-        )}
-      </AnimatePresence>
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
     </motion.header>
   );
 }

@@ -61,16 +61,16 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             >
-              <Link href="/contact" data-testid="button-get-started">
-                <Button size="lg" className="bg-primary text-primary-foreground min-w-[180px]">
+              <Button asChild size="lg" className="bg-primary text-primary-foreground min-w-[180px]">
+                <Link href="/contact" data-testid="button-get-started">
                   Get Started Today
-                </Button>
-              </Link>
-              <Link href="/demo" data-testid="button-try-demo">
-                <Button size="lg" variant="outline" className="min-w-[180px]">
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="min-w-[180px]">
+                <Link href="/demo" data-testid="button-try-demo">
                   Try Demo
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </motion.div>
           </div>
         </Container>

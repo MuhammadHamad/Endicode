@@ -20,7 +20,8 @@
   --accent: hsl(280, 90%, 70%); /* Magenta accent */
   --accent-foreground: hsl(240, 15%, 4%);
   --destructive: hsl(0, 84%, 60%);
-  --destructive-foreground: hsl(0, 0%, 98%);
+  /* Dark text on the red: 5.3:1, where white was 3.6:1. */
+  --destructive-foreground: hsl(240, 15%, 4%);
   --border: hsl(240, 15%, 15%);
   --input: hsl(240, 15%, 12%);
   --ring: hsl(195, 100%, 50%); /* Cyan for focus rings */
@@ -35,6 +36,12 @@
 @layer base {
   * {
     @apply border-border;
+  }
+
+  /* Keep in-page jump targets and keyboard-focused elements clear of the
+     fixed navbar (5rem tall). */
+  html {
+    scroll-padding-top: 6rem;
   }
 
   body {

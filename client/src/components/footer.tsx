@@ -56,21 +56,23 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <h3 className="font-semibold mb-4 text-lg">Quick Links</h3>
-            <ul className="space-y-3 text-sm">
-              {quickLinks.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href}>
-                    <span
-                      className="text-muted-foreground hover:text-foreground transition-colors inline-block cursor-pointer"
-                      data-testid={`footer-link-${link.name.toLowerCase().replace(' ', '-')}`}
-                    >
-                      {link.name}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <nav aria-labelledby="footer-quick-links">
+              <h3 id="footer-quick-links" className="font-semibold mb-4 text-lg">Quick Links</h3>
+              <ul className="space-y-3 text-sm">
+                {quickLinks.map((link) => (
+                  <li key={link.name}>
+                    <Link href={link.href}>
+                      <span
+                        className="text-muted-foreground hover:text-foreground transition-colors inline-block cursor-pointer"
+                        data-testid={`footer-link-${link.name.toLowerCase().replace(' ', '-')}`}
+                      >
+                        {link.name}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </motion.div>
 
           <motion.div
@@ -79,21 +81,23 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.15 }}
           >
-            <h3 className="font-semibold mb-4 text-lg">Support</h3>
-            <ul className="space-y-3 text-sm">
-              {supportLinks.map((link) => (
-                <li key={link.name}>
-                  <Link href={link.href}>
-                    <span
-                      className="text-muted-foreground hover:text-foreground transition-colors inline-block cursor-pointer"
-                      data-testid={`footer-support-${link.name.toLowerCase().replace(' ', '-')}`}
-                    >
-                      {link.name}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <nav aria-labelledby="footer-support">
+              <h3 id="footer-support" className="font-semibold mb-4 text-lg">Support</h3>
+              <ul className="space-y-3 text-sm">
+                {supportLinks.map((link) => (
+                  <li key={link.name}>
+                    <Link href={link.href}>
+                      <span
+                        className="text-muted-foreground hover:text-foreground transition-colors inline-block cursor-pointer"
+                        data-testid={`footer-support-${link.name.toLowerCase().replace(' ', '-')}`}
+                      >
+                        {link.name}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </motion.div>
         </div>
 

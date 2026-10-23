@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { Link } from "wouter";
+import OpensInNewTab from "@/components/opens-in-new-tab";
 import { WHATSAPP_URL } from "@/lib/utils";
 
 // Max lengths mirror insertContactSchema in shared/schema.ts, so over-long input gets an
@@ -91,15 +92,20 @@ export default function ContactForm() {
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="contact-form">
+          {/* Visual key for the asterisks; screen readers get aria-required on each field. */}
+          <p className="text-sm text-muted-foreground" aria-hidden="true">
+            * required
+          </p>
+
           <div className="grid md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name *</FormLabel>
+                  <FormLabel>Name <span aria-hidden="true">*</span></FormLabel>
                   <FormControl>
-                    <Input {...field} data-testid="input-name" />
+                    <Input {...field} autoComplete="name" aria-required="true" data-testid="input-name" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -111,9 +117,15 @@ export default function ContactForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email *</FormLabel>
+                  <FormLabel>Email <span aria-hidden="true">*</span></FormLabel>
                   <FormControl>
-                    <Input type="email" {...field} data-testid="input-email" />
+                    <Input
+                      type="email"
+                      {...field}
+                      autoComplete="email"
+                      aria-required="true"
+                      data-testid="input-email"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -129,7 +141,7 @@ export default function ContactForm() {
                 <FormItem>
                   <FormLabel>Company</FormLabel>
                   <FormControl>
-                    <Input {...field} data-testid="input-company" />
+                    <Input {...field} autoComplete="organization" data-testid="input-company" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -159,13 +171,14 @@ export default function ContactForm() {
             name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Message *</FormLabel>
+                <FormLabel>Message <span aria-hidden="true">*</span></FormLabel>
                 <FormControl>
                   <Textarea
                     {...field}
                     rows={4}
                     placeholder="Tell us about your project and automation needs..."
                     className="resize-none"
+                    aria-required="true"
                     data-testid="input-message"
                   />
                 </FormControl>
@@ -180,21 +193,26 @@ export default function ContactForm() {
             render={({ field }) => (
               <FormItem className="flex flex-row items-start gap-3 space-y-0">
                 <FormControl>
+                  {/* ref lets the form focus the box when submitted unticked. aria-required
+                      rather than required: Radix would add a native required input that
+                      blocks submission before the inline error can show. */}
                   <Checkbox
+                    ref={field.ref}
                     checked={field.value === true}
                     onCheckedChange={(checked) => field.onChange(checked === true)}
+                    onBlur={field.onBlur}
+                    aria-required="true"
                     data-testid="input-consent"
                   />
                 </FormControl>
                 <div className="leading-tight">
                   <FormLabel className="text-sm font-normal text-muted-foreground cursor-pointer">
                     I agree to the{" "}
-                    <Link href="/privacy">
-                      <span className="text-electric-blue hover:underline cursor-pointer">
-                        Privacy Policy
-                      </span>
+                    <Link href="/privacy" className="text-electric-blue hover:underline">
+                      Privacy Policy
                     </Link>{" "}
-                    and consent to Endicode processing my message to respond to my enquiry.
+                    and consent to Endicode processing my message to respond to my enquiry.{" "}
+                    <span aria-hidden="true">*</span>
                   </FormLabel>
                   <FormMessage />
                 </div>
@@ -213,28 +231,24 @@ export default function ContactForm() {
                 <span>Sending...</span>
               ) : (
                 <>
-                  <Send className="w-4 h-4 mr-2" />
+                  <Send className="w-4 h-4 mr-2" aria-hidden="true" />
                   Send Message
                 </>
               )}
             </Button>
 
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 block"
-            >
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full"
+            <Button asChild variant="outline" className="flex-1">
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 data-testid="button-whatsapp-contact"
               >
-                <MessageCircle className="w-4 h-4 mr-2" />
+                <MessageCircle className="w-4 h-4 mr-2" aria-hidden="true" />
                 Chat on WhatsApp
-              </Button>
-            </a>
+                <OpensInNewTab />
+              </a>
+            </Button>
           </div>
         </form>
       </Form>

@@ -35,15 +35,17 @@ export default function Testimonials() {
               whileHover={{ y: -5 }}
               data-testid={`testimonial-${index}`}
             >
-              <div className="absolute top-4 right-4 text-6xl text-primary/10 font-serif pointer-events-none">
+              <div aria-hidden="true" className="absolute top-4 right-4 text-6xl text-primary/10 font-serif pointer-events-none">
                 "
               </div>
 
               <div className="flex items-start space-x-4 relative z-10">
+                {/* Initials avatar repeats the author's name below, so screen readers skip it. */}
                 <div
+                  aria-hidden="true"
                   className={`w-14 h-14 bg-gradient-to-br ${testimonial.color} rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg`}
                 >
-                  <span className={`font-bold text-lg ${testimonial.color.includes('secondary') ? 'text-black' : 'text-white'}`}>
+                  <span className={`font-bold text-lg ${testimonial.color.includes('secondary') ? 'text-black' : 'text-primary-foreground'}`}>
                     {testimonial.initials}
                   </span>
                 </div>

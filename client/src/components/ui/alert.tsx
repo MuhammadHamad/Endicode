@@ -32,11 +32,13 @@ const Alert = React.forwardRef<
 ))
 Alert.displayName = "Alert"
 
+// A <p>, not the stock <h5>: alerts sit inside sections whose headings are h2/h3,
+// and an h5 there skips heading levels for screen-reader users.
 const AlertTitle = React.forwardRef<
   HTMLParagraphElement,
-  React.HTMLAttributes<HTMLHeadingElement>
+  React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <h5
+  <p
     ref={ref}
     className={cn("mb-1 font-medium leading-none tracking-tight", className)}
     {...props}

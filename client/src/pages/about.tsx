@@ -154,6 +154,7 @@ export default function About() {
                 <Card className="glass-card h-full hover:shadow-2xl transition-all duration-500">
                   <CardContent className="p-8 text-center">
                     <div
+                      aria-hidden="true"
                       className={`w-24 h-24 bg-gradient-to-br ${founder.color} rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg`}
                     >
                       <span className="font-display font-bold text-2xl text-white">
@@ -171,10 +172,10 @@ export default function About() {
                         href={founder.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label={`${founder.name} on LinkedIn`}
+                        aria-label={`${founder.name} on LinkedIn (opens in new tab)`}
                         className="inline-flex items-center justify-center w-8 h-8 rounded-md text-muted-foreground hover:text-electric-blue hover:bg-electric-blue/10 transition-colors"
                       >
-                        <Linkedin className="w-4 h-4" />
+                        <Linkedin className="w-4 h-4" aria-hidden="true" />
                       </a>
                     )}
                   </CardContent>
@@ -281,17 +282,17 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Link href="/contact">
-                <Button size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
+                <Link href="/contact">
                   Start a Project
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-              <Link href="/case-studies">
-                <Button size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
+                  <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
+                <Link href="/case-studies">
                   See Our Work
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </motion.div>
           </div>
         </Container>

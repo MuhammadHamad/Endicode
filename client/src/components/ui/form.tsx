@@ -52,7 +52,7 @@ const useFormField = () => {
     throw new Error("useFormField should be used within <FormField>")
   }
 
-  const { id } = itemContext
+  const { id, hasDescription, setHasDescription } = itemContext
 
   return {
     id,
@@ -60,12 +60,17 @@ const useFormField = () => {
     formItemId: `${id}-form-item`,
     formDescriptionId: `${id}-form-item-description`,
     formMessageId: `${id}-form-item-message`,
+    hasDescription,
+    setHasDescription,
     ...fieldState,
   }
 }
 
 type FormItemContextValue = {
   id: string
+  /** Whether this item renders a FormDescription, so aria-describedby never points at a missing id. */
+  hasDescription: boolean
+  setHasDescription: (hasDescription: boolean) => void
 }
 
 const FormItemContext = React.createContext<FormItemContextValue>(
@@ -77,9 +82,10 @@ const FormItem = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const id = React.useId()
+  const [hasDescription, setHasDescription] = React.useState(false)
 
   return (
-    <FormItemContext.Provider value={{ id }}>
+    <FormItemContext.Provider value={{ id, hasDescription, setHasDescription }}>
       <div ref={ref} className={cn("space-y-2", className)} {...props} />
     </FormItemContext.Provider>
   )
@@ -107,17 +113,16 @@ const FormControl = React.forwardRef<
   React.ElementRef<typeof Slot>,
   React.ComponentPropsWithoutRef<typeof Slot>
 >(({ ...props }, ref) => {
-  const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
+  const { error, formItemId, formDescriptionId, formMessageId, hasDescription } = useFormField()
+  const describedBy = [hasDescription && formDescriptionId, error && formMessageId]
+    .filter(Boolean)
+    .join(" ")
 
   return (
     <Slot
       ref={ref}
       id={formItemId}
-      aria-describedby={
-        !error
-          ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`
-      }
+      aria-describedby={describedBy || undefined}
       aria-invalid={!!error}
       {...props}
     />
@@ -129,7 +134,12 @@ const FormDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => {
-  const { formDescriptionId } = useFormField()
+  const { formDescriptionId, setHasDescription } = useFormField()
+
+  React.useLayoutEffect(() => {
+    setHasDescription(true)
+    return () => setHasDescription(false)
+  }, [setHasDescription])
 
   return (
     <p
@@ -157,6 +167,8 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
+      // Announce validation errors as they appear, not only when the field is focused.
+      role={error ? "alert" : undefined}
       className={cn("text-sm font-medium text-destructive", className)}
       {...props}
     >

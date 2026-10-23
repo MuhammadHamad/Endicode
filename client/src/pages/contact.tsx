@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { MessageCircle, ArrowRight, MapPin, Phone, Mail } from "lucide-react";
 import { Link } from "wouter";
 import Container from "@/components/container";
+import OpensInNewTab from "@/components/opens-in-new-tab";
 import Seo from "@/components/seo";
 import Section from "@/components/section";
 import ContactForm from "@/components/contact-form";
@@ -63,26 +64,24 @@ export default function Contact() {
               <Card className="glass-card">
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-gradient-to-br from-electric-blue to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <MessageCircle className="w-8 h-8 text-white" />
+                    <MessageCircle className="w-8 h-8 text-white" aria-hidden="true" />
                   </div>
                   <h3 className="font-semibold text-lg mb-2">Prefer to talk?</h3>
                   <p className="text-sm text-muted-foreground mb-6">
                     Connect with us on WhatsApp to discuss your project in detail.
                   </p>
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <Button asChild className="w-full bg-primary text-primary-foreground">
-                      <a 
-                        href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full"
-                        data-testid="button-whatsapp-contact"
-                      >
-                        Chat on WhatsApp
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </a>
-                    </Button>
-                  </motion.div>
+                  <Button asChild className="w-full bg-primary text-primary-foreground">
+                    <a
+                      href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid="button-whatsapp-contact"
+                    >
+                      Chat on WhatsApp
+                      <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
+                      <OpensInNewTab />
+                    </a>
+                  </Button>
                 </CardContent>
               </Card>
 
@@ -114,7 +113,7 @@ export default function Contact() {
                   <div className="space-y-4">
                     <div className="flex items-start space-x-3">
                       <div className="w-6 h-6 bg-electric-blue rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs font-bold text-white">1</span>
+                        <span className="text-xs font-bold text-primary-foreground">1</span>
                       </div>
                       <div>
                         <div className="font-medium text-sm">Quick Response</div>
@@ -123,7 +122,7 @@ export default function Contact() {
                     </div>
                     <div className="flex items-start space-x-3">
                       <div className="w-6 h-6 bg-electric-blue rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <span className="text-xs font-bold text-white">2</span>
+                        <span className="text-xs font-bold text-primary-foreground">2</span>
                       </div>
                       <div>
                         <div className="font-medium text-sm">WhatsApp Contact</div>

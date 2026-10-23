@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import Container from "@/components/container";
+import OpensInNewTab from "@/components/opens-in-new-tab";
 import Seo from "@/components/seo";
 import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
@@ -68,26 +69,22 @@ export default function Pricing() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <motion.div className="flex-1" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                    <a 
+                  <Button asChild size="lg" className="flex-1 bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
+                    <a
                       href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27d%20like%20to%20get%20a%20quote%20for%20my%20project."
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full block"
                     >
-                      <Button size="lg" className="w-full bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
-                        Get a Quote
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
+                      Get a Quote
+                      <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
+                      <OpensInNewTab />
                     </a>
-                  </motion.div>
-                  <motion.div className="flex-1" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  </Button>
+                  <Button asChild size="lg" variant="outline" className="flex-1 glass-card hover:shadow-xl transition-all duration-300">
                     <Link href="/contact">
-                      <Button size="lg" variant="outline" className="w-full glass-card hover:shadow-xl transition-all duration-300">
-                        Send Details
-                      </Button>
+                      Send Details
                     </Link>
-                  </motion.div>
+                  </Button>
                 </motion.div>
               </CardContent>
             </Card>

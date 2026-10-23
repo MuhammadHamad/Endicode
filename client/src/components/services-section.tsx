@@ -89,7 +89,7 @@ export default function ServicesSection() {
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-electric-blue/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <div className={`w-14 h-14 bg-gradient-to-br ${service.color} rounded-xl flex items-center justify-center mb-6 relative z-10 shadow-lg`}>
-                  <Icon className="w-7 h-7 text-white" />
+                  <Icon className="w-7 h-7 text-white" aria-hidden="true" />
                 </div>
 
                 <h3 className="font-display font-bold text-2xl mb-4 relative z-10 group-hover:text-electric-blue transition-colors duration-300">
@@ -104,7 +104,7 @@ export default function ServicesSection() {
                       key={feature}
                       className="flex items-center space-x-2"
                     >
-                      <Check className="w-4 h-4 text-secondary flex-shrink-0" />
+                      <Check className="w-4 h-4 text-secondary flex-shrink-0" aria-hidden="true" />
                       <span className="text-muted-foreground group-hover:text-foreground transition-colors">
                         {feature}
                       </span>
@@ -145,7 +145,7 @@ export default function ServicesSection() {
                 <div
                   className={`w-14 h-14 ${item.step === "4" ? "bg-secondary" : "bg-electric-blue"} rounded-full flex items-center justify-center mx-auto mb-4 relative z-10 shadow-lg`}
                 >
-                  <span className={`font-bold text-lg ${item.step === "4" ? "text-black" : "text-white"}`}>
+                  <span className={`font-bold text-lg ${item.step === "4" ? "text-black" : "text-primary-foreground"}`}>
                     {item.step}
                   </span>
                 </div>

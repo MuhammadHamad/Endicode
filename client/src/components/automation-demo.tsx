@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Upload, Target, Mail, Check, Copy } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -212,6 +212,9 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
       <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto glass-card border-border/50" data-testid="automation-demo-modal">
         <DialogHeader>
           <DialogTitle className="font-display font-bold text-2xl">Automation Demo</DialogTitle>
+          <DialogDescription className="sr-only">
+            Two automations that run in your browser: a lead triage classifier and a CSV lead scorer.
+          </DialogDescription>
         </DialogHeader>
 
         <Tabs defaultValue="triage" className="w-full">
@@ -225,8 +228,11 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
               {/* Input Side */}
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-display font-semibold text-xl mb-4">Paste an inquiry</h3>
+                  <h3 className="font-display font-semibold text-xl mb-4">
+                    <label htmlFor="demo-inquiry">Paste an inquiry</label>
+                  </h3>
                   <Textarea
+                    id="demo-inquiry"
                     value={inquiryText}
                     onChange={(e) => setInquiryText(e.target.value)}
                     placeholder="Hi, we're looking for help with our e-commerce platform..."
@@ -238,7 +244,7 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <label className="block text-sm font-medium">Industry (optional)</label>
+                      <label htmlFor="demo-industry" className="block text-sm font-medium">Industry (optional)</label>
                       {detectedIndustryInfo?.detected && detectedIndustryInfo.confidence !== 'low' && (
                         <span className={`text-xs px-2 py-1 rounded-full ${
                           detectedIndustryInfo.confidence === 'high' 
@@ -250,7 +256,8 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                       )}
                     </div>
                     <Select value={industry} onValueChange={setIndustry}>
-                      <SelectTrigger 
+                      <SelectTrigger
+                        id="demo-industry"
                         data-testid="select-industry"
                         className={detectedIndustryInfo?.detected && detectedIndustryInfo.detected !== normalizeIndustry(industry) && detectedIndustryInfo.confidence === 'high' 
                           ? 'border-electric-blue/50' 
@@ -272,15 +279,15 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                     </Select>
                     {detectedIndustryInfo?.detected && detectedIndustryInfo.detected !== normalizeIndustry(industry) && detectedIndustryInfo.confidence === 'high' && industry && (
                       <p className="text-xs text-electric-blue mt-1">
-                        💡 Your inquiry suggests <strong>{detectedIndustryInfo.detected}</strong> industry
+                        <span aria-hidden="true">💡</span> Your inquiry suggests <strong>{detectedIndustryInfo.detected}</strong> industry
                       </p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2">Budget Range (optional)</label>
+                    <label htmlFor="demo-budget" className="block text-sm font-medium mb-2">Budget Range (optional)</label>
                     <Select value={budget} onValueChange={setBudget}>
-                      <SelectTrigger data-testid="select-budget">
+                      <SelectTrigger id="demo-budget" data-testid="select-budget">
                         <SelectValue placeholder="Select budget" />
                       </SelectTrigger>
                       <SelectContent>
@@ -293,15 +300,13 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                   </div>
                 </div>
 
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <Button 
-                    onClick={handleAnalyzeInquiry} 
-                    className="w-full bg-primary text-primary-foreground"
-                    data-testid="button-analyze-inquiry"
-                  >
-                    Analyze Inquiry
-                  </Button>
-                </motion.div>
+                <Button
+                  onClick={handleAnalyzeInquiry}
+                  className="w-full bg-primary text-primary-foreground"
+                  data-testid="button-analyze-inquiry"
+                >
+                  Analyze Inquiry
+                </Button>
               </div>
 
               {/* Results Side */}
@@ -322,7 +327,7 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                         exit={{ opacity: 0 }}
                       >
                         <Alert className="border-electric-blue/50 bg-electric-blue/10">
-                          <Target className="h-4 w-4 text-electric-blue" />
+                          <Target className="h-4 w-4 text-electric-blue" aria-hidden="true" />
                           <AlertTitle className="text-electric-blue">Smart Detection</AlertTitle>
                           <AlertDescription className="text-sm">
                             We detected <strong>{analysis.detectedIndustry}</strong> industry indicators in your inquiry. 
@@ -340,7 +345,7 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                         exit={{ opacity: 0 }}
                       >
                         <Alert className="border-secondary/50 bg-secondary/10">
-                          <Target className="h-4 w-4 text-secondary" />
+                          <Target className="h-4 w-4 text-secondary" aria-hidden="true" />
                           <AlertTitle className="text-secondary">Industry Auto-Detected</AlertTitle>
                           <AlertDescription className="text-sm">
                             We automatically detected <strong>{analysis.detectedIndustry}</strong> industry from your inquiry 
@@ -354,7 +359,7 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                     <Card className="glass-card">
                       <CardHeader>
                         <CardTitle className="flex items-center space-x-2">
-                          <Target className="w-5 h-5 text-electric-blue" />
+                          <Target className="w-5 h-5 text-electric-blue" aria-hidden="true" />
                           <span>Analysis</span>
                         </CardTitle>
                       </CardHeader>
@@ -379,12 +384,10 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                             {analysis.recommendation}
                           </span>
                         </div>
-                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                          <Button onClick={copyAnalysis} variant="outline" size="sm" className="w-full mt-4" data-testid="button-copy-analysis">
-                            <Copy className="w-4 h-4 mr-2" />
-                            Copy Analysis
-                          </Button>
-                        </motion.div>
+                        <Button onClick={copyAnalysis} variant="outline" size="sm" className="w-full mt-4" data-testid="button-copy-analysis">
+                          <Copy className="w-4 h-4 mr-2" aria-hidden="true" />
+                          Copy Analysis
+                        </Button>
                       </CardContent>
                     </Card>
 
@@ -392,7 +395,7 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                     <Card className="glass-card">
                       <CardHeader>
                         <CardTitle className="flex items-center space-x-2">
-                          <Mail className="w-5 h-5 text-secondary" />
+                          <Mail className="w-5 h-5 text-secondary" aria-hidden="true" />
                           <span>Draft Reply</span>
                         </CardTitle>
                       </CardHeader>
@@ -400,18 +403,16 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                         <div className="bg-black/20 rounded-lg p-4 text-sm font-mono text-zinc-300 whitespace-pre-wrap min-h-[120px] mb-4" data-testid="draft-reply">
                           {draftReply}
                         </div>
-                        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                          <Button 
-                            onClick={() => copyToClipboard(draftReply, "Reply")} 
-                            variant="outline" 
-                            size="sm" 
-                            className="w-full"
-                            data-testid="button-copy-reply"
-                          >
-                            <Copy className="w-4 h-4 mr-2" />
-                            Copy to Clipboard
-                          </Button>
-                        </motion.div>
+                        <Button
+                          onClick={() => copyToClipboard(draftReply, "Reply")}
+                          variant="outline"
+                          size="sm"
+                          className="w-full"
+                          data-testid="button-copy-reply"
+                        >
+                          <Copy className="w-4 h-4 mr-2" aria-hidden="true" />
+                          Copy to Clipboard
+                        </Button>
                       </CardContent>
                     </Card>
                   </motion.div>
@@ -425,29 +426,30 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
               {/* Upload Section */}
               <div className="text-center">
                 <h3 className="font-display font-semibold text-xl mb-4">Upload Lead CSV</h3>
-                <p className="text-muted-foreground mb-6">Expected columns: name, email, company, message</p>
+                <p id="csv-upload-columns" className="text-muted-foreground mb-6">Expected columns: name, email, company, message</p>
 
-                <div className="border-2 border-dashed border-border rounded-xl p-8 hover:border-electric-blue/50 transition-colors">
-                  <input
-                    type="file"
-                    accept=".csv"
-                    onChange={handleCSVUpload}
-                    className="hidden"
-                    id="csv-upload"
-                    data-testid="input-csv-upload"
-                  />
-                  <label htmlFor="csv-upload" className="cursor-pointer">
-                    <div className="flex flex-col items-center space-y-4">
-                      <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center">
-                        <Upload className="w-8 h-8 text-muted-foreground" />
-                      </div>
-                      <div>
-                        <div className="font-medium">Choose CSV file</div>
-                        <div className="text-sm text-muted-foreground">or drag and drop</div>
-                      </div>
+                {/* The input stays in the tab order (sr-only, not display:none); the
+                    dashed box is its label and shows the focus ring. */}
+                <input
+                  type="file"
+                  accept=".csv"
+                  onChange={handleCSVUpload}
+                  className="peer sr-only"
+                  id="csv-upload"
+                  aria-describedby="csv-upload-columns"
+                  data-testid="input-csv-upload"
+                />
+                <label
+                  htmlFor="csv-upload"
+                  className="block cursor-pointer border-2 border-dashed border-border rounded-xl p-8 hover:border-electric-blue/50 transition-colors peer-focus-visible:border-electric-blue peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background"
+                >
+                  <div className="flex flex-col items-center space-y-4">
+                    <div className="w-16 h-16 bg-muted rounded-2xl flex items-center justify-center">
+                      <Upload className="w-8 h-8 text-muted-foreground" aria-hidden="true" />
                     </div>
-                  </label>
-                </div>
+                    <div className="font-medium">Choose CSV file</div>
+                  </div>
+                </label>
               </div>
 
               {/* Processing State */}
@@ -468,15 +470,13 @@ export default function AutomationDemo({ isOpen, onClose }: AutomationDemoProps)
                   >
                     <div className="flex items-center justify-between">
                       <h4 className="font-semibold text-lg">Lead Scores</h4>
-                      <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                        <Button 
-                          onClick={handleExportScores} 
-                          className="bg-primary text-primary-foreground"
-                          data-testid="button-export-scores"
-                        >
-                          Export Results
-                        </Button>
-                      </motion.div>
+                      <Button
+                        onClick={handleExportScores}
+                        className="bg-primary text-primary-foreground"
+                        data-testid="button-export-scores"
+                      >
+                        Export Results
+                      </Button>
                     </div>
 
                     <Card className="glass-card">

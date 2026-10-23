@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const codeSnippets = [
   {
@@ -29,12 +29,20 @@ const leadRouter = new AutoRouter({
 ];
 
 export default function CodeWindow() {
+  // With reduced motion, the first snippet shows in full and nothing types or cycles.
+  const reduceMotion = useReducedMotion();
   const [currentSnippet, setCurrentSnippet] = useState(0);
-  const [displayedCode, setDisplayedCode] = useState("");
-  const [isTyping, setIsTyping] = useState(true);
+  const [displayedCode, setDisplayedCode] = useState(reduceMotion ? codeSnippets[0].code : "");
+  const [isTyping, setIsTyping] = useState(!reduceMotion);
 
   useEffect(() => {
     const snippet = codeSnippets[currentSnippet];
+    if (reduceMotion) {
+      setDisplayedCode(snippet.code);
+      setIsTyping(false);
+      return;
+    }
+
     let index = 0;
     setDisplayedCode("");
     setIsTyping(true);
@@ -50,9 +58,12 @@ export default function CodeWindow() {
       } else {
         clearInterval(typewriter);
         setIsTyping(false);
-        nextTimeout = setTimeout(() => {
-          setCurrentSnippet((prev) => (prev + 1) % codeSnippets.length);
-        }, 2000);
+        // Type each snippet once, then stay on the last one rather than looping forever.
+        if (currentSnippet < codeSnippets.length - 1) {
+          nextTimeout = setTimeout(() => {
+            setCurrentSnippet((prev) => prev + 1);
+          }, 2000);
+        }
       }
     }, 80);
 
@@ -60,7 +71,7 @@ export default function CodeWindow() {
       clearInterval(typewriter);
       clearTimeout(nextTimeout);
     };
-  }, [currentSnippet]);
+  }, [currentSnippet, reduceMotion]);
 
   const currentFile = codeSnippets[currentSnippet];
 
@@ -72,24 +83,38 @@ export default function CodeWindow() {
       className="glass-card rounded-2xl overflow-hidden shadow-2xl"
       data-testid="code-window"
     >
-      {/* Window Header */}
-      <div className="bg-muted/50 border-b border-border/50 px-4 py-3 flex items-center space-x-2">
-        <div className="flex space-x-2">
-          <div className="w-3 h-3 bg-muted-foreground/60 rounded-full"></div>
-          <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-          <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-        </div>
-        <div className="text-sm text-muted-foreground ml-4" data-testid="code-filename">
-          {currentFile.filename}
-        </div>
+      {/* Screen readers get every snippet once, as static text, instead of the
+          half-typed code changing under them. */}
+      <div className="sr-only">
+        <p>Example automation code:</p>
+        {codeSnippets.map((snippet) => (
+          <figure key={snippet.filename}>
+            <figcaption>{snippet.filename}</figcaption>
+            <pre>{snippet.code}</pre>
+          </figure>
+        ))}
       </div>
-      
-      {/* Code Content */}
-      <div className="bg-black/40 p-6 font-mono text-sm min-h-[200px]">
-        <pre className="text-zinc-300 whitespace-pre-wrap" data-testid="code-content">
-          {displayedCode}
-          {isTyping && <span className="typewriter"></span>}
-        </pre>
+
+      <div aria-hidden="true">
+        {/* Window Header */}
+        <div className="bg-muted/50 border-b border-border/50 px-4 py-3 flex items-center space-x-2">
+          <div className="flex space-x-2">
+            <div className="w-3 h-3 bg-muted-foreground/60 rounded-full"></div>
+            <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+          </div>
+          <div className="text-sm text-muted-foreground ml-4" data-testid="code-filename">
+            {currentFile.filename}
+          </div>
+        </div>
+
+        {/* Code Content */}
+        <div className="bg-black/40 p-6 font-mono text-sm min-h-[200px]">
+          <pre className="text-zinc-300 whitespace-pre-wrap" data-testid="code-content">
+            {displayedCode}
+            {isTyping && <span className="typewriter"></span>}
+          </pre>
+        </div>
       </div>
     </motion.div>
   );

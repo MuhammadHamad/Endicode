@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Search, Map, Hammer, Zap, GraduationCap, Clock, Target, FileText } from "lucide-react";
 import { Link } from "wouter";
 import Container from "@/components/container";
+import OpensInNewTab from "@/components/opens-in-new-tab";
 import Seo from "@/components/seo";
 import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
@@ -100,7 +101,7 @@ export default function Process() {
                   <div className={`space-y-6 ${!isEven ? 'lg:col-start-2' : ''}`}>
                     <div className="flex items-center space-x-4">
                       <div className={`w-16 h-16 bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center`}>
-                        <Icon className="w-8 h-8 text-white" />
+                        <Icon className="w-8 h-8 text-white" aria-hidden="true" />
                       </div>
                       <div>
                         <div className="text-sm text-electric-blue font-medium">Step {index + 1}</div>
@@ -112,7 +113,7 @@ export default function Process() {
 
                     <div className="space-y-4">
                       <div className="flex items-start space-x-3">
-                        <Target className="w-5 h-5 text-electric-blue mt-1 flex-shrink-0" />
+                        <Target className="w-5 h-5 text-electric-blue mt-1 flex-shrink-0" aria-hidden="true" />
                         <div>
                           <div className="font-medium">Goal</div>
                           <div className="text-sm text-muted-foreground">{step.goal}</div>
@@ -120,7 +121,7 @@ export default function Process() {
                       </div>
 
                       <div className="flex items-start space-x-3">
-                        <FileText className="w-5 h-5 text-secondary mt-1 flex-shrink-0" />
+                        <FileText className="w-5 h-5 text-secondary mt-1 flex-shrink-0" aria-hidden="true" />
                         <div>
                           <div className="font-medium">Deliverables</div>
                           <div className="text-sm text-muted-foreground">{step.artifacts}</div>
@@ -128,7 +129,7 @@ export default function Process() {
                       </div>
 
                       <div className="flex items-start space-x-3">
-                        <Clock className="w-5 h-5 text-purple-400 mt-1 flex-shrink-0" />
+                        <Clock className="w-5 h-5 text-purple-400 mt-1 flex-shrink-0" aria-hidden="true" />
                         <div>
                           <div className="font-medium">Timeline</div>
                           <div className="text-sm text-muted-foreground">{step.timeline}</div>
@@ -142,7 +143,7 @@ export default function Process() {
                     <Card className="glass-card p-8 hover:shadow-2xl transition-all duration-500">
                       <CardContent className="space-y-6">
                         <div className={`aspect-square bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center max-w-[200px] mx-auto`}>
-                          <Icon className="w-16 h-16 text-white" />
+                          <Icon className="w-16 h-16 text-white" aria-hidden="true" />
                         </div>
                         <div className="text-center">
                           <h3 className="font-semibold text-lg mb-2">{step.title}</h3>
@@ -205,7 +206,7 @@ export default function Process() {
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                   >
                     <div className={`w-16 h-16 bg-gradient-to-br ${step.color} rounded-2xl flex items-center justify-center mx-auto mb-4 relative z-10`}>
-                      <Icon className="w-8 h-8 text-white" />
+                      <Icon className="w-8 h-8 text-white" aria-hidden="true" />
                     </div>
                     <h3 className="font-display font-semibold text-lg mb-2">{step.title}</h3>
                     <p className="text-sm text-muted-foreground mb-2">{step.goal}</p>
@@ -247,20 +248,17 @@ export default function Process() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
                 <a href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project." target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
-                    Chat on WhatsApp
-                  </Button>
+                  Chat on WhatsApp
+                  <OpensInNewTab />
                 </a>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
                 <Link href="/demo">
-                  <Button size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
-                    Try Demo First
-                  </Button>
+                  Try Demo First
                 </Link>
-              </motion.div>
+              </Button>
             </motion.div>
           </div>
         </Container>

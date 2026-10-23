@@ -1,5 +1,5 @@
-import { lazy, Suspense } from "react";
-import { Router as WouterRouter, Switch, Route, type AroundNavHandler } from "wouter";
+import { lazy, Suspense, useEffect, useRef } from "react";
+import { Router as WouterRouter, Switch, Route, useLocation, type AroundNavHandler } from "wouter";
 import { HelmetProvider } from "react-helmet-async";
 import { MotionConfig } from "framer-motion";
 import { queryClient } from "./lib/queryClient";
@@ -31,6 +31,43 @@ const scrollToTopOnNav: AroundNavHandler = (navigate, to, options) => {
   window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 };
 
+// After a route change, move focus to <main>, so keyboard and screen-reader
+// users start on the new page instead of the link they followed. A dialog
+// that's closing (the mobile menu) does this itself once it has unmounted.
+function useFocusMainOnRouteChange() {
+  const [location] = useLocation();
+  const previous = useRef(location);
+
+  useEffect(() => {
+    if (location === previous.current) return;
+    previous.current = location;
+    if (document.activeElement?.closest('[role="dialog"]')) return;
+    document.getElementById("main")?.focus({ preventScroll: true });
+  }, [location]);
+}
+
+function Layout() {
+  useFocusMainOnRouteChange();
+
+  return (
+    <div className="min-h-screen bg-background text-foreground antialiased">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:font-medium focus:text-primary-foreground"
+      >
+        Skip to content
+      </a>
+      <Navbar />
+      <main id="main" tabIndex={-1} className="pt-20 focus:outline-none">
+        <Router />
+      </main>
+      <Footer />
+
+      <Toaster />
+    </div>
+  );
+}
+
 function Router() {
   return (
     <Suspense fallback={null}>
@@ -60,15 +97,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
             <WouterRouter aroundNav={scrollToTopOnNav}>
-              <div className="min-h-screen bg-background text-foreground antialiased">
-                <Navbar />
-                <main className="pt-20">
-                  <Router />
-                </main>
-                <Footer />
-
-                <Toaster />
-              </div>
+              <Layout />
             </WouterRouter>
           </TooltipProvider>
         </QueryClientProvider>

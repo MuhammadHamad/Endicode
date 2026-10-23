@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Code, Zap, Brain, Check, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import Container from "@/components/container";
+import OpensInNewTab from "@/components/opens-in-new-tab";
 import Seo from "@/components/seo";
 import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
@@ -59,6 +60,8 @@ const services = [
 ];
 
 export default function Services() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <div>
       <Seo path="/services" />
@@ -111,7 +114,7 @@ export default function Services() {
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <Icon className="w-8 h-8 text-white" />
+                      <Icon className="w-8 h-8 text-white" aria-hidden="true" />
                     </motion.div>
                     
                     <div>
@@ -135,7 +138,7 @@ export default function Services() {
                               whileHover={{ scale: 1.2, rotate: 360 }}
                               transition={{ type: "spring", stiffness: 300 }}
                             >
-                              <Check className="w-5 h-5 text-secondary flex-shrink-0" />
+                              <Check className="w-5 h-5 text-secondary flex-shrink-0" aria-hidden="true" />
                             </motion.div>
                             <span className="text-muted-foreground">{feature}</span>
                           </motion.li>
@@ -162,19 +165,19 @@ export default function Services() {
                       </div>
                     </div>
 
-                    <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Button asChild className="bg-primary text-primary-foreground group">
                       <Link href="/contact">
-                        <Button className="bg-primary text-primary-foreground group">
-                          Get Started
-                          <motion.div
-                            animate={{ x: [0, 5, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity }}
-                          >
-                            <ArrowRight className="w-4 h-4 ml-2" />
-                          </motion.div>
-                        </Button>
+                        Get Started
+                        {/* The nudge loops forever, so it only runs for people who haven't asked for less motion. */}
+                        <motion.span
+                          aria-hidden="true"
+                          animate={reduceMotion ? undefined : { x: [0, 5, 0] }}
+                          transition={reduceMotion ? undefined : { duration: 1.5, repeat: Infinity }}
+                        >
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </motion.span>
                       </Link>
-                    </motion.div>
+                    </Button>
                   </motion.div>
 
                   {/* Visual */}
@@ -200,9 +203,10 @@ export default function Services() {
                             whileHover={{ scale: 1.03 }}
                             transition={{ type: "spring", stiffness: 260, damping: 20 }}
                           >
+                            {/* Decorative stock photo: the card repeats the service name below it. */}
                             <img
                               src={service.image}
-                              alt={service.title}
+                              alt=""
                               className="w-full h-full object-cover"
                               loading="lazy"
                             />
@@ -252,20 +256,17 @@ export default function Services() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button asChild size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
                 <a href="https://wa.me/923339535430?text=Hi%20Endicode%2C%20I%27m%20interested%20in%20your%20services%20and%20would%20like%20to%20discuss%20my%20project." target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:shadow-xl transition-all duration-300">
-                    Chat on WhatsApp
-                  </Button>
+                  Chat on WhatsApp
+                  <OpensInNewTab />
                 </a>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
                 <Link href="/demo">
-                  <Button size="lg" variant="outline" className="glass-card hover:shadow-xl transition-all duration-300">
-                    Try Demo
-                  </Button>
+                  Try Demo
                 </Link>
-              </motion.div>
+              </Button>
             </motion.div>
           </div>
         </Container>
