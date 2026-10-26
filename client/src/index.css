@@ -4,29 +4,31 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(240, 15%, 4%);
-  --foreground: hsl(0, 0%, 98%);
-  --card: hsl(240, 15%, 5%);
-  --card-foreground: hsl(0, 0%, 98%);
-  --popover: hsl(240, 15%, 5%);
-  --popover-foreground: hsl(0, 0%, 98%);
+  /* Colours are bare HSL channels so Tailwind can add opacity (bg-primary/10).
+     In plain CSS, wrap them: hsl(var(--primary)) or hsl(var(--primary) / 0.5). */
+  --background: 240 15% 4%;
+  --foreground: 0 0% 98%;
+  --card: 240 15% 5%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 15% 5%;
+  --popover-foreground: 0 0% 98%;
   /* Modern AI/Software Startup Theme - Cyan/Purple Gradient */
-  --primary: hsl(195, 100%, 50%); /* Vibrant Cyan */
-  --primary-foreground: hsl(240, 15%, 4%);
-  --secondary: hsl(270, 80%, 65%); /* Vibrant Purple */
-  --secondary-foreground: hsl(240, 15%, 4%);
-  --muted: hsl(240, 10%, 12%);
-  --muted-foreground: hsl(0, 0%, 70%);
-  --accent: hsl(280, 90%, 70%); /* Magenta accent */
-  --accent-foreground: hsl(240, 15%, 4%);
-  --destructive: hsl(0, 84%, 60%);
+  --primary: 195 100% 50%; /* Vibrant Cyan */
+  --primary-foreground: 240 15% 4%;
+  --secondary: 270 80% 65%; /* Vibrant Purple */
+  --secondary-foreground: 240 15% 4%;
+  --muted: 240 10% 12%;
+  --muted-foreground: 0 0% 70%;
+  --accent: 280 90% 70%; /* Magenta accent */
+  --accent-foreground: 240 15% 4%;
+  --destructive: 0 84% 60%;
   /* Dark text on the red: 5.3:1, where white was 3.6:1. */
-  --destructive-foreground: hsl(240, 15%, 4%);
-  --border: hsl(240, 15%, 15%);
-  --input: hsl(240, 15%, 12%);
-  --ring: hsl(195, 100%, 50%); /* Cyan for focus rings */
-  --electric-blue: hsl(195, 100%, 60%); /* Bright Cyan */
-  --neon-mint: hsl(166, 100%, 69%); /* Neon Green */
+  --destructive-foreground: 240 15% 4%;
+  --border: 240 15% 15%;
+  --input: 240 15% 12%;
+  --ring: 195 100% 50%; /* Cyan for focus rings */
+  --electric-blue: 195 100% 60%; /* Bright Cyan */
+  --neon-mint: 166 100% 69%; /* Neon Green */
   --radius: 0.75rem;
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-display: 'Inter Tight', 'Inter', system-ui, sans-serif;
