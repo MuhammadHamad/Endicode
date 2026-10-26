@@ -11,7 +11,7 @@ export default function Privacy() {
         <div className="max-w-3xl mx-auto prose prose-invert">
           <h1 className="font-display font-bold text-4xl mb-2">Privacy Policy</h1>
           <p className="text-sm text-muted-foreground mb-10">
-            Last updated: June 2025
+            Last updated: October 2026
           </p>
 
           <div className="space-y-8 text-muted-foreground leading-relaxed">
@@ -49,8 +49,9 @@ export default function Privacy() {
                 We use a small number of essential cookies needed for the site
                 to function. We may use a privacy-friendly, cookie-less
                 analytics tool to count page views in aggregate; it does not
-                identify you. Our embedded chat widget (Tawk.to) may set its
-                own cookies if you start a chat.
+                identify you. Our chat widget (Tawk.to) loads for every
+                visitor a few seconds after the page opens and may set its own
+                cookies, even if you never start a chat.
               </p>
             </section>
 

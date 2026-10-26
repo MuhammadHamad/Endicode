@@ -11,7 +11,7 @@ export default function Terms() {
         <div className="max-w-3xl mx-auto prose prose-invert">
           <h1 className="font-display font-bold text-4xl mb-2">Terms of Service</h1>
           <p className="text-sm text-muted-foreground mb-10">
-            Last updated: June 2025
+            Last updated: June 2026
           </p>
 
           <div className="space-y-8 text-muted-foreground leading-relaxed">
