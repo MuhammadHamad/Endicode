@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { Router as WouterRouter, Switch, Route, useLocation, type AroundNavHandler } from "wouter";
 import { HelmetProvider } from "react-helmet-async";
 import { MotionConfig } from "framer-motion";
@@ -10,17 +10,35 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import Home from "@/pages/home";
 import NotFound from "@/pages/not-found";
+import { lazyWithPreload } from "@/lib/lazy-with-preload";
 
 // Lazy-load non-Home routes so the initial bundle stays small.
-const Services = lazy(() => import("@/pages/services"));
-const CaseStudies = lazy(() => import("@/pages/case-studies"));
-const Process = lazy(() => import("@/pages/process"));
-const Pricing = lazy(() => import("@/pages/pricing"));
-const About = lazy(() => import("@/pages/about"));
-const Contact = lazy(() => import("@/pages/contact"));
-const Demo = lazy(() => import("@/pages/demo"));
-const Privacy = lazy(() => import("@/pages/privacy"));
-const Terms = lazy(() => import("@/pages/terms"));
+const Services = lazyWithPreload(() => import("@/pages/services"));
+const CaseStudies = lazyWithPreload(() => import("@/pages/case-studies"));
+const Process = lazyWithPreload(() => import("@/pages/process"));
+const Pricing = lazyWithPreload(() => import("@/pages/pricing"));
+const About = lazyWithPreload(() => import("@/pages/about"));
+const Contact = lazyWithPreload(() => import("@/pages/contact"));
+const Demo = lazyWithPreload(() => import("@/pages/demo"));
+const Privacy = lazyWithPreload(() => import("@/pages/privacy"));
+const Terms = lazyWithPreload(() => import("@/pages/terms"));
+
+const lazyRoutes = [Services, CaseStudies, Process, Pricing, About, Contact, Demo, Privacy, Terms];
+
+// Download every route's code once the browser is idle after the first page,
+// so clicking a link renders the next page immediately instead of waiting on
+// the network (and briefly showing an empty page with the footer pulled up).
+function usePreloadRoutes() {
+  useEffect(() => {
+    const preloadAll = () => lazyRoutes.forEach((route) => void route.preload().catch(() => {}));
+    if ("requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(preloadAll, { timeout: 3000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = setTimeout(preloadAll, 2000);
+    return () => clearTimeout(id);
+  }, []);
+}
 
 // Every in-app navigation (<Link> or navigate()) lands at the top of the page,
 // like a full page load would. Back/forward doesn't go through here, so the
@@ -48,6 +66,7 @@ function useFocusMainOnRouteChange() {
 
 function Layout() {
   useFocusMainOnRouteChange();
+  usePreloadRoutes();
 
   return (
     <div className="min-h-screen bg-background text-foreground antialiased">
@@ -70,7 +89,10 @@ function Layout() {
 
 function Router() {
   return (
-    <Suspense fallback={null}>
+    // A screen-tall placeholder while a page's code is still loading (first
+    // visit, slow network): with no fallback, <main> collapsed to nothing and
+    // the footer jumped up under the navbar until the page arrived.
+    <Suspense fallback={<div className="min-h-screen" aria-hidden="true" />}>
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/services" component={Services} />
