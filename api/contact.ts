@@ -1,6 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { z } from 'zod';
-import { insertContactSchema } from '../shared/schema';
+// The ".js" extension is required: the package is ESM ("type": "module"), and
+// Node's ESM loader on Vercel does not resolve extensionless relative imports.
+import { insertContactSchema } from '../shared/schema.js';
 import { fromZodError } from 'zod-validation-error';
 import { Resend } from 'resend';
 
